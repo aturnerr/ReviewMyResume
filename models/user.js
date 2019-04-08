@@ -5,7 +5,10 @@ var passportLocalMongoose = require("passport-local-mongoose");
 var UserSchema = new mongoose.Schema({
     username: String,
     password: String,
-    name: String,
+    fname: String, 
+    lname: String,
+    email: String, 
+    country: String
 });
 
 // defines the serialize/ deserialize methods for the user automatically

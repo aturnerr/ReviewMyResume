@@ -64,6 +64,6 @@ app.listen(3000, function(req, res) {
 app.use(loginRoutes);
 app.use(indexRoutes);
 
-app.listen(4000 || process.env.PORT, function(){
+app.listen(3000 || process.env.PORT, function(){
     console.log("Successfully connected to server.");
 });

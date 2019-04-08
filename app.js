@@ -54,11 +54,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 
-// start server
-app.listen(3000, function(req, res) {
-  console.log("Serving port 3000")
-});
-
 /*====================================routing=================================*/
 
 app.use(loginRoutes);

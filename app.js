@@ -15,6 +15,7 @@ var User  = require("./models/user");
 var indexRoutes = require("./routes/index.js");
 var loginRoutes = require("./routes/login.js");
 
+// hello
 /*==================================app config================================*/
 
 mongoose.connect("mongodb://127.0.0.1:27017/rmr", {useNewUrlParser: true}, function(err){

@@ -16,7 +16,7 @@ var reviewerRoutes = require("./routes/reviewer.js");
 
 /*==================================app config================================*/
 
-mongoose.connect("mongodb+srv://admin:nimda@ratemyresume-r6kgt.mongodb.net/test?retryWrites=true", 
+mongoose.connect('mongodb+srv://chad:chad@cluster1-sfksn.mongodb.net/test?retryWrites=true', 
                     {useNewUrlParser: true}, function(err){
   if (err){
     console.log("Could not connect to database.\nError: " + err);

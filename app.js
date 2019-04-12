@@ -11,6 +11,7 @@ var methodOverride        = require("method-override"),
     app                   = express();
 
 var User  = require("./models/user");
+var User  = require("./models/resume");
 
 var indexRoutes = require("./routes/index.js");
 var loginRoutes = require("./routes/login.js");
@@ -18,7 +19,7 @@ var loginRoutes = require("./routes/login.js");
 // hello
 /*==================================app config================================*/
 
-mongoose.connect("mongodb://127.0.0.1:27017/rmr", {useNewUrlParser: true}, function(err){
+mongoose.connect("mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true", {useNewUrlParser: true}, function(err){
   if (err){
     console.log("Could not connect to database.\nError: " + err);
   } else{

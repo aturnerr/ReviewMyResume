@@ -9,7 +9,6 @@ var methodOverride        = require("method-override"),
     helmet                = require("helmet"),
     app                   = express();
 
-var User  = require("./models/user");
 var User  = require("./models/resume");
 var Reviewer  = require("./models/reviewer");
 

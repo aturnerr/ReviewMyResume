@@ -11,7 +11,8 @@ var ResumeSchema = new mongoose.Schema({
   file_URL: String,
   created_at: Date,
   tags: {
-    type: TagSchema
+    type: TagSchema,
+    default: undefined
   }
 });
 

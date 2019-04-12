@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../stylesheets/common.css">
+    <link rel="stylesheet" href="/stylesheets/common.css">
 
     <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
@@ -22,3 +22,13 @@
     </head>
 
     <body>
+
+    <!-- flash message containers -->
+    <div id="flash" class="container">
+        <% if (error && error.length > 0){ %>
+          <div class="alert alert-danger" role="alert"><%=error%></div>
+        <% } %>
+        <% if (success && success.length > 0){ %>
+          <div class="alert alert-success" role="success"><%=success%></div>
+        <% } %>
+    </div>

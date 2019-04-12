@@ -1,7 +1,7 @@
 var Reviewer   = require("../models/reviewer"),
     passport = require("passport"),
     express  = require('express');
-    
+
 var router = express.Router();
 
 /*=================================GET ROUTES=================================*/
@@ -35,7 +35,7 @@ router.get("/reviewer/logout", function(req, res){
 /*================================POST ROUTES=================================*/
 
 router.post("/reviewer/login", passport.authenticate("local"), function(req, res){
-    
+
     alert("Posting");
 
     //  verify user
@@ -44,16 +44,16 @@ router.post("/reviewer/login", passport.authenticate("local"), function(req, res
             res.redirect("/reviewer/login");
         }
     });
-    
+
     // login user and redirect to home page
     res.redirect("/reviewer/home");
 });
 
 router.post("/reviewer/register", function(req, res){
 
-    // verify username 
-    Reviewer.register(new Reviewer(req.body.reviewer), 
-                                    req.body.reviewer.password, 
+    // verify username
+    Reviewer.register(new Reviewer(req.body.reviewer),
+                                    req.body.reviewer.password,
                                     function(err, reviewer){
 
         if (err){

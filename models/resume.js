@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var passportLocalMongoose = require("passport-local-mongoose");
 
 var TagSchema = new mongoose.Schema({
   tag: String
@@ -15,10 +14,6 @@ var ResumeSchema = new mongoose.Schema({
     default: undefined
   }
 });
-
-// defines the serialize/ deserialize methods for the user automatically
-TagSchema.plugin(passportLocalMongoose);
-ResumeSchema.plugin(passportLocalMongoose);
 
 // return model as object
 module.exports = mongoose.model("Tag", TagSchema);

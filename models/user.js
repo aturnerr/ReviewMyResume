@@ -1,20 +1,19 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
-
-var ReviewerSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     username: String,
-    password: String,
     fname: String,
     lname: String,
     email: String,
+    occupation: String,
     company: String,
-    linkedIn: String,
-    country: String
+    country: String,
+    type: String
 });
 
 // defines the serialize/ deserialize methods for the user automatically
-ReviewerSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
 // return model as object
-module.exports = mongoose.model("Reviewer", ReviewerSchema);
+module.exports = mongoose.model("User", UserSchema);

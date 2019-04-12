@@ -1,8 +1,14 @@
 <% include ./partials/header %>
 
     <h1>Welcome to ReviewMyResume</h1>
-    <a href="/login">
-        <button>log in</button>
-    </a>
+    <% if (currentUser){ %>
+        <a href="/logout">
+            <button>log out</button>
+        </a>
+    <% }else{ %>
+        <a href="/login">
+            <button>log in</button>
+        </a>
+    <% } %>
 
 <% include ./partials/footer %>

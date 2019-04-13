@@ -31,24 +31,6 @@ router.get("/logout", isLoggedIn, function(req, res){
 
 /*================================POST ROUTES=================================*/
 
-router.post("/login", passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: "Invalid username or password"
-}), function(req, res){
-
-    // authenticate user
-    User.findById(req.user._id, function(err, user){
-        if (err || !user){
-            // redirect to login page
-            req.flash("error", "Oops, something went wrong!");
-            res.redirect("/login");
-        }
-    });
-
-    req.flash("success", "Successfully Logged In");
-    res.redirect("/");
-});
-
 router.post("/register", function(req, res){
 
     // ensure that username is unique 
@@ -62,10 +44,10 @@ router.post("/register", function(req, res){
         }
 
         // logs user in and runs 'serialize' method
-        passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Successfully Logged In!");
-            res.redirect("/");
-        });
+        // passport.authenticate("local")(req, res, function(){
+        //     req.flash("success", "Successfully Logged In!");
+        //     res.redirect("/");
+        // });
     })
 });
 
@@ -75,7 +57,6 @@ function isLoggedIn(req, res, next){
     if (req.isAuthenticated()){
       return next();
     }
-    res.redirect("/login");
 }
 
 module.exports = router;

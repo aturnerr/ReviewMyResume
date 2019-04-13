@@ -62,6 +62,6 @@ app.use(methodOverride("_method")); // allows the use of PUT and DELETE reqs
 app.use(adminRoutes);
 app.use(indexRoutes);
 
-app.listen(3000 || process.env.PORT, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("Successfully connected to server.");
 });

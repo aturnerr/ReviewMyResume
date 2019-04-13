@@ -5,14 +5,12 @@ var TagSchema = new mongoose.Schema({
 });
 
 var ResumeSchema = new mongoose.Schema({
-  username: String,
-  file_title: String,
+  uid: String,
   file_URL: String,
   created_at: Date,
-  tags: {
-    type: TagSchema,
-    default: undefined
-  }
+  tags: [{
+    type: String
+  }]
 });
 
 // return model as object

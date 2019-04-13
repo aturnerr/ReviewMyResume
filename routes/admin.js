@@ -44,10 +44,10 @@ router.post("/register", function(req, res){
         }
 
         // logs user in and runs 'serialize' method
-        // passport.authenticate("local")(req, res, function(){
-        //     req.flash("success", "Successfully Logged In!");
-        //     res.redirect("/");
-        // });
+        passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Successfully Logged In!");
+            res.redirect("/");
+        });
     })
 });
 

@@ -21,10 +21,11 @@ var User  = require("./models/user");
 var indexRoutes = require("./routes/index.js");
 var adminRoutes = require("./routes/admin.js");
 
-/*==================================app config================================*/
+
+/*================================= APP CONFIG ===============================*/
 
 const MongoURI = "mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true"
-// -- connect to mongoDB
+// connect to mongoDB
 const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true}, function(err){
   if (err){
     console.log("Could not connect to database.\nError: " + err);
@@ -34,8 +35,9 @@ const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true}, functi
 });
 
 /*================================ FILE STORAGE ==============================*/
-// TODO: move this section into it's own file, not sure how to do this as it
-// relies on the 'conn' constant above.
+// TODO:
+//    * move this section and routes into it's own file
+//    * modify the file upload to only accept PDF files
 
 let gfs;
 
@@ -44,7 +46,7 @@ conn.once('open', () => {
     gfs.collection('uploads')
 })
 
-// Create storage engine which will store a pdf or other file on the server
+// create storage engine which will store a pdf or other file on the server
 const storage = new GridFsStorage({
     url: MongoURI,
     file: (req, file) => {
@@ -145,7 +147,7 @@ app.use(express.static(__dirname + "/public")); // use 'public' dir as default d
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method")); // allows the use of PUT and DELETE reqs
 
-/*====================================routing=================================*/
+/*=================================== ROUTING ================================*/
 
 app.use(adminRoutes);
 app.use(indexRoutes);

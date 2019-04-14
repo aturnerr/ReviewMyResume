@@ -42,7 +42,7 @@ router.post("/register", function(req, res){
             console.log(err);
             req.flash("error", "Username already in use!");
             res.redirect('/register');
-        } 
+        }
 
         req.flash("success", "Successfully registered a new user!");
         res.redirect("/");
@@ -66,14 +66,13 @@ router.post("/login", passport.authenticate("local", {
     req.flash("success", "Successfully Logged In");
     res.redirect("/");
 });
-
 /*=================================MIDDLEWARE=================================*/
 
 function isLoggedIn(req, res, next){
     if (req.isAuthenticated()){
       return next();
     }
-    
+
     res.redirect("/login");
 }
 

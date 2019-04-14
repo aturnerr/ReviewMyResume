@@ -7,7 +7,7 @@ var router = express.Router();
 /*=================================GET ROUTES=================================*/
 
 router.get("/register", function(req, res){
-    res.render("register-user");
+    res.render("register");
 });
 
 router.get("/login", function(req, res){
@@ -37,24 +37,22 @@ router.post("/register", function(req, res){
     User.register(new User(req.body.user), req.body.password,
                                                             function(err, user){
 
+        // if there's an error, let the user try again
         if (err){
             console.log(err);
             req.flash("error", "Username already in use!");
             res.redirect('/register');
-        }
+        } 
 
-        // logs user in and runs 'serialize' method
-        passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Successfully Logged In!");
-            res.redirect("/");
-        });
+        req.flash("success", "Successfully registered a new user!");
+        res.redirect("/");
     })
 });
 
 router.post("/login", passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: "Invalid username or password"
-}), function(req, res){
+                                    failureRedirect: "/login",
+                                    failureFlash: "Invalid username or password"
+                                }), function(req, res){
 
     // authenticate user
     User.findById(req.user._id, function(err, user){

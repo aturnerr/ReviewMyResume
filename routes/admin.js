@@ -91,7 +91,8 @@ const storage = new GridFsStorage({
   });
 
 router.post('upload/file', multer({ storage }).single("file"), (req, res) => {
-    res.json({file: req.file});
+    req.flash("success", "Successfully uploaded your file!");
+    res.redirect('/');
 });
 /*=================================MIDDLEWARE=================================*/
 

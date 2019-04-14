@@ -26,7 +26,8 @@ var adminRoutes = require("./routes/admin.js");
 
 const MongoURI = "mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true"
 // connect to mongoDB
-const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true}, function(err){
+const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true});
+mongoose.connect(MongoURI, {useNewUrlParser: true}, function(err){
   if (err){
     console.log("Could not connect to database.\nError: " + err);
   } else{
@@ -75,7 +76,7 @@ app.get('/resumes', (req, res) => {
 
 // route for uploading the file
 app.post('/resumes/upload', upload.single("file"), (req, res) => {
-    res.json({status: "Successfully uploaded", file: req.file});
+    res.redirect("/")
 });
 
 // list of all currently stored resumes

@@ -1,7 +1,7 @@
 var User     = require("../models/user"),
     passport = require("passport"),
     express  = require('express');
-    
+
 var router = express.Router();
 
 /*=================================GET ROUTES=================================*/
@@ -33,8 +33,8 @@ router.get("/logout", isLoggedIn, function(req, res){
 
 router.post("/register", function(req, res){
 
-    // ensure that username is unique 
-    User.register(new User(req.body.user), req.body.password, 
+    // ensure that username is unique
+    User.register(new User(req.body.user), req.body.password,
                                                             function(err, user){
 
         if (err){
@@ -49,6 +49,24 @@ router.post("/register", function(req, res){
             res.redirect("/");
         });
     })
+});
+
+router.post("/login", passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: "Invalid username or password"
+}), function(req, res){
+
+    // authenticate user
+    User.findById(req.user._id, function(err, user){
+        if (err || !user){
+            // redirect to login page
+            req.flash("error", "Oops, something went wrong!");
+            res.redirect("/login");
+        }
+    });
+
+    req.flash("success", "Successfully Logged In");
+    res.redirect("/");
 });
 
 /*=================================MIDDLEWARE=================================*/

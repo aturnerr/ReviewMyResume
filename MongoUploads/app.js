@@ -14,9 +14,15 @@ app.use(bodyparser.json());
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
-const mongoURI = 'mongodb+srv://chad:chad@cluster1-sfksn.mongodb.net/test?retryWrites=true';
+const mongoURI = "mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true";
 
-const conn = mongoose.createConnection(mongoURI);
+const conn = mongoose.createConnection(mongoURI, {useNewUrlParser: true}, function(err){
+  if (err){
+    console.log("Could not connect to database.\nError: " + err);
+  } else{
+    console.log("Successfully connected to database.");
+  }
+});
 
 let gfs;
 

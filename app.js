@@ -23,7 +23,7 @@ var adminRoutes = require("./routes/admin.js");
 
 const MongoURI = "mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true"
 // -- connect to mongoDB
-mongoose.connect(MongoURI, {useNewUrlParser: true}, function(err){
+const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true}, function(err){
   if (err){
     console.log("Could not connect to database.\nError: " + err);
   } else{
@@ -40,7 +40,7 @@ conn.once('open', () => {
 
 // Create storage engine which will store a pdf or other file on the server
 const storage = new GridFsStorage({
-    url: mongoURI,
+    url: MongoURI,
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         crypto.randomBytes(16, (err, buf) => {

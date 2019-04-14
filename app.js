@@ -39,25 +39,7 @@ conn.once('open', () => {
 })
 
 // Create storage engine which will store a pdf or other file on the server
-const storage = new GridFsStorage({
-    url: MongoURI,
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = buf.toString('hex') + path.extname(file.originalname);
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'uploads'
-          };
-          resolve(fileInfo);
-        });
-      });
-    }
-  });
-const upload = multer({ storage });
+
 
 app.use(flash());   // nor flashing success/ error messages(eeds to be BEFORE passport config)
 app.use(helmet());  // for web app security

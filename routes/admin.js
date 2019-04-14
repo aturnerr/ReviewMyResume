@@ -14,6 +14,11 @@ router.get("/login", function(req, res){
     res.render("login");
 });
 
+router.get("/upload", (req, res) => {
+    res.render("upload");
+});
+
+
 router.get("/logout", isLoggedIn, function(req, res){
 
     User.findById(req.user._id, function(err, user){
@@ -66,7 +71,28 @@ router.post("/login", passport.authenticate("local", {
     req.flash("success", "Successfully Logged In");
     res.redirect("/");
 });
+const storage = new GridFsStorage({
+    url: "mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true",
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads'
+          };
+          resolve(fileInfo);
+        });
+      });
+    }
+  });
 
+router.post('upload/file', multer({ storage }).single("file"), (req, res) => {
+    res.json({file: req.file});
+});
 /*=================================MIDDLEWARE=================================*/
 
 function isLoggedIn(req, res, next){

@@ -9,6 +9,8 @@ var methodOverride        = require("method-override"),
     express               = require("express"),
     helmet                = require("helmet"),
     app                   = express();
+    path                  = require('path');
+    fs                    = require('fs');
     crypto                = require('crypto');
     multer                = require('multer');
     GridFsStorage         = require('multer-gridfs-storage');
@@ -31,10 +33,14 @@ const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true}, functi
   }
 });
 
+/*================================ FILE STORAGE ==============================*/
+// TODO: move this section into it's own file, not sure how to do this as it
+// relies on the 'conn' constant above.
+
 let gfs;
 
 conn.once('open', () => {
-    gfs = Grid(conn.db, mongoose.mongo); 
+    gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads')
 })
 
@@ -57,7 +63,56 @@ const storage = new GridFsStorage({
       });
     }
   });
+
 const upload = multer({ storage });
+
+// standard resume upload page and form
+app.get('/resumes', (req, res) => {
+    res.render('upload');
+});
+
+// route for uploading the file
+app.post('/resumes/upload', upload.single("file"), (req, res) => {
+    res.json({file: req.file});
+});
+
+// list of all currently stored resumes
+app.get('/resumes/list', (req, res) => {
+  gfs.files.find().toArray((err, files) => {
+    // Check if files
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        err: 'No files exist'
+      });
+    }
+    // Files exist
+    return res.json(files);
+  });
+});
+
+// view a specific pdf in the browser
+app.get('/resumes/view/:filename', (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    // Check if file
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: 'No file exists'
+      });
+    }
+    // Check if pdf
+    if (file.contentType === 'application/pdf') {
+      // Read output to browser
+        var data = gfs.createReadStream(file.filename);
+        data.pipe(res);
+    } else {
+      res.status(404).json({
+        err: 'Not a PDF document'
+      });
+    }
+  });
+});
+
+/*============================================================================*/
 
 app.use(flash());   // nor flashing success/ error messages(eeds to be BEFORE passport config)
 app.use(helmet());  // for web app security
@@ -84,7 +139,7 @@ app.use(function(req, res, next){
   next();
 });
 
-// 
+//
 app.set("view engine", "ejs");  // use ejs templates (for dynamic pages)
 app.use(express.static(__dirname + "/public")); // use 'public' dir as default dir
 app.use(bodyParser.urlencoded({extended: true}));

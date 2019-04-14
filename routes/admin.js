@@ -50,9 +50,9 @@ router.post("/register", function(req, res){
 });
 
 router.post("/login", passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: "Invalid username or password"
-}), function(req, res){
+                                    failureRedirect: "/login",
+                                    failureFlash: "Invalid username or password"
+                                }), function(req, res){
 
     // authenticate user
     User.findById(req.user._id, function(err, user){

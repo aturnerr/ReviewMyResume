@@ -73,7 +73,7 @@ app.get('/resumes', (req, res) => {
 
 // route for uploading the file
 app.post('/resumes/upload', upload.single("file"), (req, res) => {
-    res.json({file: req.file});
+    res.json({status: "Successfully uploaded", file: req.file});
 });
 
 // list of all currently stored resumes

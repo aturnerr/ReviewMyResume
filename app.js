@@ -20,6 +20,7 @@ var User  = require("./models/user");
 
 var indexRoutes = require("./routes/index.js");
 var adminRoutes = require("./routes/admin.js");
+var resumeRoutes = require("./routes/admin.js");
 
 
 /*================================= APP CONFIG ===============================*/
@@ -69,51 +70,6 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage });
 
-// standard resume upload page and form
-app.get('/resumes', (req, res) => {
-    res.render('upload');
-});
-
-// route for uploading the file
-app.post('/resumes/upload', upload.single("file"), (req, res) => {
-    res.redirect("/")
-});
-
-// list of all currently stored resumes
-app.get('/resumes/list', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    // Check if files
-    if (!files || files.length === 0) {
-      return res.status(404).json({
-        err: 'No files exist'
-      });
-    }
-    // Files exist
-    return res.json(files);
-  });
-});
-
-// view a specific pdf in the browser
-app.get('/resumes/view/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists'
-      });
-    }
-    // Check if pdf
-    if (file.contentType === 'application/pdf') {
-      // Read output to browser
-        var data = gfs.createReadStream(file.filename);
-        data.pipe(res);
-    } else {
-      res.status(404).json({
-        err: 'Not a PDF document'
-      });
-    }
-  });
-});
 
 /*============================================================================*/
 
@@ -130,6 +86,7 @@ app.use(require("express-session")({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// for authentication
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -151,6 +108,7 @@ app.use(methodOverride("_method")); // allows the use of PUT and DELETE reqs
 /*=================================== ROUTING ================================*/
 
 app.use(adminRoutes);
+app.use(resumeRoutes);
 app.use(indexRoutes);
 
 app.listen(process.env.PORT || 3000, function(){

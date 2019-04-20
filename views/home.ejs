@@ -1,23 +1,28 @@
-<% include ./partials/header %>
+<% include ./partials/header-top %>
 
-    <h1>Welcome to ReviewMyResume</h1>
-    <% if (currentUser){ %>
-        <a href="/resumes">
-            <button>Upload Resume</button>
-        </a>
-        <a href="/resumes/list">
-            <button>View resumes</button>
-        </a>
-        <a href="/logout">
-            <button>log out</button>
-        </a>
-    <% }else{ %>
-        <a href="/login">
-            <button>log in</button>
-        </a>
-        <a href="/register">
-            <button>register</button>
-        </a>
-    <% } %>
+    <title>login</title>
+    <link rel="stylesheet" href="/stylesheets/home.css">
+
+<% include ./partials/header-bot %>
+
+    <section id="content" class="d-flex flex-column align-items-center justify-content-center">
+        <h1 class="header">ReviewMyResume</h1>
+        <% if (currentUser){ %>
+            <a href="/resumes">
+                <button>Upload Resume</button>
+            </a>
+            <a href="/resumes/list">
+                <button>View resumes</button>
+            </a>
+            <a href="/logout">
+                <button>log out</button>
+            </a>
+        <% }else{ %>
+            <a href="/login">
+                <button class="btn">log in</button>
+            </a>
+            <p>Don't have an account yet? Sign up <a href="/register">here</a></p>
+        <% } %>
+    </section>
 
 <% include ./partials/footer %>

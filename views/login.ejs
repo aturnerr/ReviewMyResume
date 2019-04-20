@@ -1,13 +1,27 @@
-<% include ./partials/header %>
+<% include ./partials/header-top %>
 
-    <h2>Log In</h2>
+    <title>login</title>
+    <link rel="stylesheet" href="/stylesheets/login.css">
 
-    <form action="/login" method="POST">
-        <label for="uname">username</label>
-        <input type="text" name="username" id="uname" placeholder="john"><br>
-        <label for="password">password</label>
-        <input type="password" name="password" id="password" placeholder="*****"><br>
-        <button>log in</button>
-    </form>
+<% include ./partials/header-bot %>
+
+    <section id="content" class="d-flex flex-column align-items-center justify-content-center">
+        <h1 class="header mb-4">Log In</h1>
+
+        <form action="/login" method="POST">
+
+            <div class="form-group">
+                <input class="form-control" type="text" name="username" id="uname" placeholder="username">
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" id="password" placeholder="password">
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button id="log-in-btn" class="mt-2 btn">log in</button>
+            </div>
+        </form>
+    </section>
 
 <% include ./partials/footer %>

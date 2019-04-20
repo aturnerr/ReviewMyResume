@@ -1,7 +1,7 @@
 .alert{
     color: white;
     text-align: center;
-    border-radius: 16px;
+    border-radius: 4px;
     position: absolute;
       top: 50%;
       left: 50%;
@@ -20,3 +20,28 @@
     border-color: rgb(2, 145, 145);
     background-color:  rgb(2, 145, 145);
 } 
+
+html{
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+  background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%);
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.header{
+  font-family: 'Oleo Script', Helvetica, sans-serif;
+}
+
+.btn{
+  border: 1px solid white;
+  color: white;
+  transition: 250ms;
+}
+
+.btn:hover{
+  background: white;
+}

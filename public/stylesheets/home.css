@@ -1,0 +1,12 @@
+#content{
+    height: 100vh;
+}
+
+p{
+    color: white;
+}
+
+a{
+    color: white;
+    text-decoration: underline;
+}

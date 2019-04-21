@@ -9,7 +9,13 @@ var UserSchema = new mongoose.Schema({
     occupation: String,
     company: String,
     country: String,
-    type: String
+    type: String,
+    resumes: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Resume"
+                }
+            ]
 });
 
 // defines the serialize/ deserialize methods for the user automatically

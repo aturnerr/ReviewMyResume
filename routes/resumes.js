@@ -47,26 +47,25 @@ const upload = multer({ storage });
 /*=================================GET ROUTES=================================*/
 
 // standard resume upload page and form
-router.get('/resumes', (req, res) => {
+router.get('/upload_resume', (req, res) => {
     res.render('upload');
 });
 
 // list of all currently stored resumes
-router.get('/resumes/list', (req, res) => {
+router.get('/resumes', (req, res) => {
   gfs.files.find().toArray((err, files) => {
-    // Check if files
-    if (!files || files.length === 0) {
-      return res.status(404).json({
-        err: 'No files exist'
-      });
+    // Check if files or error
+    if (!files || files.length === 0 || err) {
+      return res.status(404).json({ err: 'No files exist'});
     }
-    // Files exist
-    return res.json(files);
+
+    return res.render("resumes", { resumes : files });
   });
 });
 
+
 // view a specific pdf in the browser
-router.get('/resumes/view/:filename', (req, res) => {
+router.get('/resumes/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
     if (!file || file.length === 0) {
@@ -91,6 +90,7 @@ router.get('/resumes/view/:filename', (req, res) => {
 
 // route for uploading the file
 router.post('/resumes/upload', upload.single("file"), (req, res) => {
+    // link file to specific user
     res.redirect("/")
 });
 

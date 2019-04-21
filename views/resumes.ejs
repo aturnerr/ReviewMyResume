@@ -1,5 +1,14 @@
-<h2>Resume List</h2>
+<% include ./partials/header-top %>
 
-<a href="">
-    <button>View</button>
-</a>
+    <title>resumes</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/login.css"> -->
+
+<% include ./partials/header-bot %>
+
+    <h1>Resume Viewer</h1>
+
+    <% resumes.forEach(function(resume){ %>
+        <p><%= resume.filename %></p>
+    <% }); %>
+    
+<% include ./partials/footer %>

@@ -13,3 +13,7 @@ input{
 button{
     align-self: center;
 }
+
+form{
+    width: 100%;
+}

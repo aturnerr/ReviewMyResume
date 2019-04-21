@@ -6,6 +6,10 @@ var router = express.Router();
 
 /*=================================GET ROUTES=================================*/
 
+router.get("/dashboard", isLoggedIn, function(req, res){
+    res.render("dashboard");
+});
+
 router.get("/register", function(req, res){
     res.render("register");
 });
@@ -29,6 +33,7 @@ router.get("/logout", isLoggedIn, function(req, res){
     res.redirect("/");
 });
 
+
 /*================================POST ROUTES=================================*/
 
 router.post("/register", function(req, res){
@@ -45,8 +50,8 @@ router.post("/register", function(req, res){
         }
 
         req.flash("success", "Successfully registered a new user!");
-        res.redirect("/");
-    })
+        res.redirect("/dashboard");
+    });
 });
 
 router.post("/login", passport.authenticate("local", {

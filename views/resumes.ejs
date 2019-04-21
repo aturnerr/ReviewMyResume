@@ -1,14 +1,27 @@
 <% include ./partials/header-top %>
 
     <title>resumes</title>
-    <!-- <link rel="stylesheet" href="/stylesheets/login.css"> -->
+    <link rel="stylesheet" href="/stylesheets/resumes.css">
 
 <% include ./partials/header-bot %>
 
     <h1>Resume Viewer</h1>
-
-    <% resumes.forEach(function(resume){ %>
-        <p><%= resume.filename %></p>
-    <% }); %>
     
+
+    <div class="container">
+        <div class="row flex-wrap justify-content-center mt-5 mb-5">
+            <% if (resumes.length === 0 ){ %>
+            <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
+            <% }else{ %>
+            <% resumes.forEach(function(resume){ %>
+                <div class="resume col-12 col-sm-6 col-md-3 mb-5 mx-1">
+                    <p><%= resume.filename %></p>
+                    <% console.log(resume) %>
+                </div>
+            <% }); %>
+            <% } %>
+        </div>
+    </div>        
+    
+
 <% include ./partials/footer %>

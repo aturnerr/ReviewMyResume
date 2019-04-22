@@ -8,7 +8,7 @@ router.get("/", function(req, res){
 
 // any other route is an error
 router.get("/*", function(req, res){
-  res.send("Error! This page does not exist!");
+  res.render("error");
 });
 
 module.exports = router;

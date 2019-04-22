@@ -1,0 +1,11 @@
+#content{
+    height: 100vh;
+}
+
+h3{
+    font-weight: 200;
+}
+
+body{
+    background: linear-gradient(180deg, #201837 21.35%, #000000 100%);
+}

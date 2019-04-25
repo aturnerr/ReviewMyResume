@@ -1,97 +1,132 @@
-var GridFsStorage         = require('multer-gridfs-storage'),
-    Grid                  = require('gridfs-stream'),
-    mongoose              = require("mongoose"),
+var mongoose              = require("mongoose"),
     express               = require('express'),
     crypto                = require('crypto'),
     multer                = require('multer'),
     path                  = require('path'),
     fs                    = require('fs');
+    Resume                = require("../models/resume")
 
 var router = express.Router();
 
-const MongoURI = "mongodb+srv://test:test@cluster1-sfksn.mongodb.net/test?retryWrites=true";
-// connect to mongoDB
-const conn = mongoose.createConnection(MongoURI, {useNewUrlParser: true});
-
 /*================================ FILE STORAGE ==============================*/
 
-let gfs;
+// multer storage options
+const storage = multer.diskStorage({
+  // where to store the file
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  // what to call each file
+  filename: function(req, file, cb) {
+    // concatenate current time + filename
+    cb(null, new Date().toISOString().replace(/:|\./g,'-') + '-' + file.originalname);
+  }
+});
 
-conn.once('open', () => {
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads')
-})
+// define filter constraints for multer
+const fileFilter = (req, file, cb) => {
+  // check if of type filter
+  if (file.mimetype === 'application/pdf') {
+    cb(null, true);
+  }
+  else {
+    // need to send a message to user if this fails
+    cb(null, false);
+  }
+};
 
-// create storage engine which will store a pdf or other file on the server
-const storage = new GridFsStorage({
-    url: MongoURI,
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = buf.toString('hex') + path.extname(file.originalname);
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'uploads'
-          };
-          resolve(fileInfo);
-        });
-      });
-    }
-  });
-
-const upload = multer({ storage });
+// initialise main multer constant
+const upload = multer({
+  storage,
+  // set file size limits
+  limits: {
+    // 10MB
+    fileSize: 1024 * 1024 * 10
+  },
+  fileFilter: fileFilter
+});
 
 /*=================================GET ROUTES=================================*/
 
 // standard resume upload page and form
-router.get('/upload_resume', (req, res) => {
+router.get('/resumes/upload', (req, res) => {
     res.render('upload');
 });
 
 // list of all currently stored resumes
 router.get('/resumes', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    // Check if files or error
-    if (!files || files.length === 0 || err) {
-      return res.status(404).json({ err: 'No files exist'});
+  Resume.find((err, resumes) => {
+    if (!err) {
+      res.send(resumes);
+    } else {
+      res.sendStatus(404);
     }
-
-    return res.render("resumes", { resumes : files });
   });
 });
 
-
 // view a specific pdf in the browser
 router.get('/resumes/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists'
-      });
-    }
-    // Check if pdf
-    if (file.contentType === 'routerlication/pdf') {
-      // Read output to browser
-        var data = gfs.createReadStream(file.filename);
-        data.pipe(res);
+  const filename = req.params.filename;
+  Resume.find({url:filename}, (err, resume) => {
+    if (!err) {
+      // stream the file data
+      var file = fs.createReadStream("uploads/" + filename);
+      var stat = fs.statSync("uploads/" + filename);
+      // define the http headers to load the file in browser
+      res.setHeader('Content-Length', stat.size);
+      res.setHeader('Content-Type', 'application/pdf');
+      // send through response
+      file.pipe(res);
     } else {
-      res.status(404).json({
-        err: 'Not a PDF document'
+      res.sendStatus(404);
+    }
+  });
+});
+
+router.get('/resumes/delete/:filename', (req, res) => {
+  const filename = req.params.filename;
+  // delete from database
+  Resume.deleteOne({filename: filename}, (err, result) => {
+    if (!err) {
+      res.status(200).json({
+        message: 'Resume deleted',
+      });
+    } else {
+      console.log(err);
+      res.status(500).json({
+        message: 'Resume not found'
       });
     }
   });
+  // delete from file system
+  fs.unlink("uploads/" + filename, (err) => {
+    if (!err) {
+      console.log('File deleted.')
+    } else {
+      console.log('File not deleted.')
+    }
+  })
 });
 
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file
 router.post('/resumes/upload', upload.single("file"), (req, res) => {
-    // link file to specific user
-    res.redirect("/")
+    console.log(req.file);
+    // create a new entry for the database
+    const resume = new Resume({
+      user: "test",
+      filename: req.file.filename,
+      url: req.file.path,
+      last_updated: Date.now(),
+      // need to have a way of defining these somewhere else.
+      tags: ["tag1", "tag2"]
+    })
+    // upload to database
+    resume.save()
+    // redirect back to home page (or a success page?)
+    res.redirect("/resumes")
 });
+
 
 module.exports = router;

@@ -1,9 +1,10 @@
 var mongoose = require("mongoose");
 
 var ResumeSchema = new mongoose.Schema({
-  uid: String,
-  file_URL: String,
-  created_at: Date,
+  user: String,
+  filename: String,
+  url: String,
+  last_updated: Date,
   tags: [{
     type: String
   }]

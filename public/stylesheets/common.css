@@ -46,3 +46,19 @@ body{
 .btn:hover{
   background: white;
 }
+
+/*============================NAVBAR STYLING==================================*/
+
+.navbar{
+  background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%);
+  background-repeat: no-repeat;
+}
+
+.navbar .navbar-brand{
+  font-family: 'Oleo Script', Helvetica, sans-serif;
+  color: white;
+}
+
+.navbar .nav-link{
+  color: white !important;
+}

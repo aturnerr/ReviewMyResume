@@ -4,6 +4,7 @@ var mongoose              = require("mongoose"),
     multer                = require('multer'),
     path                  = require('path'),
     fs                    = require('fs');
+    // pdf2png               = require('pdf2png');
     Resume                = require("../models/resume")
 
 var router = express.Router();
@@ -57,7 +58,7 @@ router.get('/resumes/upload', (req, res) => {
 router.get('/resumes', (req, res) => {
   Resume.find((err, resumes) => {
     if (!err) {
-      res.send(resumes);
+      res.render("resumes", {resumes: resumes});
     } else {
       res.sendStatus(404);
     }
@@ -122,6 +123,8 @@ router.post('/resumes/upload', upload.single("file"), (req, res) => {
       // need to have a way of defining these somewhere else.
       tags: ["tag1", "tag2"]
     })
+
+
     // upload to database
     resume.save()
     // redirect back to home page (or a success page?)

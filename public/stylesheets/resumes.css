@@ -1,6 +1,7 @@
-.body {
+body {
   background-color: white;
   background-image: none;
+  overflow: auto;
 }
 
 .resume {
@@ -10,25 +11,39 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  width: 200px;
 }
 
 .content {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   background-color: snow;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
+
+.gallery {
+  width: 80%;
+  margin-top: 160px;
+  margin-bottom: 80px;
+}
+
 .resume-text {
   height: 50px;
 }
+
 .thumb {
-  height: 200px;
+  height: 250px;
 }
+
 .header {
+  font-size: 15px;
   height: 80px;
   position: fixed;
   width: 100vw;
   background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%)
 }
-.row {
-  margin-top: 160px;
+.header h1 {
+  margin: 0;
 }

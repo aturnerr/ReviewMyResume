@@ -5,15 +5,18 @@
 
 <% include ./partials/header-bot %>
 
-    <div class="header"></div>
+    <div class="header d-flex row justify-content-center align-content-center">
+      <h1>Resume Gallery</h1>
+    </div>
 
     <div class="content">
+      <div class="gallery">
         <div class="row flex-wrap justify-content-center">
             <% if (resumes.length === 0 ){ %>
             <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
             <% }else{ %>
             <% resumes.forEach(function(resume){ %>
-                <a href="<%= "resumes/" + resume.filename%>" target="_blank" class="resume col-sm-1 mx-3">
+                <a href="<%= "resumes/" + resume.filename%>" target="_blank" class="resume mx-3 mb-5">
                   <div class="thumb"></div>
                   <div class="resume-text">
                     <p><%= resume.user + "\'s resume" %></p>
@@ -23,6 +26,7 @@
             <% }); %>
             <% } %>
         </div>
+      </div>
     </div>
 
 

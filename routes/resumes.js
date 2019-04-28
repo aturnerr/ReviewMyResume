@@ -68,19 +68,36 @@ router.get('/resumes', (req, res) => {
 // view a specific pdf in the browser
 router.get('/resumes/:filename', (req, res) => {
   const filename = req.params.filename;
-  Resume.find({url:filename}, (err, resume) => {
-    if (!err) {
-      // stream the file data
-      var file = fs.createReadStream("uploads/" + filename);
-      var stat = fs.statSync("uploads/" + filename);
-      // define the http headers to load the file in browser
-      res.setHeader('Content-Length', stat.size);
-      res.setHeader('Content-Type', 'application/pdf');
-      // send through response
-      file.pipe(res);
-    } else {
-      res.sendStatus(404);
+  Resume.find({filename:filename}, (err, resume) => {
+    // check if the function returned any results
+    if (!resume.length){
+      res.status(500).json({
+        message: 'Resume not found'
+      });
     }
+    // if it has, need to check if the file itself exists
+    else {
+      console.log("== Entry in database found");
+      // check local file system
+      if (fs.existsSync("uploads/" + filename)) {
+        console.log("== Entry in file system found");
+        // stream the file data
+        var file = fs.createReadStream("uploads/" + filename);
+        var stat = fs.statSync("uploads/" + filename);
+        // define the http headers to load the file in browser
+        res.setHeader('Content-Length', stat.size);
+        res.setHeader('Content-Type', 'application/pdf');
+        // send through response
+        file.pipe(res);
+      } else {
+        // file entry is in database, but local pdf doesn't exist
+        console.log("== Error, entry not in file system")
+        res.status(500).json({
+          message: 'Resume file not found'
+        });
+      }
+    }
+
   });
 });
 

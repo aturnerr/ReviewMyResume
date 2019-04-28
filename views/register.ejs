@@ -1,6 +1,6 @@
 <% include ./partials/header-top %>
 
-    <title>login</title>
+    <title>register</title>
     <link rel="stylesheet" href="/stylesheets/login.css">
     <link rel="stylesheet" href="/stylesheets/register.css">
 
@@ -12,22 +12,22 @@
         <form action="/register" method="POST">
 
             <div class="form-group row justify-content-center">
-                <div class="col-12 col-md-2">
+                <div class="col-11 col-md-2">
                     <input class="form-control" type="text" name="user[fname]" id="fname" placeholder="first name*" required>
                 </div>
-                <div class="col-12 col-md-2">
+                <div class="col-11 col-md-2">
                     <input class="form-control" type="text" name="user[lname]" id="lname" placeholder="last name*" required>
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-12 col-md-4">
+                <div class="col-11 col-md-4">
                     <input class="form-control" type="email" name="user[email]" id="email" placeholder="email*" required>
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-12 col-md-4 d-flex justify-content-center">
+                <div class="col-11 col-md-4 d-flex justify-content-center">
                     <select class="form-control" name="user[type]" id="type">
                         <option selected value="student">student</option>
                         <option value="reviewer">reviewer</option>
@@ -39,19 +39,19 @@
             <div class="reviewer-info">
 
                 <div class="form-group row justify-content-center">
-                    <div class="col-12 col-md-4">
+                    <div class="col-11 col-md-4">
                         <input class="form-control" type="text" name="user[occupation]" id="occupation" placeholder="occupation*">
                     </div>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <div class="col-12 col-md-4">
+                    <div class="col-11 col-md-4">
                         <input class="form-control" type="text" name="user[company]" id="company" placeholder="company*">
                     </div>
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-12 col-md-4 d-flex justify-content-center">
+                <div class="col-11 col-md-4 d-flex justify-content-center">
                     <select class="form-control" name="user[country]" id="country" required>
                         <option selected disabled hidden value="country">country*</option>
                         <option value='Ascension Island'>Ascension Island</option>
@@ -318,13 +318,13 @@
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-12 col-md-4">
+                <div class="col-11 col-md-4">
                     <input class="form-control" type="text" name="user[username]" id="uname" placeholder="username*" required>
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-12 col-md-4">
+                <div class="col-11 col-md-4">
                     <input class="form-control" type="password" name="password" id="password" placeholder="password*" required>
                 </div>
             </div>

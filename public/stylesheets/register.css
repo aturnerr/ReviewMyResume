@@ -2,11 +2,26 @@
     display: none;
 }
 
-select{
-    width: 420px !important;
+select{ 
+    width: 420px !important; 
     text-align-last:center;
 }
 
 #country{
     color: gray;
+}
+
+@media(max-width: 375px){
+
+    body{
+        overflow: hidden;
+    }
+
+    #fname{
+        margin-bottom: 0.75rem;
+    }
+
+    #country{
+        font-size: 0.75rem;
+    }
 }

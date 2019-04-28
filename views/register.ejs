@@ -5,33 +5,33 @@
 
 <% include ./partials/header-bot %>
 
-    <h1 class="header">Register</h1>
+    <h1 class="header mb-4">Register</h1>
 
     <form action="/register" method="POST">
 
-        <label for="fname">first name</label><br>
+        <label for="fname">First Name</label><br>
         <input type="text" name="user[fname]" id="fname" placeholder="john" required><br>
 
-        <label for="lname">last name</label><br>
+        <label for="lname">Last Name</label><br>
         <input type="text" name="user[lname]" id="lname" placeholder="doe" required><br>
 
-        <label for="email">email</label><br>
+        <label for="email">E-mail</label><br>
         <input type="email" name="user[email]" id="email" placeholder="johnd@domain.com" required><br>
 
-        <label for="type">type</label>
+        <label for="type">User Type</label><br>
         <select name="user[type]" id="type">
             <option selected value="student">student</option>
             <option value="reviewer">reviewer</option>
         </select><br>
 
         <div class="reviewer-info">
-            <label for="occupation">occupation</label><br>
+            <label for="occupation">Occupation</label><br>
             <input type="text" name="user[occupation]" id="occupation" placeholder="software engineer"><br>
-            <label for="company">company</label><br>
+            <label for="company">Company</label><br>
             <input type="text" name="user[company]" id="company" placeholder="bob & son's dev firm"><br>
         </div>
         
-        <label for="country">country</label>
+        <label for="country">Country</label><br>
         <select name="user[country]" id="country" required>
             <option value='Ascension Island'>Ascension Island</option>
             <option value='Andorra'>Andorra</option>
@@ -295,11 +295,11 @@
         </select><br>
 
         
-        <label for="uname">username</label><br>
+        <label for="uname">Username</label><br>
         <input type="text" name="user[username]" id="uname" placeholder="johnny69" required><br>
 
-        <label for="password">password</label><br>
-        <input type="password" name="password" id="password" required><br><br>
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" placeholder = "*********" required><br><br>
 
         <button class="btn">register</button><br>
         <a href="/login">

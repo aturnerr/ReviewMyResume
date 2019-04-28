@@ -1,22 +1,12 @@
-input{
-    background: white;
-    /* border: 1px solid white; */
-    /* border-radius: 2px; */
-    text-align: center;
-    border-radius: 2px;
+.reviewer-info{
+    display: none;
 }
 
-body{
-    text-align: center;
-    position: relative;
-    font-size: 20px;
-    overflow: auto;
+select{ 
+    width: 420px !important; 
+    text-align-last:center;
 }
 
-button{
-    text-size-adjust: 20px;
-}
-
-html{
-    height: 130%;
+#country{
+    color: gray;
 }

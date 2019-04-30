@@ -54,9 +54,21 @@ exports.upload_resume =
 
     (req, res) => {
 
+        Section.create(req.body.section, function(err, section){
+            // console.log(req.body.section);
+            if (err){
+                console.log(err);
+                req.flash("error", "Sorry, your request couldn't be completed at this \
+                                                                    time.")
+                res.redirect("/projects/current");
+            }
+            project.sections.push(section);
+            project.save();
+            res.redirect("/projects/show/:id");
+        });
+
         // create a new entry for the database
         const resume = new Resume({
-            user: "test",
             filename: req.file.filename,
             url: req.file.path,
             last_updated: Date.now(),
@@ -64,9 +76,19 @@ exports.upload_resume =
             tags: ["tag1", "tag2"]
         })
     
-    
         // upload to database
-        resume.save()
-        // redirect back to home page (or a success page?)
-        res.redirect("/resumes")
+        resume.save();
+
+        // link with user
+        User.findById(req.user._id, function(err, user){
+            if (err){
+                req.flash("error", "Oops something went wrong!");
+                res.redirect("/upload");
+            }
+
+            user.resumes.push(resume);
+
+            req.flash("success", "resume successfully added!");
+            res.redirect("/dashboard");
+        });
     }

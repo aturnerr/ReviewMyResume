@@ -2,25 +2,25 @@ var User = require("../models/user");
 
 exports.admin_show_dashboard = 
 
-    function(req, res){
+    (req, res) => {
         res.render("dashboard");
     }
 
 exports.admin_show_register = 
 
-    function(req, res){
+    (req, res) => {
         res.render("register");
     }
 
 exports.admin_show_login = 
 
-    function(req, res){
+    (req, res) => {
         res.render("login");
     }
 
 exports.admin_logout = 
 
-    function(req, res){
+    (req, res) => {
 
         User.findById(req.user._id, function(err, user){
             if (err || !user){
@@ -37,7 +37,7 @@ exports.admin_logout =
 
 exports.admin_register = 
 
-    function(req, res){
+    (req, res) => {
 
         // ensure that username is unique
         User.register(new User(req.body.user), req.body.password,
@@ -57,7 +57,7 @@ exports.admin_register =
 
 exports.admin_login = 
 
-    function(req, res){
+    (req, res) => {
 
         // authenticate user
         User.findById(req.user._id, function(err, user){

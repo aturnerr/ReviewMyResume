@@ -4,6 +4,6 @@ module.exports =
         if (req.isAuthenticated()){
             return next();
         }
-        res.flash("error", "Please login first!");
+        req.flash("error", "Please login first!");
         res.redirect("/login");
     }

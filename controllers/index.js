@@ -1,11 +1,11 @@
-exports.show_landing_page = 
+exports.show_landing = 
 
-    function(req, res){
+    (req, res) => {
         res.redirect("/dashboard");
     }
 
-exports.show_error_page = 
+exports.show_error = 
 
-    function(req, res){
+    (req, res) => {
         res.render("error");
     }

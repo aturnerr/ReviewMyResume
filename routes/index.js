@@ -1,13 +1,12 @@
 const express         = require("express"),
       router          = express.Router(),
-      isLoggedIn      = require("../middleware/is_logged_in"),
       IndexController = require("../controllers/index");
 
 /*==================================ROUTES====================================*/
 
-router.get("/", IndexController.show_landing_page);
+router.get("/", IndexController.show_landing);
 
 // any other route is an error
-router.get("/*", IndexController.show_error_page);
+router.get("/*", IndexController.show_error);
 
 module.exports = router;

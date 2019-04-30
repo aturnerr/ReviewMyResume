@@ -3,6 +3,7 @@ const User = require("../models/user");
 const re_username = /^[a-z0-9_]+$/i;
 const re_text = /^[a-z]+$/i;
 const re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const password_len = 8;
 
 exports.admin_show_dashboard = 
 
@@ -79,12 +80,11 @@ exports.admin_register =
         }
 
         // validate password 
-        if (req.body.password.trim().length < 8){
+        if (req.body.password.trim().length < password_len){
             req.flash("error", "Password too short!");
             res.redirect("/register");
         }
         
-
         // ensure that username is unique
         User.register(new User(req.body.user), req.body.password,
                                                             function(err, user){

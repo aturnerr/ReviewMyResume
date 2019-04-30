@@ -1,14 +1,13 @@
-var express = require('express');
+const express         = require("express"),
+      router          = express.Router(),
+      isLoggedIn      = require("../middleware/is_logged_in"),
+      IndexController = require("../controllers/index");
 
-var router = express.Router();
+/*==================================ROUTES====================================*/
 
-router.get("/", function(req, res){
-    res.redirect("/dashboard");
-});
+router.get("/", IndexController.show_landing_page);
 
 // any other route is an error
-router.get("/*", function(req, res){
-  res.render("error");
-});
+router.get("/*", IndexController.show_error_page);
 
 module.exports = router;

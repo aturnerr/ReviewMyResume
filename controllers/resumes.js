@@ -53,20 +53,7 @@ exports.show_resume_pdf =
 exports.upload_resume = 
 
     (req, res) => {
-
-        Section.create(req.body.section, function(err, section){
-            // console.log(req.body.section);
-            if (err){
-                console.log(err);
-                req.flash("error", "Sorry, your request couldn't be completed at this \
-                                                                    time.")
-                res.redirect("/projects/current");
-            }
-            project.sections.push(section);
-            project.save();
-            res.redirect("/projects/show/:id");
-        });
-
+        
         // create a new entry for the database
         const resume = new Resume({
             filename: req.file.filename,

@@ -4,7 +4,6 @@ var mongoose              = require("mongoose"),
     multer                = require('multer'),
     path                  = require('path'),
     fs                    = require('fs');
-    // pdf2png               = require('pdf2png');
     Resume                = require("../models/resume")
 
 var router = express.Router();

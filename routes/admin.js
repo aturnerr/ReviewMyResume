@@ -1,85 +1,27 @@
-var User     = require("../models/user"),
-    passport = require("passport"),
-    express  = require('express');
-
-var router = express.Router();
+const User            = require("../models/user"),
+      passport        = require("passport"),
+      express         = require("express"),
+      router          = express.Router(),
+      isLoggedIn      = require("../middleware/is_logged_in")
+      AdminController = require("../controllers/admin");
 
 /*=================================GET ROUTES=================================*/
 
-router.get("/dashboard", isLoggedIn, function(req, res){
-    res.render("dashboard");
-});
+router.get("/dashboard", isLoggedIn, AdminController.admin_show_dashboard);
 
-router.get("/register", function(req, res){
-    res.render("register");
-});
+router.get("/register", AdminController.admin_show_register);
 
-router.get("/login", function(req, res){
-    res.render("login");
-});
+router.get("/login", AdminController.admin_show_login);
 
-router.get("/logout", isLoggedIn, function(req, res){
-
-    User.findById(req.user._id, function(err, user){
-        if (err || !user){
-            req.flash("error", "Oops, something went wrong!");
-            res.redirect("/home");
-        }
-    });
-
-    // logout user and redirect to home page
-    req.logout();
-    req.flash("success", "Succesfully Logged Out!");
-    res.redirect("/");
-});
-
+router.get("/logout", isLoggedIn, AdminController.admin_logout);
 
 /*================================POST ROUTES=================================*/
 
-router.post("/register", function(req, res){
-
-    // ensure that username is unique
-    User.register(new User(req.body.user), req.body.password,
-                                                            function(err, user){
-
-        // if there's an error, let the user try again
-        if (err){
-            console.log(err);
-            req.flash("error", "Username already in use!");
-            res.redirect('/register');
-        }
-
-        req.flash("success", "Successfully registered a new user!");
-        res.redirect("/dashboard");
-    });
-});
+router.post("/register", AdminController.admin_register);
 
 router.post("/login", passport.authenticate("local", {
                                     failureRedirect: "/login",
                                     failureFlash: "Invalid username or password"
-                                }), function(req, res){
-
-    // authenticate user
-    User.findById(req.user._id, function(err, user){
-        if (err || !user){
-            // redirect to login page
-            req.flash("error", "Oops, something went wrong!");
-            res.redirect("/login");
-        }
-    });
-
-    req.flash("success", "Successfully Logged In");
-    res.redirect("/");
-});
-
-/*=================================MIDDLEWARE=================================*/
-
-function isLoggedIn(req, res, next){
-    if (req.isAuthenticated()){
-      return next();
-    }
-
-    res.redirect("/login");
-}
+                                }), AdminController.admin_login);
 
 module.exports = router;

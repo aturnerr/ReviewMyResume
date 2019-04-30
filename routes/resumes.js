@@ -50,12 +50,12 @@ const upload = multer({
 /*=================================GET ROUTES=================================*/
 
 // standard resume upload page and form
-router.get('/resumes/upload', (req, res) => {
+router.get('/resumes/upload', isLoggedIn, (req, res) => {
     res.render('upload');
 });
 
 // list of all currently stored resumes
-router.get('/resumes', (req, res) => {
+router.get('/resumes', isLoggedIn, (req, res) => {
   Resume.find((err, resumes) => {
     if (!err) {
       res.render("resumes", {resumes: resumes});
@@ -66,7 +66,7 @@ router.get('/resumes', (req, res) => {
 });
 
 // view a specific pdf in the browser
-router.get('/resumes/:filename', (req, res) => {
+router.get('/resumes/:filename', isLoggedIn, (req, res) => {
   const filename = req.params.filename;
   Resume.find({filename:filename}, (err, resume) => {
     // check if the function returned any results
@@ -101,7 +101,7 @@ router.get('/resumes/:filename', (req, res) => {
   });
 });
 
-router.get('/resumes/delete/:filename', (req, res) => {
+router.get('/resumes/delete/:filename', isLoggedIn, (req, res) => {
   const filename = req.params.filename;
   // delete from database
   Resume.deleteOne({filename: filename}, (err, result) => {
@@ -129,7 +129,7 @@ router.get('/resumes/delete/:filename', (req, res) => {
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file
-router.post('/resumes/upload', upload.single("file"), (req, res) => {
+router.post('/resumes/upload', isLoggedIn, upload.single("file"), (req, res) => {
     console.log(req.file);
     // create a new entry for the database
     const resume = new Resume({
@@ -148,5 +148,14 @@ router.post('/resumes/upload', upload.single("file"), (req, res) => {
     res.redirect("/resumes")
 });
 
+/*=================================MIDDLEWARE=================================*/
+
+function isLoggedIn(req, res, next){
+  if (req.isAuthenticated()){
+    return next();
+  }
+
+  res.redirect("/login");
+}
 
 module.exports = router;

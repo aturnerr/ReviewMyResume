@@ -71,6 +71,7 @@ router.post("/login", passport.authenticate("local", {
     req.flash("success", "Successfully Logged In");
     res.redirect("/");
 });
+
 /*=================================MIDDLEWARE=================================*/
 
 function isLoggedIn(req, res, next){

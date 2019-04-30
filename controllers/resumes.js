@@ -1,3 +1,6 @@
+const Resume = require("../models/resume"),
+      User   = require("../models/user");
+      
 exports.show_upload_page = 
 
     (req, res) => {
@@ -53,7 +56,7 @@ exports.show_resume_pdf =
 exports.upload_resume = 
 
     (req, res) => {
-        
+
         // create a new entry for the database
         const resume = new Resume({
             filename: req.file.filename,

@@ -1,10 +1,36 @@
 <% include ./partials/header-top %>
 
-    <title>login</title>
+    <title>dashboard</title>
     <link rel="stylesheet" href="/stylesheets/dashboard.css">
 
 <% include ./partials/header-bot %>
 <% include ./partials/navbar %>
 
+    <div id="content" class="py-5">
+        <div class="options container d-flex justify-content-between">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">My Resume</div>
+                <div class="card-body">
+                    <h5 class="card-title">card title</h5>
+                    <p class="card-text">Upload your resume <a href="/resumes/upload">here</a></p>
+                </div>
+            </div>
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Gallery</div>
+                <div class="card-body">
+                    <h5 class="card-title">card title</h5>
+                    <p class="card-text">View resume gallery <a href="/resumes">here</a></p>
+                </div>
+            </div>
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Anime</div>
+                <div class="card-body">
+                    <h5 class="card-title">Jojo's where it's at</h5>
+                    <p class="card-text">Do something <a href="https://www.crunchyroll.com/jojos-bizarre-adventure/episode-1-golden-wind-777705">here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
 <% include ./partials/footer %>

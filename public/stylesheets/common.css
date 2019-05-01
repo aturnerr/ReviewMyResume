@@ -1,5 +1,6 @@
 .alert{
     color: white;
+    background: rgba(0, 0, 0, 0);
     text-align: center;
     border-radius: 4px;
     position: absolute;
@@ -7,18 +8,18 @@
       left: 50%;
       transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    z-index: 1;
-    top: 50px;
+    z-index: 500;
+    top: 100px;
   }
   
 .alert-danger{
-    border-color: red;
-    background-color: red;
+  color: red;
+  border: 2px solid red;
 }
-
+  
 .alert-success{
-    border-color: rgb(2, 145, 145);
-    background-color:  rgb(2, 145, 145);
+  color: rgb(14, 197, 106);
+  border: 2px solid rgb(14, 197, 106);
 } 
 
 html{

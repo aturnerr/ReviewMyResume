@@ -10,7 +10,10 @@ var ResumeSchema = new mongoose.Schema({
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  }]
+  }],
+  rating: Number,
+  total_ratings: Number,
+  successful: Boolean
 });
 
 // return model as object

@@ -8,7 +8,9 @@ var CommentSchema = new mongoose.Schema({
           ref: "User"
       },
       username: String
-  }
+  },
+  n_upvotes: Number,
+  n_downvotes: Number
 });
 
 // return model as object

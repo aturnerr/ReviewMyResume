@@ -27,10 +27,9 @@ html{
 
 body{
   min-height: 100%;
-  background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%);
+  background-image: linear-gradient(180deg, #89f7fe 0%, #66a6ff 100%);
   background-repeat: no-repeat;
   color: white;
-  overflow: hidden;
 }
 
 .header{
@@ -47,18 +46,43 @@ body{
   background: white;
 }
 
+input, select{
+  border: none !important;
+}
+
 /*============================NAVBAR STYLING==================================*/
 
 .navbar{
-  background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%);
-  background-repeat: no-repeat;
+  background: white;
 }
 
 .navbar .navbar-brand{
   font-family: 'Oleo Script', Helvetica, sans-serif;
-  color: white;
+  color: rgb(50, 50, 50);
 }
 
 .navbar .nav-link{
-  color: white !important;
+  color: rgb(50, 50, 50) !important;
+}
+
+.navbar #toggler{
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.navbar #toggler:hover{
+  cursor: pointer;
+}
+
+.navbar #toggler:focus{
+  outline: none;
+}
+
+.scrolled-nav{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.045);
+  background-color: white;
+  transition: 500ms;
+}
+
+::-webkit-scrollbar { 
+  display: none; 
 }

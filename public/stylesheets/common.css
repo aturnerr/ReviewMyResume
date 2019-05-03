@@ -11,16 +11,16 @@
     z-index: 500;
     top: 100px;
   }
-  
+
 .alert-danger{
   color: red;
   border: 2px solid red;
 }
-  
+
 .alert-success{
   color: rgb(14, 197, 106);
   border: 2px solid rgb(14, 197, 106);
-} 
+}
 
 html{
   height: 100%;
@@ -45,10 +45,6 @@ body{
 
 .btn:hover{
   background: white;
-}
-
-input, select{
-  border: none !important;
 }
 
 /*============================NAVBAR STYLING==================================*/
@@ -84,6 +80,6 @@ input, select{
   transition: 500ms;
 }
 
-::-webkit-scrollbar { 
-  display: none; 
+::-webkit-scrollbar {
+  display: none;
 }

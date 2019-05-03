@@ -64,10 +64,12 @@ exports.upload_resume =
             url: req.file.path,
             last_updated: Date.now(),
             username: req.user.username,
-            // need to have a way of defining these somewhere else.
-            tags: ["tag1", "tag2"]
         })
-
+        // push tags
+        resume.tags.push(req.body.primary_tag);
+        if (req.body.secondary_tag) {
+          resume.tags.push(req.body.secondary_tag);
+        };
         // upload to database
         resume.save();
 

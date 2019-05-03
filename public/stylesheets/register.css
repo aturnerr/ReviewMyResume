@@ -2,25 +2,29 @@
     display: none;
 }
 
-select{ 
-    width: 420px !important; 
+select{
+    width: 420px !important;
     text-align-last:center;
+}
+
+input, select{
+  border: none !important;
 }
 
 /* .failed-input{
     background: rgb(223, 81, 112) !important;
 }
 
-.failed-input::placeholder { 
+.failed-input::placeholder {
     color: white !important;
-    opacity: 1; 
+    opacity: 1;
 }
-  
-.failed-input:-ms-input-placeholder { 
+
+.failed-input:-ms-input-placeholder {
     color: white !important;
 }
 
-::-ms-input-placeholder { 
+::-ms-input-placeholder {
     color: white !important;
 } */
 

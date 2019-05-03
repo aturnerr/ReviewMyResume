@@ -59,6 +59,7 @@ app.set("view engine", "ejs");  // use ejs templates (for dynamic pages)
 app.use(express.static(__dirname + "/public")); // use 'public' dir as default dir
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method")); // allows the use of PUT and DELETE reqs
+mongoose.set('useFindAndModify', false);
 
 /*=================================== ROUTING ================================*/
 

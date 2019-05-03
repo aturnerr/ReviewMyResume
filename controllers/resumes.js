@@ -1,13 +1,14 @@
-const Resume = require("../models/resume"),
-      User   = require("../models/user");
-      
-exports.show_upload_page = 
+const Resume            = require("../models/resume"),
+      fs                = require('fs'),
+      User              = require("../models/user");
+
+exports.show_upload_page =
 
     (req, res) => {
         res.render('upload');
     }
 
-exports.show_resume_gallery = 
+exports.show_resume_gallery =
 
     (req, res) => {
         Resume.find((err, resumes) => {
@@ -19,7 +20,7 @@ exports.show_resume_gallery =
         });
     }
 
-exports.show_resume_pdf = 
+exports.show_resume_pdf =
 
     (req, res) => {
         const filename = req.params.filename;
@@ -49,11 +50,11 @@ exports.show_resume_pdf =
             });
             }
         }
-    
+
         });
     }
 
-exports.upload_resume = 
+exports.upload_resume =
 
     (req, res) => {
 
@@ -62,23 +63,36 @@ exports.upload_resume =
             filename: req.file.filename,
             url: req.file.path,
             last_updated: Date.now(),
+            username: req.user.username,
             // need to have a way of defining these somewhere else.
             tags: ["tag1", "tag2"]
         })
-    
+
         // upload to database
         resume.save();
 
+
+        // User.findById(req.user._id, function(err, user){
+        //     if (err){
+        //         req.flash("error", "Oops something went wrong!");
+        //         res.redirect("/upload");
+        //     }
+        //     user.resumes.push(resume);
+        //
+        //     req.flash("success", "resume successfully added!");
+        //     res.redirect("/dashboard");
+        // });
+
         // link with user
-        User.findById(req.user._id, function(err, user){
-            if (err){
-                req.flash("error", "Oops something went wrong!");
-                res.redirect("/upload");
+        User.findOneAndUpdate(  { _id: req.user._id },
+                                { $push: { resumes: resume } },
+                                function (err, success) {
+            if (err) {
+              console.log(err);
+            } else {
+              // console.log(success);
+              req.flash("success", "resume successfully added!");
+              res.redirect("/dashboard");
             }
-
-            user.resumes.push(resume);
-
-            req.flash("success", "resume successfully added!");
-            res.redirect("/dashboard");
-        });
+          });
     }

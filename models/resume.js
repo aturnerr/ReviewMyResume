@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var ResumeSchema = new mongoose.Schema({
   filename: String,
   url: String,
+  username: String,
   last_updated: Date,
   tags: [{
     type: String

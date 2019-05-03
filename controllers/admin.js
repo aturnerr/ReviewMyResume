@@ -14,7 +14,7 @@ exports.admin_show_dashboard =
 exports.admin_show_register = 
 
     (req, res) => {
-        res.render("register");
+        res.render("register", { retry : false });
     }
 
 exports.admin_show_login = 
@@ -45,44 +45,110 @@ exports.admin_register =
     (req, res) => {
 
         // validate names
-        if (!re_text.test(req.body.user.fname) || 
-                                            !re_text.test(req.body.user.lname)){
-           req.flash("error", "Names must only contain letters!");
-           res.redirect("/register");
+        if (!re_text.test(req.body.user.fname)){
+            return res.render("register", { 
+                                        fname: "", 
+                                        lname: req.body.user.lname,
+                                        email: req.body.user.email,
+                                        occupation: req.body.user.occupation,
+                                        company: req.body.user.company,
+                                        country: req.body.user.country,
+                                        uname: req.body.user.uname,
+                                        error: "Names must only contain letters!",
+                                        retry: true
+                                    });
+        }
+        
+        if (!re_text.test(req.body.user.lname)){
+            return res.render("register", { 
+                                        fname: req.body.user.fname, 
+                                        lname: "",
+                                        email: req.body.user.email,
+                                        occupation: req.body.user.occupation,
+                                        company: req.body.user.company,
+                                        country: req.body.user.country,
+                                        uname: req.body.user.uname,
+                                        error: "Names must only contain letters!",
+                                        retry: true
+                                    });
         }
 
         // validate email
         if (!re_email.test(req.body.user.email)){
-            req.flash("error", "Invalid Email");
-            res.redirect("/register");
+            return res.render("register", { 
+                                        fname: req.body.user.fname, 
+                                        lname: req.body.user.lname,
+                                        email: "",
+                                        occupation: req.body.user.occupation,
+                                        company: req.body.user.company,
+                                        country: req.body.user.country,
+                                        uname: req.body.user.username,
+                                        error: "Invalid email!",
+                                        retry: true
+                                    });
         }
 
         if (req.body.user.type === "reviewer"){
 
             // validate occupation
             if (!re_text.test(req.body.user.occupation)){
-                req.flash("error", "Invalid occupation!");
-                res.redirect("/register");
+                return res.render("register", { 
+                                            fname: req.body.user.fname, 
+                                            lname: req.body.user.lname,
+                                            email: req.body.user.email,
+                                            occupation: "",
+                                            company: req.body.user.company,
+                                            country: req.body.user.country,
+                                            uname: req.body.user.username,
+                                            error: "Invalid occupation!",
+                                            retry: true
+                                       });
             }
 
-            // validate company
+            // validate company - company name may have numbers, eg.ws02
             if (!re_username.test(req.body.user.company)){
-                req.flash("error", "Invalid company name!");
-                res.redirect("/register");
+                return res.render("register", { 
+                                            fname: req.body.user.fname, 
+                                            lname: req.body.user.lname,
+                                            email: req.body.user.email,
+                                            occupation: req.body.user.occupation,
+                                            company: "",
+                                            country: req.body.user.country,
+                                            uname: req.body.user.username,
+                                            error: "Invalid occupation!",
+                                            retry: true
+                                        });
             }
         }
 
         // validate username
         if (!re_username.test(req.body.user.username)){
-            req.flash("error", "Usernames can only have letters, numbers and \
-                                underscores!");
-            res.redirect("/register");
+            return res.render("register", { 
+                                        fname: req.body.user.fname, 
+                                        lname: req.body.user.lname,
+                                        email: req.body.user.email,
+                                        occupation: req.body.user.occupation,
+                                        company: req.body.user.company,
+                                        country: req.body.user.country,
+                                        uname: "",
+                                        error: "Usernames can only have letters, numbers and underscores!",
+                                        retry: true
+                                    });
         }
 
         // validate password 
         if (req.body.password.trim().length < password_len){
-            req.flash("error", "Password too short!");
-            res.redirect("/register");
+            return res.render("register", { 
+                                        fname: req.body.user.fname, 
+                                        lname: req.body.user.lname,
+                                        email: req.body.user.email,
+                                        occupation: req.body.user.occupation,
+                                        company: req.body.user.company,
+                                        country: req.body.user.country,
+                                        uname: "req.body.user.uname",
+                                        error: "Password too short!",
+                                        retry: true
+                                    });
         }
         
         // ensure that username is unique

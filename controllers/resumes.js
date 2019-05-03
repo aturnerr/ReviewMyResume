@@ -64,6 +64,7 @@ exports.upload_resume =
             url: req.file.path,
             last_updated: Date.now(),
             username: req.user.username,
+            description: req.body.description
         })
         // push tags
         resume.tags.push(req.body.primary_tag);

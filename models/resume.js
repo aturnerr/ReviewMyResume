@@ -12,6 +12,7 @@ var ResumeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }],
+  description: String,
   n_upvotes: Number,
   n_downvotes: Number,
   successful: Boolean

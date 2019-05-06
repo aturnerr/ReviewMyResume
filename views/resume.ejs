@@ -1,0 +1,28 @@
+<% include ./partials/header-top %>
+
+    <title>Resumes</title>
+    <link rel="stylesheet" href="/stylesheets/resume.css">
+
+<% include ./partials/header-bot %>
+
+    <div class="header d-flex row justify-content-center align-content-center">
+      <h1>Resume Gallery</h1>
+    </div>
+
+    <div class="content">
+      <div class="gallery">
+        <div class="row flex-wrap justify-content-center">
+          <iframe class="resume_frame" src="<%= "/resumes/pdf/" + resume[0].filename%>" ></iframe>
+            <div class="resume mx-3 mb-5">
+              <div class="thumb"></div>
+                <div class="resume-text">
+                  <p><%= resume[0].username + "\'s resume" %></p>
+                  <%= console.log(resume[0]); %>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+<% include ./partials/footer %>

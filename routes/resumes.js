@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
   // what to call each file
   filename: function(req, file, cb) {
     // concatenate current time + filename
-    cb(null, new Date().toISOString().replace(/:|\./g,'-') + '-' + 
+    cb(null, new Date().toISOString().replace(/:|\./g,'-') + '-' +
                                                             file.originalname);
   }
 });
@@ -56,8 +56,9 @@ router.get('/resumes/upload', isLoggedIn, ResumesController.show_upload_page);
 router.get('/resumes', isLoggedIn, ResumesController.show_resume_gallery);
 
 // view a specific pdf in the browser
-router.get('/resumes/:filename', isLoggedIn, ResumesController.show_resume_pdf);
+router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_pdf);
 
+router.get('/resumes/:_id', isLoggedIn, ResumesController.view_resume);
 
 // THIS IS WRONG - should be a router.delete (we need a form for it)
 // router.get('/resumes/delete/:filename', isLoggedIn, (req, res) => {
@@ -88,7 +89,7 @@ router.get('/resumes/:filename', isLoggedIn, ResumesController.show_resume_pdf);
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file
-router.post('/resumes/upload', isLoggedIn, upload.single("file"), 
+router.post('/resumes/upload', isLoggedIn, upload.single("file"),
                                               ResumesController.upload_resume);
 
 module.exports = router;

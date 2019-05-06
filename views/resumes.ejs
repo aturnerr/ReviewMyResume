@@ -16,7 +16,7 @@
             <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
             <% }else{ %>
             <% resumes.forEach(function(resume){ %>
-                <a href="<%= "resumes/" + resume.filename%>" target="_blank" class="resume mx-3 mb-5">
+                <a href="<%= "resumes/" + resume._id%>" target="_blank" class="resume mx-3 mb-5">
                   <div class="thumb"></div>
                   <div class="resume-text">
                     <p><%= resume.username + "\'s resume" %></p>

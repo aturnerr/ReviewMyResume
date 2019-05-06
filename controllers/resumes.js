@@ -54,6 +54,23 @@ exports.show_resume_pdf =
         });
     }
 
+exports.view_resume =
+    (req, res) => {
+        const _id = req.params._id;
+        Resume.find({_id:_id}, (err, resume) => {
+          // check if the function returned any results
+          if (!resume.length){
+              res.status(500).json({
+              message: 'Resume not found'
+              });
+          }
+          // if it has, need to check if the file itself exists
+          else {
+            res.render("resume", {resume: resume});
+          }
+        });
+    }
+
 exports.upload_resume =
 
     (req, res) => {

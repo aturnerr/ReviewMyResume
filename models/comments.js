@@ -9,6 +9,10 @@ var CommentSchema = new mongoose.Schema({
       },
       username: String
   },
+  date: {
+      type: Date,
+      default: Date.now;
+  },
   n_upvotes: Number,
   n_downvotes: Number
 });

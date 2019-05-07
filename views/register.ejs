@@ -16,14 +16,14 @@
                     <% if (retry && fname !== ""){ %>
                         <input class="form-control" type="text" name="user[fname]" id="fname" value="<%= fname %>">
                     <% } else { %>
-                        <input class="form-control" type="text" name="user[fname]" id="fname" placeholder="first name*">
+                        <input class="form-control" type="text" name="user[fname]" id="fname" placeholder="first name">
                     <% } %>
                 </div>
                 <div class="col-11 col-md-2">
                         <% if (retry && lname !== ""){ %>
                             <input class="form-control" type="text" name="user[lname]" id="lname" value="<%= lname %>">
                         <% } else { %>
-                            <input class="form-control" type="text" name="user[lname]" id="lname" placeholder="last name*">
+                            <input class="form-control" type="text" name="user[lname]" id="lname" placeholder="last name">
                         <% } %>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <% if (retry && email !== ""){ %>
                         <input class="form-control" type="text" name="user[email]" id="email" value="<%= email %>">
                     <% } else { %>
-                        <input class="form-control" type="email" name="user[email]" id="email" placeholder="email*" required>
+                        <input class="form-control" type="email" name="user[email]" id="email" placeholder="email" required>
                     <% } %>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         <% if (retry && occupation !== ""){ %>
                             <input class="form-control" type="text" name="user[occupation]" id="occupation" value="<%= occupation %>">
                         <% } else { %>
-                            <input class="form-control" type="text" name="user[occupation]" id="occupation" placeholder="occupation*">
+                            <input class="form-control" type="text" name="user[occupation]" id="occupation" placeholder="occupation">
                         <% } %>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <% if (retry && company !== ""){ %>
                             <input class="form-control" type="text" name="user[company]" id="company" value="<%= company %>">
                         <% } else { %>
-                            <input class="form-control" type="text" name="user[company]" id="company" placeholder="company*">
+                            <input class="form-control" type="text" name="user[company]" id="company" placeholder="company">
                         <% } %>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
 
                             <option selected value='<%= country %>'><%= country %></option>
                         <% } else { %>
-                            <option selected disabled hidden value="country">country*</option>
+                            <option selected disabled hidden value="country">country</option>
                         <% } %>
                             <option value='Ascension Island'>Ascension Island</option>
                             <option value='Andorra'>Andorra</option>
@@ -350,14 +350,14 @@
                     <% if (retry && uname !== ""){ %>
                         <input class="form-control" type="text" name="user[username]" id="uname" value="<%= uname %>">
                     <% } else { %>
-                        <input class="form-control" type="text" name="user[username]" id="uname" placeholder="username*" required>
+                        <input class="form-control" type="text" name="user[username]" id="uname" placeholder="username" required>
                     <% } %>
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
                 <div class="col-11 col-md-4">
-                    <input class="form-control" type="password" name="password" id="password" placeholder="password*" minlength=8 required>
+                    <input class="form-control" type="password" name="password" id="password" placeholder="password" minlength=8 required>
                 </div>
             </div>
 

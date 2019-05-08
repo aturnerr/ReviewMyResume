@@ -17,7 +17,7 @@ var NotificationSchema = new mongoose.Schema({
         default: Date.now;
     }
 
-})
+});
 
 // return model as object
 module.exports = mongoose.model("Notification", NotificationSchema);

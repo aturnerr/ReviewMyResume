@@ -2,6 +2,16 @@ const Resume            = require("../models/resume"),
       fs                = require('fs'),
       User              = require("../models/user");
 
+
+const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building", 
+"Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science", 
+"Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering", 
+"Electronic Computer Engineering", "Geology", "Health Other", "Humanities","Languages", "Law", 
+"Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering", 
+"Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences", 
+"Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying", 
+"Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
+
 exports.show_upload_page =
 
     (req, res) => {
@@ -74,6 +84,18 @@ exports.view_resume =
 exports.upload_resume =
 
     (req, res) => {
+        // validate primary tag
+        if (!tags.includes(req.body.primary_tag)){
+            
+            return res.render('upload', {
+                                    primary_tag: req.body.primary_tag,
+                                    secondary_tag: req.body.secondary_tag,
+                                    description: req.body.description,
+                                    error: "Invalid primary tag!",  
+                                    retry: true
+                                });
+        }
+        // validate file is pdf
 
         // create a new entry for the database
         const resume = new Resume({

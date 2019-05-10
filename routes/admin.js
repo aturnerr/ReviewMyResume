@@ -2,7 +2,7 @@ const User            = require("../models/user"),
       passport        = require("passport"),
       express         = require("express"),
       router          = express.Router(),
-      isLoggedIn      = require("../middleware/is_logged_in")
+      isLoggedIn      = require("../middleware/is_logged_in"),
       AdminController = require("../controllers/admin");
 
 /*=================================GET ROUTES=================================*/

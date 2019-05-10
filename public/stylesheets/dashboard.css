@@ -2,3 +2,19 @@
     margin-top: 10vh;
 }
 
+body{
+    background: white;
+}
+
+.block{
+    background: #7e7ebb;
+}
+
+.block-1{
+    height: 10vh;
+}
+
+.block-2{
+    height: 40vh;
+}
+

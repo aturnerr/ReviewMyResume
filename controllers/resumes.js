@@ -173,7 +173,7 @@ exports.upload_resume =
           });
 
         // Relative path of the PDF file.
-        var pdfURL = 'uploads/' + req.file.filename;
+        var pdfURL = 'public/uploads/' + req.file.filename;
 
         // Read the PDF file into a typed array so PDF.js can load it.
         var rawData = new Uint8Array(fs.readFileSync(pdfURL));
@@ -198,7 +198,7 @@ exports.upload_resume =
             renderTask.promise.then(function() {
               // Convert the canvas to an image buffer.
               var image = canvasAndContext.canvas.toBuffer();
-              fs.writeFile('thumbs/' + req.file.filename + '.png', image, function (error) {
+              fs.writeFile('public/thumbs/' + req.file.filename + '.png', image, function (error) {
                 if (error) {
                   console.error('Error: ' + error);
                 }

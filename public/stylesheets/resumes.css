@@ -35,6 +35,7 @@ body {
 
 .thumb {
   height: 250px;
+  padding-top: 15px;
 }
 
 .header {

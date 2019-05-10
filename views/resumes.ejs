@@ -17,7 +17,9 @@
             <% }else{ %>
             <% resumes.forEach(function(resume){ %>
                 <a href="<%= "resumes/" + resume._id%>" target="_blank" class="resume mx-3 mb-5">
-                  <div class="thumb"></div>
+                  <div class="container thumb">
+                    <img class="img-fluid" src="<%= "/thumbs/" + resume.filename + ".png" %>" alt="thumbnail"></img>
+                  </div>
                   <div class="resume-text">
                     <p><%= resume.username + "\'s resume" %></p>
                   </div>

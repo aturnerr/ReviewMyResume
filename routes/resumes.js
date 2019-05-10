@@ -14,7 +14,7 @@ const Resume            = require("../models/resume"),
 const storage = multer.diskStorage({
   // where to store the file
   destination: function(req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, './public/uploads/');
   },
   // what to call each file
   filename: function(req, file, cb) {

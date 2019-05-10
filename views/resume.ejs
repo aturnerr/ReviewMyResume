@@ -17,7 +17,13 @@
               <div class="thumb"></div>
                 <div class="resume-text">
                   <p><%= resume[0].username + "\'s resume" %></p>
+                  
                   <%= console.log(resume[0]); %>
+                  <b>Description:</b>
+                  <p title="Description:"><%= resume[0].description %></p>
+                  <b>Tags:</b>
+                  <p><%= resume[0].tags[0]%><br>
+                     <%= resume[0].tags[1]%></p>
                 </div>
             </div>
         </div>

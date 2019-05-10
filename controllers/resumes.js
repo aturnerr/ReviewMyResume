@@ -37,13 +37,13 @@ NodeCanvasFactory.prototype = {
 };
 
 
-const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building", 
-"Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science", 
-"Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering", 
-"Electronic Computer Engineering", "Geology", "Health Other", "Humanities","Languages", "Law", 
-"Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering", 
-"Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences", 
-"Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying", 
+const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building",
+"Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
+"Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
+"Electronic Computer Engineering", "Geology", "Health Other", "Humanities","Languages", "Law",
+"Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering",
+"Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences",
+"Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
 "Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
 
 exports.show_upload_page =
@@ -120,14 +120,14 @@ exports.upload_resume =
     (req, res) => {
         // validate primary tag
         if (!tags.includes(req.body.primary_tag)){
-            
+
             return res.render('upload', {
-                                    primary_tag: req.body.primary_tag,
-                                    secondary_tag: req.body.secondary_tag,
-                                    description: req.body.description,
-                                    error: "Invalid primary tag!",  
-                                    retry: true
-                                });
+              primary_tag: req.body.primary_tag,
+              secondary_tag: req.body.secondary_tag,
+              description: req.body.description,
+              error: "Invalid primary tag!",
+              retry: true
+            });
         }
         // validate file is pdf
 
@@ -172,41 +172,58 @@ exports.upload_resume =
             }
           });
 
-          // Relative path of the PDF file.
-          var pdfURL = 'uploads/' + req.file.filename;
+        // Relative path of the PDF file.
+        var pdfURL = 'uploads/' + req.file.filename;
 
-          // Read the PDF file into a typed array so PDF.js can load it.
-          var rawData = new Uint8Array(fs.readFileSync(pdfURL));
+        // Read the PDF file into a typed array so PDF.js can load it.
+        var rawData = new Uint8Array(fs.readFileSync(pdfURL));
 
-          // Load the PDF file.
-          var loadingTask = pdfjsLib.getDocument(rawData);
-          loadingTask.promise.then(function(pdfDocument) {
+        // Load the PDF file.
+        var loadingTask = pdfjsLib.getDocument(rawData);
+        loadingTask.promise.then(function(pdfDocument) {
 
-            // Get the first page.
-            pdfDocument.getPage(1).then(function (page) {
-              // Render the page on a Node canvas with 100% scale.
-              var viewport = page.getViewport(1.0);
-              var canvasFactory = new NodeCanvasFactory();
-              var canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
-              var renderContext = {
-                canvasContext: canvasAndContext.context,
-                viewport: viewport,
-                canvasFactory: canvasFactory,
-              };
+          // Get the first page.
+          pdfDocument.getPage(1).then(function (page) {
+            // Render the page on a Node canvas with 100% scale.
+            var viewport = page.getViewport(1.0);
+            var canvasFactory = new NodeCanvasFactory();
+            var canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
+            var renderContext = {
+              canvasContext: canvasAndContext.context,
+              viewport: viewport,
+              canvasFactory: canvasFactory,
+            };
 
-              var renderTask = page.render(renderContext);
-              renderTask.promise.then(function() {
-                // Convert the canvas to an image buffer.
-                var image = canvasAndContext.canvas.toBuffer();
-                fs.writeFile('thumbs/' + req.file.filename + '.png', image, function (error) {
-                  if (error) {
-                    console.error('Error: ' + error);
-                  }
-                });
+            var renderTask = page.render(renderContext);
+            renderTask.promise.then(function() {
+              // Convert the canvas to an image buffer.
+              var image = canvasAndContext.canvas.toBuffer();
+              fs.writeFile('thumbs/' + req.file.filename + '.png', image, function (error) {
+                if (error) {
+                  console.error('Error: ' + error);
+                }
               });
             });
-          }).catch(function(reason) {
-            console.log(reason);
           });
+        }).catch(function(reason) {
+          console.log(reason);
+        });
 
     }
+
+exports.post_comment =
+  (req, res) => {
+      const _id = req.params._id;
+      Resume.find({_id:_id}, (err, resume) => {
+        // check if the function returned any results
+        if (!resume.length){
+            res.status(500).json({
+            message: 'Resume not found'
+            });
+        }
+        // if it has, need to check if the file itself exists
+        else {
+          res.render("resume", {resume: resume});
+        }
+      });
+  }

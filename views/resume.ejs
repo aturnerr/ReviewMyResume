@@ -6,26 +6,24 @@
 <% include ./partials/header-bot %>
 
     <div class="header d-flex row justify-content-center align-content-center">
-      <h1>Resume Gallery</h1>
+      <h1><%= resume[0].username + "\'s Resume" %></h1>
     </div>
 
     <div class="content">
-      <div class="gallery">
-        <div class="row flex-wrap justify-content-center">
-          <iframe class="resume_frame" src="<%= "/resumes/pdf/" + resume[0].filename%>" ></iframe>
-            <div class="resume mx-3 mb-5">
-              <div class="thumb"></div>
-                <div class="resume-text">
-                  <p><%= resume[0].username + "\'s resume" %></p>
-                  
-                  <%= console.log(resume[0]); %>
-                  <b>Description:</b>
-                  <p title="Description:"><%= resume[0].description %></p>
-                  <b>Tags:</b>
-                  <p><%= resume[0].tags[0]%><br>
-                     <%= resume[0].tags[1]%></p>
-                </div>
-            </div>
+      <div class="flex-wrap row justify-content-center">
+        <iframe class="resume_frame" src="<%= "/resumes/pdf/" + resume[0].filename%>" ></iframe>
+        <div class="description mx-3 mb-5">
+          <b>Description:</b>
+          <p title="Description:"><%= resume[0].description %></p>
+          <b>Industry Tags:</b>
+          <p><%= resume[0].tags[0]%><br>
+             <%= resume[0].tags[1]%></p>
+          <b>Comments:</b>
+          <p>No comments yet!</p>
+          <form method="POST">
+            <textarea class="form-control" name="comment" placeholder="Leave a comment"></textarea>
+            <input class="mt-2 btn" type="submit" value="Submit"</input>
+          </form>
         </div>
       </div>
     </div>

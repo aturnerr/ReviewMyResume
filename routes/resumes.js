@@ -91,5 +91,6 @@ router.get('/resumes/:_id', isLoggedIn, ResumesController.view_resume);
 // route for uploading the file
 router.post('/resumes/upload', isLoggedIn, upload.single("file"),
                                               ResumesController.upload_resume);
+router.post('/resumes/:_id', isLoggedIn, ResumesController.post_comment);
 
 module.exports = router;

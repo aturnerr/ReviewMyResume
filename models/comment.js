@@ -11,7 +11,7 @@ var CommentSchema = new mongoose.Schema({
   },
   date: {
       type: Date,
-      default: Date.now;
+      default: Date.now
   },
   type: String,
   n_upvotes: Number,

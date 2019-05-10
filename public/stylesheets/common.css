@@ -56,12 +56,12 @@ body{
 /*============================NAVBAR STYLING==================================*/
 
 .navbar{
-  background: white;
+  background-image: linear-gradient(to top, #505285 0%, #65689f 25%, #7e7ebb 50%,  #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);
 }
 
 .navbar .navbar-brand{
   font-family: 'Oleo Script', Helvetica, sans-serif;
-  color: rgb(50, 50, 50);
+  color: white;
 }
 
 .navbar .nav-link{

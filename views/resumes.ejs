@@ -4,10 +4,57 @@
     <link rel="stylesheet" href="/stylesheets/resumes.css">
 
 <% include ./partials/header-bot %>
-
     <div class="header d-flex row justify-content-center align-content-center">
       <h1>Resume Gallery</h1>
     </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 style="color:blueviolet">Filter by Tags</h3>
+    <select class="form-control" name="user[type]" id="myInput" onchange="myFunction()">
+      <option selected value="">All</option>
+      <option value="Agriculture">Agriculture</option>
+      <option value="Accounting">Accounting</option>
+      <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+      <option value="Architecture">Architecture</option>
+      <option value="Building">Building</option>
+      <option value="Business Studies">Business Studies</option>
+      <option value="Chemical Engineering">Chemical Engineering</option>
+      <option value="Chemistry">Chemistry</option>
+      <option value="Civil Engineering">Civil Engineering</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="Dentistry">Dentistry</option>
+      <option value="Economics">Economics</option>
+      <option value="Education Initial">Education Initial</option>
+      <option value="Education Post Other">Education Post Other</option>
+      <option value="Electrical Engineering">Electrical Engineering</option>
+      <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
+      <option value="Geology">Geology</option>
+      <option value="Health Other">Health Other</option>
+      <option value="Humanities">Humanities</option>
+      <option value="Languages">Languages</option>
+      <option value="Law">Law</option>
+      <option value="Life Sciences">Life Sciences</option>
+      <option value="Mathematics">Mathematics</option>
+      <option value="Mechanical Engineering">Mechanical Engineering</option>
+      <option value="Medicine">Medicine</option>
+      <option value="Mining Engineering">Mining Engineering</option>
+      <option value="Nursing Initial">Nursing Initial</option>
+      <option value="Nursing Post Initial">Nursing Post Initial</option>
+      <option value="Other Engineering">Other Engineering</option>
+      <option value="Pharmacy">Pharmacy</option>
+      <option value="Physical Sciences">Physical Sciences</option>
+      <option value="Psychology">Psychology</option>
+      <option value="Rehabilitation">Rehabilitation</option>
+      <option value="Social Sciences">Social Sciences</option>
+      <option value="Social Work">Social Work</option>
+      <option value="Surveying">Surveying</option>
+      <option value="Urban Regional Planning">Urban Regional Planning</option>
+      <option value="Veterinary Science">Veterinary Science</option>
+      <option value="Visual Performing Arts">Visual Performing Arts</option>
+    </select>
 
     <div class="content">
       <div class="gallery">
@@ -16,18 +63,52 @@
             <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
             <% }else{ %>
             <% resumes.forEach(function(resume){ %>
-                <a href="<%= "resumes/" + resume._id%>" target="_blank" class="resume mx-3 mb-5">
+                <a id = "resumes" href="<%= "resumes/" + resume._id%>" target="_blank" class="resume mx-3 mb-5">
                   <div class="container thumb">
                     <img class="img-fluid" src="<%= "/thumbs/" + resume.filename + ".png" %>" alt="thumbnail"></img>
                   </div>
                   <div class="resume-text">
                     <p><%= resume.username + "\'s resume" %></p>
+                    <!--These are the hidden tag elements that the filter function uses-->
+                    <div class="tag1" style= "display:none">
+                      <%= resume.tags[0] %>
+                    </div>
+                    <div class="tag2" style= "display:none">
+                        <%= resume.tags[1] %>
+                    </div>
                   </div>
                 </a>
             <% }); %>
             <% } %>
         </div>
       </div>
+      <script>
+          function myFunction() {
+            // Declare variables 
+            var input, filter, resumes, td, td2, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.options[input.selectedIndex].value;
+            resumes = document.getElementsByTagName("a");
+          
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < resumes.length; i++) {
+              td = resumes[i].getElementsByClassName("tag1");
+              td2 = resumes[i].getElementsByClassName("tag2");
+              if (td) {
+                txtValue = td[0].innerText;
+                if (txtValue.indexOf(filter) > -1) {
+                  resumes[i].style.display = "";
+                } else if (td2 && td2[0].innerText.indexOf(filter) > -1) {
+                  resumes[i].style.display = "";
+                } else {
+                  resumes[i].style.display = "none";
+                }
+              } else {
+                resumes[i].style.display = "none";
+              }
+            }
+          }
+          </script>
     </div>
 
 

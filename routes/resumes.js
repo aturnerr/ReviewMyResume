@@ -6,7 +6,11 @@ const Resume            = require("../models/resume"),
       fs                = require('fs'),
       router            = express.Router(),
       isLoggedIn        = require("../middleware/is_logged_in"),
-      ResumesController = require("../controllers/resumes");
+      ResumesController = require("../controllers/resumes"),
+      sanitiser         = require('express-sanitizer');
+
+// mount middleware for express santitiser
+router.use(sanitiser());
 
 /*================================ FILE STORAGE ==============================*/
 

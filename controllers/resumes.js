@@ -4,11 +4,8 @@ const Resume            = require("../models/resume"),
       User              = require("../models/user"),
       Canvas            = require('canvas'),
       assert            = require('assert'),
-      pdfjsLib          = require('pdfjs-dist'),
-      sanitiser         = require('express-sanitizer');
+      pdfjsLib          = require('pdfjs-dist');
 
-// mount middleware for express santitiser
-router.use(sanitiser());
 
 const MIN_DESC_LENGTH = 50;
 const MAX_DESC_LENGTH = 300;

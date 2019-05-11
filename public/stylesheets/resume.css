@@ -6,12 +6,14 @@ body {
   width: 100%;
   min-height: 80vh;
   border-radius: 6px;
+  border: none;
 }
 
 #desc {
   background-color: white;
   border-radius: 6px;
   color: rgb(107, 107, 107);
+  height: 80vh;
 }
 
 .header {
@@ -48,4 +50,18 @@ body {
 
 iframe{
   border-radius: 4px;
+}
+
+.comment-btn{
+  border: 1px solid rgb(122, 166, 255);
+  color: rgb(122, 166, 255);
+  border-radius: 5px;
+  width: 100%;
+  transition: 500ms;
+}
+
+.comment-btn:hover{
+  color: white;
+  background: rgb(122, 166, 255);
+  cursor: pointer;
 }

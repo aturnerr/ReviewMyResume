@@ -1,4 +1,5 @@
 const Resume            = require("../models/resume"),
+      Comment           = require("../models/comment"),
       fs                = require('fs'),
       User              = require("../models/user"),
       Canvas            = require('canvas'),
@@ -100,19 +101,14 @@ exports.show_resume_pdf =
 
 exports.view_resume =
     (req, res) => {
-        const _id = req.params._id;
-        Resume.find({_id:_id}, (err, resume) => {
-          // check if the function returned any results
-          if (!resume.length){
-              res.status(500).json({
-              message: 'Resume not found'
-              });
+        Resume.findById(req.params.id).populate("comments").exec((err, resume) => {
+         
+          if (err || !resume){
+            res.flash("Sorry, that resume does not exist!");
+            res.redirect("/resumes");
           }
-          // if it has, need to check if the file itself exists
-          else {
-            console.log(resume);
-            res.render("resume", {resume: resume[0]});
-          }
+          
+          res.render("resume", {resume: resume});
         });
     }
 
@@ -201,18 +197,38 @@ exports.upload_resume =
     }
 
 exports.post_comment =
+  
   (req, res) => {
-      const _id = req.params._id;
-      Resume.find({_id:_id}, (err, resume) => {
-        // check if the function returned any results
-        if (!resume.length){
-            res.status(500).json({
-            message: 'Resume not found'
-            });
+      Resume.findById(req.params.id, (err, resume) => {
+        
+        if (err || !resume){
+          res.flash("Sorry, that resume does not exist!");
+          res.redirect("/resumes");
         }
-        // if it has, need to check if the file itself exists
-        else {
-          res.render("resume", {resume: resume});
-        }
+        
+        // --  add additional info
+        var author = {
+          id: req.user.id,
+          username: req.user.username
+        };
+
+        req.body.comment.author = author;
+        req.body.comment.type = req.user.type === "student" ? "comment" : "review";
+        
+        Comment.create(req.body.comment, function(err, comment){
+
+          if (err){
+            req.flash("error", "Sorry, your request couldn't be completed at this \
+                                                                        time.");
+            res.redirect("/resumes/" + req.params.id);
+          }
+
+          resume.comments.push(comment);
+          resume.save();
+
+          console.log(resume);
+
+          res.redirect("/resumes/" + req.params.id);
+        });
       });
   }

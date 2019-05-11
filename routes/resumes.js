@@ -58,13 +58,14 @@ router.get('/resumes', isLoggedIn, ResumesController.show_resume_gallery);
 // view a specific pdf in the browser
 router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_pdf);
 
-router.get('/resumes/:_id', isLoggedIn, ResumesController.view_resume);
+// view a specific resume 
+router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file
 router.post('/resumes/upload', isLoggedIn, upload.single("file"),
                                               ResumesController.upload_resume);
-router.post('/resumes/:_id', isLoggedIn, ResumesController.post_comment);
+router.post('/resumes/:id', isLoggedIn, ResumesController.post_comment);
 
 module.exports = router;

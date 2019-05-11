@@ -119,7 +119,7 @@ exports.upload_resume =
         // validate primary tag
         if (!tags.includes(req.body.primary_tag)){
 
-            return res.render('upload', {
+            return res.render('resume-upload', {
               secondary_tag: req.body.secondary_tag,
               description: req.body.description,
               error: "Invalid primary tag!",
@@ -129,7 +129,7 @@ exports.upload_resume =
         // validate secondary tag
         if (!tags.includes(req.body.secondary_tag)){
 
-            return res.render('upload', {
+            return res.render('resume-upload', {
               primary_tag: req.body.primary_tag,
               description: req.body.description,
               error: "Invalid secondary tag!",
@@ -139,7 +139,7 @@ exports.upload_resume =
         //validate tag1 != tag2
         if (req.body.primary_tag == req.body.secondary_tag){
 
-            return res.render('upload', {
+            return res.render('resume-upload', {
               description: req.body.description,
               error: "Can't choose 2 of the same tags",
               retry: true
@@ -148,14 +148,14 @@ exports.upload_resume =
         //check text input is valid
          //validate description is not too long
          if (req.body.description.length > descriptionLength){
-              return res.render('upload', {
+              return res.render('resume-upload', {
               primary_tag: req.body.primary_tag,
               secondary_tag: req.body.secondary_tag,
               error: "Description must be less than 300 characters",
               retry: true
             });
         } else if (req.body.description.length === 0){
-            return res.render('upload', {
+            return res.render('resume-upload', {
                 primary_tag: req.body.primary_tag,
                 secondary_tag: req.body.secondary_tag,
                 error: "Please include an informative description about your Resume",

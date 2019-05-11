@@ -161,7 +161,7 @@ exports.admin_register =
                 res.redirect('/register');
             }
 
-            req.flash("success", "Successfully registered a new user!");
+            req.flash("success", "Welcome, " + req.body.user.username + "!");
             res.redirect("/dashboard");
         });
     }
@@ -179,6 +179,6 @@ exports.admin_login =
             }
         });
 
-        req.flash("success", "Successfully Logged In");
+        req.flash("success", "Welcome back, " + req.user.username + "!");
         res.redirect("/dashboard");
     }

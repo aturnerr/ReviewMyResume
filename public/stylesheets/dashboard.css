@@ -1,13 +1,17 @@
 #content{
     margin-top: 10vh;
+    padding-top: 15vh;
 }
 
 body{
     background: white;
+    overflow: hidden;
 }
 
 .block{
     background: #7e7ebb;
+    border-radius: 4px;
+    transition: 500ms;
 }
 
 .block-1{
@@ -16,5 +20,32 @@ body{
 
 .block-2{
     height: 40vh;
+}
+
+.block-1 h4{
+    font-weight: 200;
+}
+
+.block-1 h4 span{
+    font-weight: 600;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.block:hover{
+    transform: scale(1.05) perspective(1px);
+    cursor: pointer;
+    /* background: #9795d4; */
+}
+
+.block-2 h5{
+    font-weight: 600;
 }
 

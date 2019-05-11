@@ -4,9 +4,9 @@
     text-align: center;
     border-radius: 4px;
     position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     z-index: 500;
     top: 100px;
@@ -56,7 +56,7 @@ body{
 /*============================NAVBAR STYLING==================================*/
 
 .navbar{
-  background-image: linear-gradient(to top, #505285 0%, #65689f 25%, #7e7ebb 50%,  #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);
+  background-image: linear-gradient(-225deg, #505285 0%, #9795d4 53%, #a2a1dc 100%);
 }
 
 .navbar .navbar-brand{
@@ -70,6 +70,10 @@ body{
 
 .navbar #toggler{
   border-color: rgba(0, 0, 0, 0);
+}
+
+#navbarDropdown i{
+  color: white;
 }
 
 .navbar #toggler:hover{
@@ -86,6 +90,3 @@ body{
   transition: 500ms;
 }
 
-/* ::-webkit-scrollbar {
-  display: none;
-} */

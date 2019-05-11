@@ -147,18 +147,6 @@ exports.upload_resume =
         // upload to database
         resume.save();
 
-
-        // User.findById(req.user._id, function(err, user){
-        //     if (err){
-        //         req.flash("error", "Oops something went wrong!");
-        //         res.redirect("/upload");
-        //     }
-        //     user.resumes.push(resume);
-        //
-        //     req.flash("success", "resume successfully added!");
-        //     res.redirect("/dashboard");
-        // });
-
         // link with user
         User.findOneAndUpdate(  { _id: req.user._id },
                                 { $push: { resumes: resume } },
@@ -167,7 +155,7 @@ exports.upload_resume =
               console.log(err);
             } else {
               // console.log(success);
-              req.flash("success", "resume successfully added!");
+              req.flash("success", "Your Resume Was Successfully Uploaded!");
               res.redirect("/dashboard");
             }
           });

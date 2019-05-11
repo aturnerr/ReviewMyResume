@@ -60,32 +60,6 @@ router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_p
 
 router.get('/resumes/:_id', isLoggedIn, ResumesController.view_resume);
 
-// THIS IS WRONG - should be a router.delete (we need a form for it)
-// router.get('/resumes/delete/:filename', isLoggedIn, (req, res) => {
-//   const filename = req.params.filename;
-//   // delete from database
-//   Resume.deleteOne({filename: filename}, (err, result) => {
-//     if (!err) {
-//       res.status(200).json({
-//         message: 'Resume deleted',
-//       });
-//     } else {
-//       console.log(err);
-//       res.status(500).json({
-//         message: 'Resume not found'
-//       });
-//     }
-//   });
-//   // delete from file system
-//   fs.unlink("uploads/" + filename, (err) => {
-//     if (!err) {
-//       console.log('File deleted.')
-//     } else {
-//       console.log('File not deleted.')
-//     }
-//   })
-// });
-
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file

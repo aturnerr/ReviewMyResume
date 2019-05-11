@@ -6,26 +6,36 @@
 <% include ./partials/header-bot %>
 <% include ./partials/navbar %>
 
-    <div id="content" class="py-5">
+    <div id="content">
 
         <div class="container">
 
             <div class="row">
                 <div class="col col-6">
-                    <div class="row block block-1 py-3 mb-3 mr-1">
-                        <h5><a href="/resumes/upload">upload</a> your resume</h5>
-                    </div>
-                    <div class="row block block-2 py-3 mr-1">
-                        
+                    <a href="/resumes/upload">
+                        <div id="upload" class="row block block-1 py-3 mb-3 mr-1 d-flex align-items-center justify-content-center">
+                            <h4><span>upload</span> your resume</h4>
+                        </div>
+                    </a>
+                    <div id="notifs" class="row block block-2 py-3 mr-1 d-flex justify-content-center">
+                        <h4 class="mt-2" >Notifications</h4>
                     </div>
                 </div>
                 <div class="col col-6">
-                    <div class="row block block-2 py-3 ml-1">
-                        Resume Gallery
-                    </div>
-                    <div class="row block block-1 py-3 mt-3 ml-1">
-                        <h5>view your resume</h5>
-                    </div>
+                    <a href="/resumes">
+                        <div id="gallery" class="row block block-2 py-3 ml-1 d-flex justify-content-center align-items-center">
+                            <h4 class="mt-2">Resume Gallery</h4>
+                        </div>
+                    </a>
+                    <% if (currentUser.resumes && currentUser.resumes.length > 0) { %>
+                        <a href="/resumes/<%= currentUser.resumes[currentUser.resumes.length-1]._id %>">
+                    <% } else { %>
+                        <a href="/resumes/upload">
+                    <% } %>
+                        <div id="view" class="row block block-1 py-3 mt-3 ml-1 d-flex align-items-center justify-content-center">
+                            <h4><span>view</span> your resume</h4>
+                        </div>
+                    </a>
                             
                 </div>
             </div>

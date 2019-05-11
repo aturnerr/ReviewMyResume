@@ -8,7 +8,7 @@ const Resume            = require("../models/resume"),
 
 
 const MIN_DESC_LENGTH = 50;
-const MAX_DESC_LENGTH = 300;
+const MAX_DESC_LENGTH = 200;
 const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building",
 "Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
 "Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
@@ -105,8 +105,10 @@ exports.show_resume_pdf =
     }
 
 exports.view_resume =
+    
     (req, res) => {
-        Resume.findById(req.params.id).populate("comments").exec((err, resume) => {
+
+        Resume.findById(req.params.id).populate('comments').exec((err, resume) => {
          
           if (err || !resume){
             res.flash("Sorry, that resume does not exist!");
@@ -121,16 +123,16 @@ exports.upload_resume =
 
     (req, res) => {
 
-      // ensure that a file was uploaded
-      if (!req.body.filename || req.body.filename.length ==0){
-          return res.render('upload-resume', {
-                                                primary_tag: req.body.primary_tag,
-                                                secondary_tag: req.body.secondary_tag,
-                                                description: req.body.description,
-                                                error: "You didn't upload a file!",
-                                                retry: true
-                                            });
-      }
+      // // ensure that a file was uploaded
+      // if (!req.body.filename || req.body.filename.length ==0){
+      //     return res.render('upload-resume', {
+      //                                           primary_tag: req.body.primary_tag,
+      //                                           secondary_tag: req.body.secondary_tag,
+      //                                           description: req.body.description,
+      //                                           error: "You didn't upload a file!",
+      //                                           retry: true
+      //                                       });
+      // }
         
       // ensure that tags are valid
       if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
@@ -162,7 +164,7 @@ exports.upload_resume =
                                                 primary_tag: req.body.primary_tag,
                                                 secondary_tag: req.body.secondary_tag,
                                                 description: "",
-                                                error: "The description must be between 50 to 300 characters!",
+                                                error: "The description must be between 50 to 200 characters!",
                                                 retry: true
                                               });
       }
@@ -184,6 +186,7 @@ exports.upload_resume =
       if (req.body.secondary_tag) {
         resume.tags.push(req.body.secondary_tag);
       };
+
       // upload to database
       resume.save();
 
@@ -192,7 +195,7 @@ exports.upload_resume =
                               { $push: { resumes: resume } },
                               function (err, success) {
           if (err) {
-            console.log(err);
+            // console.log(err);
           } else {
             // console.log(success);
             req.flash("success", "Your Resume Was Successfully Uploaded!");
@@ -228,13 +231,13 @@ exports.upload_resume =
             var image = canvasAndContext.canvas.toBuffer();
             fs.writeFile('public/thumbs/' + req.file.filename + '.png', image, function (error) {
               if (error) {
-                console.error('Error: ' + error);
+                // console.error('Error: ' + error);
               }
             });
           });
         });
       }).catch(function(reason) {
-        console.log(reason);
+        // console.log(reason);
       });
 
     }

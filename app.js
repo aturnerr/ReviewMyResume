@@ -13,7 +13,7 @@ var methodOverride        = require("method-override"),
 var User  = require("./models/user");
 
 var indexRoutes  = require("./routes/index.js");
-var adminRoutes  = require("./routes/admin.js");
+var userRoutes  = require("./routes/user.js");
 var resumeRoutes = require("./routes/resumes.js");
 
 /*================================= APP CONFIG ===============================*/
@@ -63,7 +63,7 @@ mongoose.set('useFindAndModify', false);
 
 /*=================================== ROUTING ================================*/
 
-app.use(adminRoutes);
+app.use(userRoutes);
 app.use(resumeRoutes);
 app.use(indexRoutes);
 

@@ -36,17 +36,34 @@
                   <br>
 
                   <!-- Comments -->
-                  <p class="title mt-3">Comments:</p>
-                  <% resume.comments.forEach(comment => { %>
+                  <p class="title mt-3">Comments/ Reviews:</p>
+
+                  <div class="comments">
+                      <% resume.comments.forEach(comment => { %>
                         <% if (comment.type === "review") { %>
                         <div class="comment review-comment">
                         <% } else { %>
-                        <div class="comment">
+                        <div class="comment student-comment">
                         <% } %>
-                          <p>comment.text</p>
+                          <div class="container">
+                              <p class="author"><%= comment.author.username %></p>
+                              <p class="comment-text"><%= comment.text %></p>
+                              <div class="info d-flex justify-content-around">
+                              <% if (String(currentUser._id) === String(comment.author.id)){ %>
+                                  <a href="">edit</a>
+                                  <span>•</span>
+                                  <a href="">delete</a>
+                                  <span>•</span>
+                              <% } %>
+                                  <% var date = comment.date.toString(); %>
+                                  <span><%= date.substring(0, 3) %>, <%= date.substring(4,21) %></span>
+                              </div>
+                          </div>
                         </div>
-                  <% }); %>
-                  <form method="POST" action="/resumes/<%= resume._id %>">
+                      <% }); %>
+                  </div>
+                  
+                  <form class="mt-4" method="POST" action="/resumes/<%= resume._id %>">
                     <textarea class="form-control" name="comment[text]" placeholder="Leave a comment"></textarea>
                     <button class="mt-2 comment-btn">Submit</button>
                   </form>

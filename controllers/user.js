@@ -5,25 +5,25 @@ const re_text = /^[a-z]+$/i;
 const re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const password_len = 8;
 
-exports.admin_show_dashboard = 
+exports.user_show_dashboard = 
 
     (req, res) => {
         res.render("dashboard");
     }
 
-exports.admin_show_register = 
+exports.user_show_register = 
 
     (req, res) => {
         res.render("register", { retry : false });
     }
 
-exports.admin_show_login = 
+exports.user_show_login = 
 
     (req, res) => {
         res.render("login");
     }
 
-exports.admin_logout = 
+exports.user_logout = 
 
     (req, res) => {
 
@@ -40,7 +40,7 @@ exports.admin_logout =
         res.redirect("/login");
     }
 
-exports.admin_register = 
+exports.user_register = 
 
     (req, res) => {
 
@@ -53,7 +53,7 @@ exports.admin_register =
                                         occupation: req.body.user.occupation,
                                         company: req.body.user.company,
                                         country: req.body.user.country,
-                                        uname: req.body.user.uname,
+                                        uname: req.body.userusername,
                                         error: "Names must only contain letters!",
                                         retry: true
                                     });
@@ -67,7 +67,7 @@ exports.admin_register =
                                         occupation: req.body.user.occupation,
                                         company: req.body.user.company,
                                         country: req.body.user.country,
-                                        uname: req.body.user.uname,
+                                        uname: req.body.userusername,
                                         error: "Names must only contain letters!",
                                         retry: true
                                     });
@@ -145,7 +145,7 @@ exports.admin_register =
                                         occupation: req.body.user.occupation,
                                         company: req.body.user.company,
                                         country: req.body.user.country,
-                                        uname: "req.body.user.uname",
+                                        uname: req.body.user.username,
                                         error: "Password too short!",
                                         retry: true
                                     });
@@ -161,12 +161,12 @@ exports.admin_register =
                 res.redirect('/register');
             }
 
-            req.flash("success", "Welcome, " + req.body.user.username + "!");
-            res.redirect("/dashboard");
+            req.flash("success", "Succesfully Signed Up- Please Log In Now!");
+            res.redirect("/login");
         });
     }
 
-exports.admin_login = 
+exports.user_login = 
 
     (req, res) => {
 

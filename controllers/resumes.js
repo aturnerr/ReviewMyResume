@@ -52,7 +52,7 @@ NodeCanvasFactory.prototype = {
 exports.show_upload_page =
 
     (req, res) => {
-        res.render('resume-upload', {
+        res.render('upload-resume', {
                                         description: "",
                                         retry: false
                                     });
@@ -63,7 +63,7 @@ exports.show_resume_gallery =
     (req, res) => {
         Resume.find((err, resumes) => {
         if (!err) {
-            res.render("resumes", {resumes: resumes});
+            res.render("resume-gallery", {resumes: resumes});
         } else {
             res.sendStatus(404);
         }
@@ -113,7 +113,7 @@ exports.view_resume =
             res.redirect("/resumes");
           }
           
-          res.render("resume", {resume: resume});
+          res.render("show-resume", {resume: resume});
         });
     }
 
@@ -123,7 +123,7 @@ exports.upload_resume =
 
       // ensure that a file was uploaded
       if (!req.body.filename || req.body.filename.length ==0){
-          return res.render('resume-upload', {
+          return res.render('upload-resume', {
                                                 primary_tag: req.body.primary_tag,
                                                 secondary_tag: req.body.secondary_tag,
                                                 description: req.body.description,
@@ -135,7 +135,7 @@ exports.upload_resume =
       // ensure that tags are valid
       if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
 
-          return res.render('resume-upload', {
+          return res.render('upload-resume', {
                                                 primary_tag: "",
                                                 secondary_tag: "",
                                                 description: req.body.description,
@@ -147,7 +147,7 @@ exports.upload_resume =
       // ensure that tags aren't the same
       if (req.body.primary_tag == req.body.secondary_tag){
 
-          return res.render('resume-upload', {
+          return res.render('upload-resume', {
                                               primary_tag: "",
                                               secondary_tag: "",
                                               description: req.body.description,
@@ -158,7 +158,7 @@ exports.upload_resume =
 
       // validate length of description
       if (req.body.description.length < MIN_DESC_LENGTH || req.body.description.length > MAX_DESC_LENGTH){
-          return res.render('resume-upload', {
+          return res.render('upload-resume', {
                                                 primary_tag: req.body.primary_tag,
                                                 secondary_tag: req.body.secondary_tag,
                                                 description: "",
@@ -268,8 +268,6 @@ exports.post_comment =
 
           resume.comments.push(comment);
           resume.save();
-
-          console.log(resume);
 
           res.redirect("/resumes/" + req.params.id);
         });

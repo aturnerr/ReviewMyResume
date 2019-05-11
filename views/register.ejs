@@ -74,9 +74,6 @@
                 <div class="col-11 col-md-4 d-flex justify-content-center">
                     <select class="form-control" name="user[country]" id="country" required>
                         <% if (retry && country !== ""){ %>
-                            <% console.log(country) %>
-                            <% console.log("retry: " + retry) %>
-
                             <option selected value='<%= country %>'><%= country %></option>
                         <% } else { %>
                             <option selected disabled hidden value="country">country</option>

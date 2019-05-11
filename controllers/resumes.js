@@ -4,7 +4,22 @@ const Resume            = require("../models/resume"),
       User              = require("../models/user"),
       Canvas            = require('canvas'),
       assert            = require('assert'),
-      pdfjsLib          = require('pdfjs-dist');
+      pdfjsLib          = require('pdfjs-dist'),
+      sanitiser         = require('express-sanitizer');
+
+// mount middleware for express santitiser
+router.use(sanitiser());
+
+const MIN_DESC_LENGTH = 50;
+const MAX_DESC_LENGTH = 300;
+const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building",
+"Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
+"Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
+"Electronic Computer Engineering", "Geology", "Health Other", "Humanities","Languages", "Law",
+"Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering",
+"Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences",
+"Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
+"Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
 
 function NodeCanvasFactory() {}
 NodeCanvasFactory.prototype = {
@@ -36,17 +51,6 @@ NodeCanvasFactory.prototype = {
     canvasAndContext.context = null;
   },
 };
-
-
-const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building",
-"Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
-"Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
-"Electronic Computer Engineering", "Geology", "Health Other", "Humanities","Languages", "Law",
-"Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering",
-"Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences",
-"Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
-"Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
-const descriptionLength = 300;
 
 exports.show_upload_page =
 
@@ -116,118 +120,106 @@ exports.view_resume =
 exports.upload_resume =
 
     (req, res) => {
-        // validate primary tag
-        if (!tags.includes(req.body.primary_tag)){
+        
+      // ensure that tags are valid
+      if (!tags.includes(req.body.primary_tag) || !tags.includes(req.body.secondary_tag)){
 
-            return res.render('resume-upload', {
-              secondary_tag: req.body.secondary_tag,
-              description: req.body.description,
-              error: "Invalid primary tag!",
-              retry: true
-            });
-        }
-        // validate secondary tag
-        if (!tags.includes(req.body.secondary_tag)){
+          return res.render('resume-upload', {
+                                                description: req.body.description,
+                                                error: "You entered an invalid tag!",
+                                                retry: true
+                                            });
+      }
 
-            return res.render('resume-upload', {
-              primary_tag: req.body.primary_tag,
-              description: req.body.description,
-              error: "Invalid secondary tag!",
-              retry: true
-            });
-        }
-        //validate tag1 != tag2
-        if (req.body.primary_tag == req.body.secondary_tag){
+      // ensure that tags aren't the same
+      if (req.body.primary_tag == req.body.secondary_tag){
 
-            return res.render('resume-upload', {
-              description: req.body.description,
-              error: "Can't choose 2 of the same tags",
-              retry: true
-            });
-        }
-        //check text input is valid
-         //validate description is not too long
-         if (req.body.description.length > descriptionLength){
-              return res.render('resume-upload', {
-              primary_tag: req.body.primary_tag,
-              secondary_tag: req.body.secondary_tag,
-              error: "Description must be less than 300 characters",
-              retry: true
-            });
-        } else if (req.body.description.length === 0){
-            return res.render('resume-upload', {
-                primary_tag: req.body.primary_tag,
-                secondary_tag: req.body.secondary_tag,
-                error: "Please include an informative description about your Resume",
-                retry: true
-              });
-        }
+          return res.render('resume-upload', {
+                                              description: req.body.description,
+                                              error: "Both your tags can't be the same!",
+                                              retry: true
+                                            });
+      }
 
-        // create a new entry for the database
-        const resume = new Resume({
-            filename: req.file.filename,
-            url: req.file.path,
-            last_updated: Date.now(),
-            username: req.user.username,
-            description: req.body.description
-        })
-        // push tags
-        resume.tags.push(req.body.primary_tag);
-        if (req.body.secondary_tag) {
-          resume.tags.push(req.body.secondary_tag);
-        };
-        // upload to database
-        resume.save();
+      // validate length of description
+      if (req.body.description.length > MIN_DESC_LENGTH || req.body.description.length < MAX_DESC_LENGTH){
+          return res.render('resume-upload', {
+                                                primary_tag: req.body.primary_tag,
+                                                secondary_tag: req.body.secondary_tag,
+                                                error: "The description must be between 50 to 300 characters!",
+                                                retry: true
+                                              });
+      }
 
-        // link with user
-        User.findOneAndUpdate(  { _id: req.user._id },
-                                { $push: { resumes: resume } },
-                                function (err, success) {
-            if (err) {
-              console.log(err);
-            } else {
-              // console.log(success);
-              req.flash("success", "Your Resume Was Successfully Uploaded!");
-              res.redirect("/dashboard");
-            }
-          });
+      // sanitise description
+      var description = req.sanitize(req.body.description);
 
-        // Relative path of the PDF file.
-        var pdfURL = 'public/uploads/' + req.file.filename;
+      // create a new entry for the database
+      const resume = new Resume({
+          filename: req.file.filename,
+          url: req.file.path,
+          last_updated: Date.now(),
+          username: req.user.username,
+          description: description
+      })
 
-        // Read the PDF file into a typed array so PDF.js can load it.
-        var rawData = new Uint8Array(fs.readFileSync(pdfURL));
+      // push tags
+      resume.tags.push(req.body.primary_tag);
+      if (req.body.secondary_tag) {
+        resume.tags.push(req.body.secondary_tag);
+      };
+      // upload to database
+      resume.save();
 
-        // Load the PDF file.
-        var loadingTask = pdfjsLib.getDocument(rawData);
-        loadingTask.promise.then(function(pdfDocument) {
-
-          // Get the first page.
-          pdfDocument.getPage(1).then(function (page) {
-            // Render the page on a Node canvas with 100% scale.
-            var viewport = page.getViewport(1.0);
-            var canvasFactory = new NodeCanvasFactory();
-            var canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
-            var renderContext = {
-              canvasContext: canvasAndContext.context,
-              viewport: viewport,
-              canvasFactory: canvasFactory,
-            };
-
-            var renderTask = page.render(renderContext);
-            renderTask.promise.then(function() {
-              // Convert the canvas to an image buffer.
-              var image = canvasAndContext.canvas.toBuffer();
-              fs.writeFile('public/thumbs/' + req.file.filename + '.png', image, function (error) {
-                if (error) {
-                  console.error('Error: ' + error);
-                }
-              });
-            });
-          });
-        }).catch(function(reason) {
-          console.log(reason);
+      // link with user
+      User.findOneAndUpdate(  { _id: req.user._id },
+                              { $push: { resumes: resume } },
+                              function (err, success) {
+          if (err) {
+            console.log(err);
+          } else {
+            // console.log(success);
+            req.flash("success", "Your Resume Was Successfully Uploaded!");
+            res.redirect("/dashboard");
+          }
         });
+
+      // Relative path of the PDF file.
+      var pdfURL = 'public/uploads/' + req.file.filename;
+
+      // Read the PDF file into a typed array so PDF.js can load it.
+      var rawData = new Uint8Array(fs.readFileSync(pdfURL));
+
+      // Load the PDF file.
+      var loadingTask = pdfjsLib.getDocument(rawData);
+      loadingTask.promise.then(function(pdfDocument) {
+
+        // Get the first page.
+        pdfDocument.getPage(1).then(function (page) {
+          // Render the page on a Node canvas with 100% scale.
+          var viewport = page.getViewport(1.0);
+          var canvasFactory = new NodeCanvasFactory();
+          var canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
+          var renderContext = {
+            canvasContext: canvasAndContext.context,
+            viewport: viewport,
+            canvasFactory: canvasFactory,
+          };
+
+          var renderTask = page.render(renderContext);
+          renderTask.promise.then(function() {
+            // Convert the canvas to an image buffer.
+            var image = canvasAndContext.canvas.toBuffer();
+            fs.writeFile('public/thumbs/' + req.file.filename + '.png', image, function (error) {
+              if (error) {
+                console.error('Error: ' + error);
+              }
+            });
+          });
+        });
+      }).catch(function(reason) {
+        console.log(reason);
+      });
 
     }
 

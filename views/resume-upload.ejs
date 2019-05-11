@@ -6,110 +6,128 @@
 <% include ./partials/header-bot %>
 
   <section id="content" class="container d-flex flex-column align-items-center justify-content-center">
+    
     <h1 class="header mb-4">Resume Upload</h1>
+    
     <form action="/resumes/upload" method="POST" enctype="multipart/form-data">
+        
         <div class="form-group row justify-content-center">
           <div class="col-12 col-md-4">
             <input type="file" name="file" id="file" class="custom-file-input" accept="application/pdf" onchange="showname()"></input>
             <label for="file" id="file-input-label" class="custom-file-label">Choose File</label>
           </div>
-
         </div>
+
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
             <select class="form-control" name="primary_tag" id="primary_tag" required>
-                <option value="" disabled selected>Primary Industry*</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Accounting">Accounting</option>
-                <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                <option value="Architecture">Architecture</option>
-                <option value="Building">Building</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="Chemical Engineering">Chemical Engineering</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Civil Engineering">Civil Engineering</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Dentistry">Dentistry</option>
-                <option value="Economics">Economics</option>
-                <option value="Education Initial">Education Initial</option>
-                <option value="Education Post Other">Education Post Other</option>
-                <option value="Electrical Engineering">Electrical Engineering</option>
-                <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
-                <option value="Geology">Geology</option>
-                <option value="Health Other">Health Other</option>
-                <option value="Humanities">Humanities</option>
-                <option value="Languages">Languages</option>
-                <option value="Law">Law</option>
-                <option value="Life Sciences">Life Sciences</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Mechanical Engineering">Mechanical Engineering</option>
-                <option value="Medicine">Medicine</option>
-                <option value="Mining Engineering">Mining Engineering</option>
-                <option value="Nursing Initial">Nursing Initial</option>
-                <option value="Nursing Post Initial">Nursing Post Initial</option>
-                <option value="Other Engineering">Other Engineering</option>
-                <option value="Pharmacy">Pharmacy</option>
-                <option value="Physical Sciences">Physical Sciences</option>
-                <option value="Psychology">Psychology</option>
-                <option value="Rehabilitation">Rehabilitation</option>
-                <option value="Social Sciences">Social Sciences</option>
-                <option value="Social Work">Social Work</option>
-                <option value="Surveying">Surveying</option>
-                <option value="Urban Regional Planning">Urban Regional Planning</option>
-                <option value="Veterinary Science">Veterinary Science</option>
-                <option value="Visual Performing Arts">Visual Performing Arts</option>
+                <% if (retry && primary_tag !== "") { %>
+                  <option selected value='<%= primary_tag %>'><%= primary_tag %></option>
+                <% } else { %>
+                  <option value="" disabled selected>Primary Industry*</option>
+                <% } %>
+                  <option value="Agriculture">Agriculture</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                  <option value="Architecture">Architecture</option>
+                  <option value="Building">Building</option>
+                  <option value="Business Studies">Business Studies</option>
+                  <option value="Chemical Engineering">Chemical Engineering</option>
+                  <option value="Chemistry">Chemistry</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Dentistry">Dentistry</option>
+                  <option value="Economics">Economics</option>
+                  <option value="Education Initial">Education Initial</option>
+                  <option value="Education Post Other">Education Post Other</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
+                  <option value="Geology">Geology</option>
+                  <option value="Health Other">Health Other</option>
+                  <option value="Humanities">Humanities</option>
+                  <option value="Languages">Languages</option>
+                  <option value="Law">Law</option>
+                  <option value="Life Sciences">Life Sciences</option>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Medicine">Medicine</option>
+                  <option value="Mining Engineering">Mining Engineering</option>
+                  <option value="Nursing Initial">Nursing Initial</option>
+                  <option value="Nursing Post Initial">Nursing Post Initial</option>
+                  <option value="Other Engineering">Other Engineering</option>
+                  <option value="Pharmacy">Pharmacy</option>
+                  <option value="Physical Sciences">Physical Sciences</option>
+                  <option value="Psychology">Psychology</option>
+                  <option value="Rehabilitation">Rehabilitation</option>
+                  <option value="Social Sciences">Social Sciences</option>
+                  <option value="Social Work">Social Work</option>
+                  <option value="Surveying">Surveying</option>
+                  <option value="Urban Regional Planning">Urban Regional Planning</option>
+                  <option value="Veterinary Science">Veterinary Science</option>
+                  <option value="Visual Performing Arts">Visual Performing Arts</option>
             </select>
           </div>
         </div>
+
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
             <select class="form-control" name="secondary_tag" id="secondary_tag">
-                <option value="" disabled selected>Secondary Industry</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Accounting">Accounting</option>
-                <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                <option value="Architecture">Architecture</option>
-                <option value="Building">Building</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="Chemical Engineering">Chemical Engineering</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Civil Engineering">Civil Engineering</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Dentistry">Dentistry</option>
-                <option value="Economics">Economics</option>
-                <option value="Education Initial">Education Initial</option>
-                <option value="Education Post Other">Education Post Other</option>
-                <option value="Electrical Engineering">Electrical Engineering</option>
-                <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
-                <option value="Geology">Geology</option>
-                <option value="Health Other">Health Other</option>
-                <option value="Humanities">Humanities</option>
-                <option value="Languages">Languages</option>
-                <option value="Law">Law</option>
-                <option value="Life Sciences">Life Sciences</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Mechanical Engineering">Mechanical Engineering</option>
-                <option value="Medicine">Medicine</option>
-                <option value="Mining Engineering">Mining Engineering</option>
-                <option value="Nursing Initial">Nursing Initial</option>
-                <option value="Nursing Post Initial">Nursing Post Initial</option>
-                <option value="Other Engineering">Other Engineering</option>
-                <option value="Pharmacy">Pharmacy</option>
-                <option value="Physical Sciences">Physical Sciences</option>
-                <option value="Psychology">Psychology</option>
-                <option value="Rehabilitation">Rehabilitation</option>
-                <option value="Social Sciences">Social Sciences</option>
-                <option value="Social Work">Social Work</option>
-                <option value="Surveying">Surveying</option>
-                <option value="Urban Regional Planning">Urban Regional Planning</option>
-                <option value="Veterinary Science">Veterinary Science</option>
-                <option value="Visual Performing Arts">Visual Performing Arts</option>
+                <% if (retry && secondary_tag !== "") { %>
+                  <option selected value='<%= secondary_tag %>'><%= secondary_tag %></option>
+                <% } else { %>
+                  <option value="" disabled selected>Secondary Industry*</option>
+                <% } %>
+                  <option value="" disabled selected>Secondary Industry</option>
+                  <option value="Agriculture">Agriculture</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                  <option value="Architecture">Architecture</option>
+                  <option value="Building">Building</option>
+                  <option value="Business Studies">Business Studies</option>
+                  <option value="Chemical Engineering">Chemical Engineering</option>
+                  <option value="Chemistry">Chemistry</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Dentistry">Dentistry</option>
+                  <option value="Economics">Economics</option>
+                  <option value="Education Initial">Education Initial</option>
+                  <option value="Education Post Other">Education Post Other</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
+                  <option value="Geology">Geology</option>
+                  <option value="Health Other">Health Other</option>
+                  <option value="Humanities">Humanities</option>
+                  <option value="Languages">Languages</option>
+                  <option value="Law">Law</option>
+                  <option value="Life Sciences">Life Sciences</option>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Medicine">Medicine</option>
+                  <option value="Mining Engineering">Mining Engineering</option>
+                  <option value="Nursing Initial">Nursing Initial</option>
+                  <option value="Nursing Post Initial">Nursing Post Initial</option>
+                  <option value="Other Engineering">Other Engineering</option>
+                  <option value="Pharmacy">Pharmacy</option>
+                  <option value="Physical Sciences">Physical Sciences</option>
+                  <option value="Psychology">Psychology</option>
+                  <option value="Rehabilitation">Rehabilitation</option>
+                  <option value="Social Sciences">Social Sciences</option>
+                  <option value="Social Work">Social Work</option>
+                  <option value="Surveying">Surveying</option>
+                  <option value="Urban Regional Planning">Urban Regional Planning</option>
+                  <option value="Veterinary Science">Veterinary Science</option>
+                  <option value="Visual Performing Arts">Visual Performing Arts</option>
             </select>
           </div>
         </div>
+
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
-            <textarea class="form-control" name="description" placeholder="Description" minlength="50" maxlength="300"></textarea>
+            <% if (retry && description !== "") { %>
+                <textarea class="form-control" name="description" minlength="50" maxlength="300"><%= description %></textarea>
+            <% } else { %>
+                <textarea class="form-control" name="description" placeholder="Description" minlength="50" maxlength="300"></textarea>
+            <% } %>
           </div>
         </div>
         <div class="d-flex justify-content-center">

@@ -52,7 +52,10 @@ NodeCanvasFactory.prototype = {
 exports.show_upload_page =
 
     (req, res) => {
-        res.render('upload');
+        res.render('resume-upload', {
+                                        description: "",
+                                        retry: false
+                                    });
     }
 
 exports.show_resume_gallery =
@@ -117,11 +120,24 @@ exports.view_resume =
 exports.upload_resume =
 
     (req, res) => {
+
+      // ensure that a file was uploaded
+      if (!req.body.filename || req.body.filename.length ==0){
+          return res.render('resume-upload', {
+                                                primary_tag: req.body.primary_tag,
+                                                secondary_tag: req.body.secondary_tag,
+                                                description: req.body.description,
+                                                error: "You didn't upload a file!",
+                                                retry: true
+                                            });
+      }
         
       // ensure that tags are valid
-      if (!tags.includes(req.body.primary_tag) || !tags.includes(req.body.secondary_tag)){
+      if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
 
           return res.render('resume-upload', {
+                                                primary_tag: "",
+                                                secondary_tag: "",
                                                 description: req.body.description,
                                                 error: "You entered an invalid tag!",
                                                 retry: true
@@ -132,6 +148,8 @@ exports.upload_resume =
       if (req.body.primary_tag == req.body.secondary_tag){
 
           return res.render('resume-upload', {
+                                              primary_tag: "",
+                                              secondary_tag: "",
                                               description: req.body.description,
                                               error: "Both your tags can't be the same!",
                                               retry: true
@@ -139,10 +157,11 @@ exports.upload_resume =
       }
 
       // validate length of description
-      if (req.body.description.length > MIN_DESC_LENGTH || req.body.description.length < MAX_DESC_LENGTH){
+      if (req.body.description.length < MIN_DESC_LENGTH || req.body.description.length > MAX_DESC_LENGTH){
           return res.render('resume-upload', {
                                                 primary_tag: req.body.primary_tag,
                                                 secondary_tag: req.body.secondary_tag,
+                                                description: "",
                                                 error: "The description must be between 50 to 300 characters!",
                                                 retry: true
                                               });

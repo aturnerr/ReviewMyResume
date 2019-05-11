@@ -42,7 +42,6 @@ a:hover{
 .block:hover{
     transform: scale(1.05) perspective(1px);
     cursor: pointer;
-    /* background: #9795d4; */
 }
 
 .block-2 h5{

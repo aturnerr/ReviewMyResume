@@ -2,13 +2,50 @@ body {
   width: auto;
 }
 
-.resume_frame {
-  width: 800px;
-  max-width: 80vw;
+#resume_frame {
+  width: 100%;
   min-height: 80vh;
+  border-radius: 6px;
+}
+
+#desc {
+  background-color: white;
+  border-radius: 6px;
+  color: rgb(107, 107, 107);
 }
 
 .header {
   padding-top: 15px;
   padding-bottom: 15px;
+} 
+
+.tag{
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: inline-block;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+  color: white;
+}
+
+.tag-1{
+  border: 1px solid rgb(151, 225, 255);
+  background: rgb(151, 225, 255);
+}
+
+.tag-2{
+  border: 1px solid rgb(158, 235, 133);
+  background: rgb(158, 235, 133);
+}
+
+.tag p{
+  margin-bottom: 0;
+}
+
+.title{
+  font-weight: bold;
+}
+
+iframe{
+  border-radius: 4px;
 }

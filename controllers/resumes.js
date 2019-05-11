@@ -110,7 +110,8 @@ exports.view_resume =
           }
           // if it has, need to check if the file itself exists
           else {
-            res.render("resume", {resume: resume});
+            console.log(resume);
+            res.render("resume", {resume: resume[0]});
           }
         });
     }

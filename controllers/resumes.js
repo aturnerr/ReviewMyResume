@@ -45,6 +45,7 @@ const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architec
 "Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences",
 "Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
 "Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
+const descriptionLength = 300;
 
 exports.show_upload_page =
 
@@ -123,14 +124,48 @@ exports.upload_resume =
         if (!tags.includes(req.body.primary_tag)){
 
             return res.render('upload', {
-              primary_tag: req.body.primary_tag,
               secondary_tag: req.body.secondary_tag,
               description: req.body.description,
               error: "Invalid primary tag!",
               retry: true
             });
         }
-        // validate file is pdf
+        // validate secondary tag
+        if (!tags.includes(req.body.secondary_tag)){
+
+            return res.render('upload', {
+              primary_tag: req.body.primary_tag,
+              description: req.body.description,
+              error: "Invalid secondary tag!",
+              retry: true
+            });
+        }
+        //validate tag1 != tag2
+        if (req.body.primary_tag == req.body.secondary_tag){
+
+            return res.render('upload', {
+              description: req.body.description,
+              error: "Can't choose 2 of the same tags",
+              retry: true
+            });
+        }
+        //check text input is valid
+         //validate description is not too long
+         if (req.body.description.length > descriptionLength){
+              return res.render('upload', {
+              primary_tag: req.body.primary_tag,
+              secondary_tag: req.body.secondary_tag,
+              error: "Description must be less than 300 characters",
+              retry: true
+            });
+        } else if (req.body.description.length === 0){
+            return res.render('upload', {
+                primary_tag: req.body.primary_tag,
+                secondary_tag: req.body.secondary_tag,
+                error: "Please include an informative description about your Resume",
+                retry: true
+              });
+        }
 
         // create a new entry for the database
         const resume = new Resume({

@@ -276,3 +276,18 @@ exports.post_comment =
         });
       });
   }
+
+exports.delete_comment = 
+
+  (req, res) => {
+
+      Comment.findByIdAndRemove(req.params.comment_id, (err) => {
+        if (err){
+            req.flash("Oops something went wrong!")
+            res.redirect("/resumes/" + req.params.id);
+        }
+
+        req.flash("Your comment was removed.");
+        res.redirect("/resumes/" + req.params.id);
+      });
+  }

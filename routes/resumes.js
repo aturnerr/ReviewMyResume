@@ -70,6 +70,13 @@ router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 // route for uploading the file
 router.post('/resumes/upload', isLoggedIn, upload.single("file"),
                                               ResumesController.upload_resume);
-router.post('/resumes/:id', isLoggedIn, ResumesController.post_comment);
+
+router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment);
+
+/*================================DELETE ROUTES===============================*/
+
+router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController.delete_comment);
+
+
 
 module.exports = router;

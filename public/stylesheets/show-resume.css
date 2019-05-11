@@ -4,7 +4,6 @@ body {
 
 #resume_frame {
   width: 100%;
-  min-height: 80vh;
   border-radius: 6px;
   border: none;
 }
@@ -13,7 +12,6 @@ body {
   background-color: white;
   border-radius: 6px;
   color: rgb(107, 107, 107);
-  height: 80vh;
 }
 
 .header {
@@ -111,12 +109,31 @@ iframe{
   font-size: 0.75rem;
 }
 
+.comment input{
+  background: none;
+  border: none;
+  color: gray;
+  font-size: 0.75rem;
+}
+
+.comment input:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.comment input:focus{
+  outline: none;
+}
+
+.comment .comment-text{
+  font-size: 0.9rem;
+}
+
 .review-comment a, .review-comment span{
   color: rgb(238, 238, 238);
 }
 
 .comments{
-  height: 220px;
   overflow-y: scroll;
   padding: 5px;
   border-radius: 6px;
@@ -140,4 +157,19 @@ iframe{
 
 ::-webkit-scrollbar-thumb:hover {
   background: #999;  
+}
+
+@media(min-width: 380px){
+
+    #desc{
+      height: 80vh;
+    }
+
+    .comments{
+      height: 220px;
+    }
+
+    #resume_frame{
+      min-height: 80vh;
+    }
 }

@@ -48,11 +48,14 @@
                           <div class="container">
                               <p class="author"><%= comment.author.username %></p>
                               <p class="comment-text"><%= comment.text %></p>
-                              <div class="info d-flex justify-content-around">
+                              <div class="info d-flex justify-content-around align-items-center">
                               <% if (String(currentUser._id) === String(comment.author.id)){ %>
-                                  <a href="">edit</a>
-                                  <span>•</span>
-                                  <a href="">delete</a>
+                                  <!-- <a href="">edit</a>
+                                  <span>•</span> -->
+                                  <form action="/resumes/<%=resume._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                    <input type="submit" value="delete">
+                                  </form>
+                                  
                                   <span>•</span>
                               <% } %>
                                   <% var date = comment.date.toString(); %>
@@ -63,8 +66,12 @@
                       <% }); %>
                   </div>
                   
-                  <form class="mt-4" method="POST" action="/resumes/<%= resume._id %>">
-                    <textarea class="form-control" name="comment[text]" placeholder="Leave a comment"></textarea>
+                  <form class="mt-4" method="POST" action="/resumes/<%= resume._id%>/comments">
+                    <% if (currentUser.type === "student") { %>
+                      <textarea class="form-control" name="comment[text]" placeholder="Leave a comment"></textarea>
+                    <% } else { %>
+                      <textarea class="form-control" name="comment[text]" placeholder="Leave a review"></textarea>
+                    <% } %>
                     <button class="mt-2 comment-btn">Submit</button>
                   </form>
               </div>

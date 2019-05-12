@@ -9,10 +9,10 @@ Relevant URLS(Provide a list of the names of the views, routes, controllers, and
 
 ### Functionality #1: Login & Registration
 Decription:
-Views: login.ejs, register.ejs
-Routes: /login, /register
-Controllers: controllers/user.js
-Models: models/user.js
+Views: login.ejs, register.ejs  
+Routes: /login, /register  
+Controllers: controllers/user.js  
+Models: models/user.js  
 
 ### Functionality #2: Resume Uploading
 Decription:

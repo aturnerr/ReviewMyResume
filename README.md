@@ -8,7 +8,7 @@ Decription(Please write 2-3 sentences describing each functionality. You can des
 Relevant URLS(Provide a list of the names of the views, routes, controllers, and models associated with each functionality.)
 
 ### Functionality #1: Login & Registration
-Decription:
+Decription:  
 Views: login.ejs, register.ejs  
 Routes: /login, /register  
 Controllers: controllers/user.js  

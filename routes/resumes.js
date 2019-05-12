@@ -77,4 +77,6 @@ router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment)
 
 router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController.delete_comment);
 
+router.delete('/resumes/:filename', isLoggedIn, ResumesController.delete_resume);
+
 module.exports = router;

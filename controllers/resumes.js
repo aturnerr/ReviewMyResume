@@ -291,3 +291,32 @@ exports.delete_comment =
         res.redirect("/resumes/" + req.params.id);
       });
   }
+
+exports.delete_resume = 
+
+  (req, res) => {
+
+      const filename = req.params.filename;
+      
+      // delete from database
+      Resume.deleteOne({filename: filename}, (err, result) => {
+        if (!err) {
+          res.status(200).json({
+            message: 'Resume deleted',
+          });
+        } else {
+          res.status(500).json({
+            message: 'Resume not found'
+          });
+        }
+      });
+
+      // delete from file system
+      fs.unlink("uploads/" + filename, (err) => {
+        if (!err) {
+          console.log('File deleted.'); // remove this later
+        } else {
+          console.log('File not deleted.'); // remove this later
+        }
+      })
+  }

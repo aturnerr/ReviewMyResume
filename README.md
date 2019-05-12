@@ -30,7 +30,7 @@ Controllers: controllers/resumes.js
 Models: models/user.js, models/resume.js
 Middleware: middleware/is_logged_in.js, upload() from routes/resumes.js
 
-### Functionality #4:Viewing Specific resumes and commenting on them
+### Functionality #4: Viewing, Commenting on and Reviewing Specific Resumes
 Decription:
 Views: show-resume.ejs
 Routes: /resumes/:id, 

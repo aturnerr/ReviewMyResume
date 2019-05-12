@@ -37,3 +37,6 @@ Routes: /resumes/:id
 Controllers: controllers/resumes.js  
 Models: models/user.js, models/resume.js, models/comment.js  
 Middleware: middleware/is_logged_in.js  
+
+### NOTES:
+- The notification and voting systems have not yet been implemented.

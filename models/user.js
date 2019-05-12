@@ -15,7 +15,13 @@ var UserSchema = new mongoose.Schema({
                     type: mongoose.Schema.Types.ObjectId,
                     ref: "Resume"
                 }
-            ]
+            ],
+    notifications: [
+                        {
+                            type: mongoose.Schema.Types.ObjectId,
+                            ref: "Notification"
+                        }
+                    ]
 });
 
 // defines the serialize/ deserialize methods for the user automatically

@@ -159,6 +159,29 @@ iframe{
   background: #999;  
 }
 
+.del-btn{
+  position: absolute;
+  right: 5px;
+  top: -5px;
+  color: rgb(168, 168, 168);
+  font-size: 2rem;
+  border: none;
+  background: none;
+}
+
+.del-btn:hover{
+  color: rgb(83, 83, 83);
+  cursor: pointer;
+}
+
+.del-btn:focus{
+  outline: none;
+}
+
+.modal i{
+  color: #dc3545;
+}
+
 @media(min-width: 380px){
 
     #desc{

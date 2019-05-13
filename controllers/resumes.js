@@ -300,25 +300,22 @@ exports.delete_resume =
 
       // delete from database
       Resume.deleteOne({filename: filename}, (err, result) => {
-        if (!err) {
-          res.status(200).json({
-            message: 'Resume deleted',
-          });
-        } else {
-          res.status(500).json({
-            message: 'Resume not found'
-          });
+        if (err) {
+          req.flash("error", "Oops, something went wrong!");
+          res.redirect("/dashboard");
         }
       });
 
       // delete from file system
       fs.unlink("uploads/" + filename, (err) => {
-        if (!err) {
-          console.log('File deleted.'); // remove this later
-        } else {
-          console.log('File not deleted.'); // remove this later
+        if (err) {
+          req.flash("error", "Oops, something went wrong!");
+          res.redirect("/dashboard");
         }
-      })
+      });
+
+      req.flash("success", "Your resume has been deleted!");
+      res.redirect("/dashboard");
   }
 
  exports.edit_resume =

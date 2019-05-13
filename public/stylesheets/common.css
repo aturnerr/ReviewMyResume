@@ -38,13 +38,13 @@ body{
   font-family: 'Oleo Script', Helvetica, sans-serif;
 }
 
-.btn{
+.btn:not(.btn-danger, .btn-secondary){
   border: 1px solid white;
   color: white;
   transition: 250ms;
 }
 
-.btn:hover{
+.btn:hover:not(.btn-danger, .btn-secondary){
   background: white;
 }
 

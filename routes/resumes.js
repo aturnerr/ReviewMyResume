@@ -62,7 +62,7 @@ router.get('/resumes', isLoggedIn, ResumesController.show_resume_gallery);
 // view a specific pdf in the browser
 router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_pdf);
 
-// view a specific resume 
+// view a specific resume
 router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 
 /*================================POST ROUTES=================================*/
@@ -78,5 +78,9 @@ router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment)
 router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController.delete_comment);
 
 router.delete('/resumes/:filename', isLoggedIn, ResumesController.delete_resume);
+
+/*==================================PUT ROUTES=================================*/
+
+router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
 
 module.exports = router;

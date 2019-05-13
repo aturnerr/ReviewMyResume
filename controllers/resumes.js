@@ -105,16 +105,16 @@ exports.show_resume_pdf =
     }
 
 exports.view_resume =
-    
+
     (req, res) => {
 
         Resume.findById(req.params.id).populate('comments').exec((err, resume) => {
-         
+
           if (err || !resume){
             res.flash("Sorry, that resume does not exist!");
             res.redirect("/resumes");
           }
-          
+
           res.render("show-resume", {resume: resume});
         });
     }
@@ -133,7 +133,7 @@ exports.upload_resume =
       //                                           retry: true
       //                                       });
       // }
-        
+
       // ensure that tags are valid
       if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
 
@@ -243,15 +243,15 @@ exports.upload_resume =
     }
 
 exports.post_comment =
-  
+
   (req, res) => {
       Resume.findById(req.params.id, (err, resume) => {
-        
+
         if (err || !resume){
           res.flash("Sorry, that resume does not exist!");
           res.redirect("/resumes");
         }
-        
+
         // --  add additional info
         var author = {
           id: req.user.id,
@@ -260,7 +260,7 @@ exports.post_comment =
 
         req.body.comment.author = author;
         req.body.comment.type = req.user.type === "student" ? "comment" : "review";
-        
+
         Comment.create(req.body.comment, function(err, comment){
 
           if (err){
@@ -277,7 +277,7 @@ exports.post_comment =
       });
   }
 
-exports.delete_comment = 
+exports.delete_comment =
 
   (req, res) => {
 
@@ -292,12 +292,12 @@ exports.delete_comment =
       });
   }
 
-exports.delete_resume = 
+exports.delete_resume =
 
   (req, res) => {
 
       const filename = req.params.filename;
-      
+
       // delete from database
       Resume.deleteOne({filename: filename}, (err, result) => {
         if (!err) {
@@ -320,3 +320,9 @@ exports.delete_resume =
         }
       })
   }
+
+ exports.edit_resume =
+
+    (req, res) => {
+        
+    }

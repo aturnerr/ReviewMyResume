@@ -18,8 +18,8 @@
               <div class="col-12 col-sm-8">
                   <iframe id="resume_frame" src="<%= "../uploads/" + resume.filename + "#toolbar=0&navpanes=0&scrollbar=0"%>" ></iframe>
               </div>
-      
-      
+
+
               <div id="desc" class="col-12 col-sm-4 py-5">
 
                   <!-- Description -->
@@ -55,7 +55,7 @@
                                   <form action="/resumes/<%=resume._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
                                     <input type="submit" value="delete">
                                   </form>
-                                  
+
                                   <span>•</span>
                               <% } %>
                                   <% var date = comment.date.toString(); %>
@@ -65,7 +65,7 @@
                         </div>
                       <% }); %>
                   </div>
-                  
+
                   <form class="mt-4" method="POST" action="/resumes/<%= resume._id%>/comments">
                     <% if (currentUser.type === "student") { %>
                       <textarea class="form-control" name="comment[text]" placeholder="Leave a comment"></textarea>
@@ -75,11 +75,11 @@
                     <button class="mt-2 comment-btn">Submit</button>
                   </form>
               </div>
-              
+
             </div>
-      
+
           </div>
-      
+
       </div>
 
 <% include ./partials/footer %>

@@ -111,7 +111,7 @@ exports.view_resume =
         Resume.findById(req.params.id).populate('comments').exec((err, resume) => {
 
           if (err || !resume){
-            res.flash("Sorry, that resume does not exist!");
+            req.flash("Sorry, that resume does not exist!");
             res.redirect("/resumes");
           }
 
@@ -134,7 +134,8 @@ exports.upload_resume =
       //                                       });
       // }
 
-      // ensure that tags are valid
+  
+      // ensure that primary tag is valid
       if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
 
           return res.render('upload-resume', {
@@ -145,6 +146,18 @@ exports.upload_resume =
                                                 retry: true
                                             });
       }
+
+      // ensure that secondary tag is valid
+      if ((req.body.secondary_tag !== "") && (!tags.includes(req.body.secondary_tag))){
+
+        return res.render('upload-resume', {
+                                              primary_tag: req.params.primary_tag,
+                                              secondary_tag: "",
+                                              description: req.body.description,
+                                              error: "You entered an invalid tag!",
+                                              retry: true
+                                          });
+    }
 
       // ensure that tags aren't the same
       if (req.body.primary_tag == req.body.secondary_tag){
@@ -283,52 +296,44 @@ exports.delete_comment =
 
       Comment.findByIdAndRemove(req.params.comment_id, (err) => {
         if (err){
-            req.flash("Oops something went wrong!")
+            req.flash("error", "Oops something went wrong!")
             res.redirect("/resumes/" + req.params.id);
+        } else {
+          req.flash("success", "Your comment was removed.");
+          res.redirect("/resumes/" + req.params.id);
         }
-
-        req.flash("Your comment was removed.");
-        res.redirect("/resumes/" + req.params.id);
       });
   }
 
 exports.delete_resume =
 
-  (req, res) => {
-
-      const filename = req.params.filename;
+    (req, res) => {
 
       // delete from database
-      Resume.deleteOne({filename: filename}, (err, result) => {
-        if (err) {
-          req.flash("error", "Oops, something went wrong!");
+      Resume.findByIdAndRemove(req.params.id, (err) => {
+        if (err){
+          req.flash("error", "Oops something went wrong!");
+          res.redirect("/dashboard");
+        } else {
+          req.flash("success", "Your resume was deleted.");
           res.redirect("/dashboard");
         }
       });
-
-      // delete from file system
-      fs.unlink("uploads/" + filename, (err) => {
-        if (err) {
-          req.flash("error", "Oops, something went wrong!");
-          res.redirect("/dashboard");
-        }
-      });
-
-      req.flash("success", "Your resume has been deleted!");
-      res.redirect("/dashboard");
   }
 
  exports.edit_resume =
 
     (req, res) => {
+      
       Resume.findById(req.params.id).exec((err, resume) => {
 
         if (err || !resume){
-          res.flash("Sorry, that resume does not exist!");
+          req.flash("Sorry, that resume does not exist!");
           res.redirect("/resumes");
         }
 
         res.render("edit-resume", {resume: resume, retry: false});
+        
       });
     }
 

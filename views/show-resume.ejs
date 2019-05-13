@@ -44,9 +44,9 @@
                           </button>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <form action="/resumes/<%= resume.filename %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger">Delete</button>
+                          <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+                          <form action="/resumes/<%= resume._id %>?_method=DELETE" method="POST">
+                            <button class="btn-b btn-danger">Delete</button>
                           </form>
                         </div>
                       </div>

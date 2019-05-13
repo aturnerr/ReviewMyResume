@@ -9,15 +9,15 @@
 
     <h1 class="header mb-4">Edit Resume</h1>
 
-    <form action="'/resumes/:id/edit'" method="PUT" enctype="multipart/form-data"> 
+    <form action="<%= "/resumes/" + resume._id + "/edit" %>?_method=PUT" method="POST" enctype="multipart/form-data">
 
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
             <select class="form-control" name="primary_tag" id="primary_tag" required>
                 <% if (retry && primary_tag !== "") { %>
-                  <option selected value='<%= resume.tags[0] %>'><%= resume.tags[0] %></option>
+                  <option selected disabled value='<%= resume.tags[0] %>'><%= resume.tags[0] %></option>
                 <% } else { %>
-                  <option value="" selected>Primary Industry*</option>
+                  <option selected disabled value='<%= resume.tags[0] %>'><%= resume.tags[0] %></option>
                 <% } %>
                   <option value="Agriculture">Agriculture</option>
                   <option value="Accounting">Accounting</option>
@@ -66,9 +66,9 @@
           <div class="col-11 col-md-4 d-flex justify-content-center">
             <select class="form-control" name="secondary_tag" id="secondary_tag">
                 <% if (retry && secondary_tag !== "") { %>
-                  <option selected value='<%= resume.tags[1] %>'><%= resume.tags[1]  %></option>
+                  <option selected disabled value='<%= resume.tags[1] %>'><%= resume.tags[1]  %></option>
                 <% } else { %>
-                  <option value="" selected>Secondary Industry*</option>
+                  <option selected disabled value='<%= resume.tags[1] %>'><%= resume.tags[1]  %></option>
                 <% } %>
                   <option value="Agriculture">Agriculture</option>
                   <option value="Accounting">Accounting</option>
@@ -118,7 +118,7 @@
             <% if (retry && description !== "") { %>
                 <textarea class="form-control" name="description" minlength="50" maxlength="300"><%= resume.description %></textarea>
             <% } else { %>
-                <textarea class="form-control" name="description" placeholder="Description" minlength="50" maxlength="300"></textarea>
+                <textarea class="form-control" name="description" minlength="50" maxlength="300"><%= resume.description %></textarea>
             <% } %>
           </div>
         </div>

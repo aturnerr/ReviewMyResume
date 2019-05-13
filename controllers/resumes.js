@@ -123,7 +123,7 @@ exports.upload_resume =
 
     (req, res) => {
 
-      // // ensure that a file was uploaded
+      // ensure that a file was uploaded
       // if (!req.body.filename || req.body.filename.length ==0){
       //     return res.render('upload-resume', {
       //                                           primary_tag: req.body.primary_tag,
@@ -346,5 +346,9 @@ exports.edit_resume_info =
       description: new_desc
     }, (err, resume) => {
       if (err) console.log("Error updating resume");
+      else {
+        console.log("Success!")
+        res.render("show-resume", {resume: resume});
+      }
     })
   }

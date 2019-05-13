@@ -36,7 +36,8 @@ const fileFilter = (req, file, cb) => {
   }
   else {
     // need to send a message to user if this fails
-    cb(null, false);
+    req.fileValidationError = "Forbidden extension";
+    cb(null, false, req.fileValidationError);
   }
 };
 
@@ -71,8 +72,13 @@ router.get('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file
-router.post('/resumes/upload', isLoggedIn, upload.single("file"),
-                                              ResumesController.upload_resume);
+router.post('/resumes/upload', isLoggedIn, upload.single("file"), function(req, res) {
+  if (req.fileValidationError) {
+    ResumesController.show_upload_page(req, res);
+  } else {
+    ResumesController.upload_resume(req, res);
+  }
+});
 
 router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment);
 

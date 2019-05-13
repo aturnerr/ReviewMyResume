@@ -324,5 +324,30 @@ exports.delete_resume =
  exports.edit_resume =
 
     (req, res) => {
-        
+      Resume.findById(req.params.id).exec((err, resume) => {
+
+        if (err || !resume){
+          res.flash("Sorry, that resume does not exist!");
+          res.redirect("/resumes");
+        }
+
+        res.render("edit-resume", {resume: resume});
+      });
     }
+
+exports.edit_resume_info =
+
+  (req, res) => {
+    const id = req.params.id;
+    const new_primary_tag = req.body.primary_tag;
+    const new_secondary_tag = req.body.secondary_tag;
+    const new_desc = req.body.description;
+
+    Resume.findOneAndUpdate({_id: id}, {
+      primary_tag: new_primary_tag,
+      secondary_tag: new_secondary_tag,
+      description: new_desc
+    }, (err, resume) => {
+      if (err) console.log("Error updating resume");
+    })
+  }

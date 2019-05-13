@@ -65,6 +65,9 @@ router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_p
 // view a specific resume
 router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 
+//
+router.get('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
+
 /*================================POST ROUTES=================================*/
 
 // route for uploading the file
@@ -81,6 +84,6 @@ router.delete('/resumes/:filename', isLoggedIn, ResumesController.delete_resume)
 
 /*==================================PUT ROUTES=================================*/
 
-router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
+router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume_info);
 
 module.exports = router;

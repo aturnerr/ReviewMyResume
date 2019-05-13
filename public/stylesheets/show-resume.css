@@ -163,21 +163,23 @@ iframe{
 .del-btn{
   position: absolute;
   right: 5px;
-  top: -5px;
+  top: 5px;
   color: rgb(168, 168, 168);
   font-size: 2rem;
   border: none;
   background: none;
+  font-size: 1.5rem;
 }
 
 .del-btn:hover{
-  color: rgb(83, 83, 83);
+  color: #dc3545;
   cursor: pointer;
 }
 
 .del-btn:focus{
   outline: none;
 }
+
 
 .modal i{
   color: #dc3545;
@@ -190,7 +192,7 @@ iframe{
     }
 
     .comments{
-      height: 220px;
+      max-height: 220px;
     }
 
     #resume_frame{

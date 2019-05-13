@@ -61,12 +61,13 @@
             <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
             <% }else{ %>
             <% resumes.forEach(function(resume){ %>
-                <a id = "resumes" href="<%= "resumes/" + resume._id%>" target="_blank" class="resume mx-3 mb-5">
+                <a id = "resumes" href="resumes/<%= resume._id %>" class="resume mx-3 mb-5">
                   <div class="container thumb">
-                    <img class="img-fluid" src="<%= "/thumbs/" + resume.filename + ".png" %>" alt="thumbnail"></img>
+                    <img class="img-fluid" src="/thumbs/<%= resume.filename %>.png" alt="thumbnail"></img>
                   </div>
                   <div class="resume-text">
                     <p><%= resume.username + "\'s resume" %></p>
+
                     <!--These are the hidden tag elements that the filter function uses-->
                     <div class="tag1" style= "display:none">
                       <%= resume.tags[0] %>

@@ -30,10 +30,10 @@ The Resume Gallery provides a page for all users to view resumes that have been 
 **Middleware:** middleware/is_logged_in.js, upload() from routes/resumes.js  
 
 ### Functionality #4: Viewing, Commenting on and Reviewing Specific Resumes
-Opening a resume in the gallery will direct the user to this page, where the PDF is loaded for viewing along with the tags, descriptions and reviews/comments. The page also allows users to type and post a review/comment on the resume.
+Opening a resume in the gallery will direct the user to this page, where the PDF is loaded for viewing along with the tags, descriptions and reviews/comments. The page also allows users to type and post a review/comment on the resume, and provides the option of deleting the resume.
 
 **Views:** show-resume.ejs  
-**Routes:** /resumes/:id     
+**Routes:** /resumes/:id
 **Controllers:** controllers/resumes.js  
 **Models:** models/user.js, models/resume.js, models/comment.js  
 **Middleware:** middleware/is_logged_in.js  

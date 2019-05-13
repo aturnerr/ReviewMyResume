@@ -134,7 +134,7 @@ exports.upload_resume =
       //                                       });
       // }
 
-  
+
       // ensure that primary tag is valid
       if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
 
@@ -324,7 +324,7 @@ exports.delete_resume =
  exports.edit_resume =
 
     (req, res) => {
-      
+
       Resume.findById(req.params.id).exec((err, resume) => {
 
         if (err || !resume){
@@ -333,7 +333,7 @@ exports.delete_resume =
         }
 
         res.render("edit-resume", {resume: resume, retry: false});
-        
+
       });
     }
 
@@ -342,18 +342,20 @@ exports.edit_resume_info =
   (req, res) => {
     const id = req.params.id;
     const new_primary_tag = req.body.primary_tag;
+    console.log(req.body);
     const new_secondary_tag = req.body.secondary_tag;
     const new_desc = req.body.description;
 
-    Resume.findOneAndUpdate({_id: id}, {
-      primary_tag: new_primary_tag,
-      secondary_tag: new_secondary_tag,
-      description: new_desc
-    }, (err, resume) => {
+    Resume.findOne({_id: id}, (err, resume) => {
       if (err) console.log("Error updating resume");
       else {
-        console.log("Success!")
-        res.render("show-resume", {resume: resume});
+        console.log("Success!");
+        resume.tags[0] = new_primary_tag;
+        resume.tags[1] = new_secondary_tag;
+        console.log(new_primary_tag);
+        console.log(resume);
+        resume.save();
+        res.redirect("/resumes/" + id);
       }
     })
   }

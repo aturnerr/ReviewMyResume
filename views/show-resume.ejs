@@ -16,9 +16,9 @@
           <div class="row">
 
               <div class="col-12 col-sm-8">
-                  <iframe id="resume_frame" src="<%= "../uploads/" + resume.filename + "#toolbar=0&navpanes=0&scrollbar=0"%>" ></iframe>
+                  <iframe id="resume_frame" src="<%= "/uploads/" + resume.filename + "#toolbar=0&navpanes=0&scrollbar=0"%>" ></iframe>
               </div>
-      
+
               <div id="desc" class="col-12 col-sm-4 py-5">
 
                   <% if (currentUser.username === resume.username){ %>
@@ -27,7 +27,7 @@
                   <button type="button" class="del-btn" data-toggle="modal" data-target="#exampleModalCenter">
                       <i class="trash fas fa-trash-alt"></i>
                   </button>
-                  
+
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">

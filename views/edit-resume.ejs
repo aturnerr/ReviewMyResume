@@ -7,16 +7,9 @@
 
   <section id="content" class="container d-flex flex-column align-items-center justify-content-center">
 
-    <h1 class="header mb-4">Resume Upload</h1> 
+    <h1 class="header mb-4">Edit Resume</h1>
 
-    <form action="'/resumes/:id/edit'" method="PUT" enctype="multipart/form-data">
-
-        <div class="form-group row justify-content-center">
-          <div class="col-12 col-md-4">
-            <input type="file" name="file" id="file" class="custom-file-input" accept="application/pdf" onchange="showname()" required></input>
-            <label for="file" id="file-input-label" class="custom-file-label">Choose File</label>
-          </div>
-        </div>
+    <form action="'/resumes/:id/edit'" method="PUT" enctype="multipart/form-data"> <!-- hi -->
 
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
@@ -24,7 +17,7 @@
                 <% if (retry && primary_tag !== "") { %>
                   <option selected value='<%= primary_tag %>'><%= primary_tag %></option>
                 <% } else { %>
-                  <option value="" disabled selected>Primary Industry*</option>
+                  <option value="" selected>Primary Industry*</option>
                 <% } %>
                   <option value="Agriculture">Agriculture</option>
                   <option value="Accounting">Accounting</option>

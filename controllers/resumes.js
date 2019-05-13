@@ -331,7 +331,7 @@ exports.delete_resume =
           res.redirect("/resumes");
         }
 
-        res.render("edit-resume", {resume: resume});
+        res.render("edit-resume", {resume: resume, retry: false});
       });
     }
 

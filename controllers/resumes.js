@@ -364,7 +364,12 @@ exports.delete_comment =
 exports.delete_resume =
 
     (req, res) => {
-
+      Resume.findById(req.params.id).exec((err, resume) => {
+        if (!err) {
+          storage.bucket(CLOUD_BUCKET).file(resume.filename).delete();
+          storage.bucket(CLOUD_BUCKET).file(resume.filename + '.png').delete();
+        }
+      });
       // delete from database
       Resume.findByIdAndRemove(req.params.id, (err) => {
         if (err){

@@ -43,7 +43,7 @@ const fileFilter = (req, file, cb) => {
 
 // initialise main multer constant
 const upload = multer({
-  storage,
+  storage: multer.MemoryStorage,
   // set file size limits
   limits: {
     // 10MB
@@ -76,6 +76,7 @@ router.post('/resumes/upload', isLoggedIn, upload.single("file"), function(req, 
   if (req.fileValidationError) {
     ResumesController.show_upload_page(req, res);
   } else {
+    req.file.filename = new Date().toISOString().replace(/:|\./g,'-') + '-' + req.file.originalname;
     ResumesController.upload_resume(req, res);
   }
 });

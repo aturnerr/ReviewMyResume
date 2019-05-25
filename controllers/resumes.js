@@ -6,6 +6,14 @@ const Resume            = require("../models/resume"),
       assert            = require('assert'),
       pdfjsLib          = require('pdfjs-dist');
 
+const {Storage} = require('@google-cloud/storage');
+const config = require('../config');
+const CLOUD_BUCKET = config.get('CLOUD_BUCKET');
+const storage = new Storage({
+  projectId: 'my-project-1557648191606',
+  keyFilename: './key.json'
+});
+const bucket = storage.bucket(CLOUD_BUCKET);
 
 const MIN_DESC_LENGTH = 50;
 const MAX_DESC_LENGTH = 200;
@@ -134,7 +142,6 @@ exports.upload_resume =
       //                                       });
       // }
 
-
       // ensure that primary tag is valid
       if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
 
@@ -185,10 +192,13 @@ exports.upload_resume =
       // sanitise description
       var description = req.sanitize(req.body.description);
 
+      // upload resume to storage
+      var gcsname = exports.uploadGCS(req, res);
+
       // create a new entry for the database
       const resume = new Resume({
           filename: req.file.filename,
-          url: req.file.path,
+          // url: req.file.path,
           last_updated: Date.now(),
           username: req.user.username,
           description: description
@@ -216,11 +226,8 @@ exports.upload_resume =
           }
         });
 
-      // Relative path of the PDF file.
-      var pdfURL = 'public/uploads/' + req.file.filename;
-
-      // Read the PDF file into a typed array so PDF.js can load it.
-      var rawData = new Uint8Array(fs.readFileSync(pdfURL));
+      // multer memory buffer
+      var rawData = req.file.buffer;
 
       // Load the PDF file.
       var loadingTask = pdfjsLib.getDocument(rawData);
@@ -242,11 +249,8 @@ exports.upload_resume =
           renderTask.promise.then(function() {
             // Convert the canvas to an image buffer.
             var image = canvasAndContext.canvas.toBuffer();
-            fs.writeFile('public/thumbs/' + req.file.filename + '.png', image, function (error) {
-              if (error) {
-                // console.error('Error: ' + error);
-              }
-            });
+            // upload to storage
+            exports.uploadThumbGCS(req, image);
           });
         });
       }).catch(function(reason) {
@@ -254,6 +258,58 @@ exports.upload_resume =
       });
 
     }
+
+function getPublicUrl (filename) {
+  return `https://storage.googleapis.com/reviewmyresume/${filename}`;
+}
+
+// next two functions can probably be merged later on..
+exports.uploadThumbGCS =
+  (req, image) => {
+    const gcsname = req.file.filename + ".png";
+    const file = bucket.file(gcsname);
+    const stream = file.createWriteStream({
+      metadata: {
+        contentType: 'image/png'
+      },
+      resumable: false
+    });
+
+    stream.on('error', (err) => {
+      req.file.cloudStorageError = err;
+    });
+
+    stream.on('finish', () => {
+      req.file.cloudStorageObject = gcsname;
+    });
+
+    stream.end(image);
+  }
+
+exports.uploadGCS =
+  (req, res) => {
+    const gcsname = req.file.filename;
+    const file = bucket.file(gcsname);
+
+    const stream = file.createWriteStream({
+      metadata: {
+        contentType: req.file.mimetype
+      },
+      resumable: false
+    });
+
+    stream.on('error', (err) => {
+      req.file.cloudStorageError = err;
+      // next(err);
+    });
+
+    stream.on('finish', () => {
+      req.file.cloudStorageObject = gcsname;
+    });
+
+    stream.end(req.file.buffer);
+    return gcsname;
+  }
 
 exports.post_comment =
 

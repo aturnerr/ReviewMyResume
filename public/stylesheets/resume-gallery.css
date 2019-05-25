@@ -52,6 +52,7 @@ body {
 }
 
 .header {
+  z-index: 2;
   font-size: 15px;
   height: 80px;
   position: fixed;

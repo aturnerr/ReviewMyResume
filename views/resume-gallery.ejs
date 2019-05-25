@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/stylesheets/resume-gallery.css">
 
 <% include ./partials/header-bot %>
-    
+
   <div class="header d-flex row justify-content-center align-content-center">
       <h1>Resume Gallery</h1>
     </div>
@@ -63,7 +63,7 @@
             <% resumes.forEach(function(resume){ %>
                 <a id = "resumes" href="resumes/<%= resume._id %>" class="resume mx-3 mb-5">
                   <div class="container thumb">
-                    <img class="img-fluid" src="/thumbs/<%= resume.filename %>.png" alt="thumbnail"></img>
+                    <img class="img-fluid" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>.png" alt="thumbnail"></img>
                   </div>
                   <div class="resume-text">
                     <p><%= resume.username + "\'s resume" %></p>

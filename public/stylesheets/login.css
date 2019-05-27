@@ -12,6 +12,11 @@ button{
     align-self: center;
 }
 
+#mainNavBar{
+  background-image: none;
+  background-color: transparent !important;
+}
+
 form{
     width: 100%;
 }

@@ -4,13 +4,14 @@
   <link rel="stylesheet" href="/stylesheets/login.css">
 
 <% include ./partials/header-bot %>
+<% include ./partials/navbar %>
 
   <section id="content" class="container d-flex flex-column align-items-center justify-content-center">
-    
+
     <h1 class="header mb-4">Resume Upload</h1>
-    
+
     <form action="/resumes/upload" method="POST" enctype="multipart/form-data">
-        
+
         <div class="form-group row justify-content-center">
           <div class="col-12 col-md-4">
             <input type="file" name="file" id="file" class="custom-file-input" accept="application/pdf" onchange="showname()" required></input>
@@ -134,7 +135,7 @@
         </div>
     </form>
   </section>
-  
+
   <script src="/scripts/upload-resume.js"></script>
 
 <% include ./partials/footer %>

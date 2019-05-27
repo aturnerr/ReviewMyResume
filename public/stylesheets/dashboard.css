@@ -13,6 +13,10 @@ body{
     transition: 500ms;
 }
 
+.nav-btn {
+  display: none !important;
+}
+
 .block-1{
     height: 10vh;
 }
@@ -39,7 +43,7 @@ a:hover{
 }
 
 .block:hover{
-    transform: scale(1.05) perspective(1px);
+    transform: scale(1.02) perspective(1px);
     cursor: pointer;
 }
 
@@ -54,4 +58,3 @@ a:hover{
     }
 
 }
-

@@ -5,25 +5,25 @@ const re_text = /^[a-z]+$/i;
 const re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const password_len = 8;
 
-exports.user_show_dashboard = 
+exports.user_show_dashboard =
 
     (req, res) => {
-        res.render("dashboard");
+        res.render("dashboard", {page: "dashboard"});
     }
 
-exports.user_show_register = 
+exports.user_show_register =
 
     (req, res) => {
         res.render("register", { retry : false });
     }
 
-exports.user_show_login = 
+exports.user_show_login =
 
     (req, res) => {
         res.render("login");
     }
 
-exports.user_logout = 
+exports.user_logout =
 
     (req, res) => {
 
@@ -40,14 +40,14 @@ exports.user_logout =
         res.redirect("/login");
     }
 
-exports.user_register = 
+exports.user_register =
 
     (req, res) => {
 
         // validate names
         if (!re_text.test(req.body.user.fname)){
-            return res.render("register", { 
-                                        fname: "", 
+            return res.render("register", {
+                                        fname: "",
                                         lname: req.body.user.lname,
                                         email: req.body.user.email,
                                         occupation: req.body.user.occupation,
@@ -58,10 +58,10 @@ exports.user_register =
                                         retry: true
                                     });
         }
-        
+
         if (!re_text.test(req.body.user.lname)){
-            return res.render("register", { 
-                                        fname: req.body.user.fname, 
+            return res.render("register", {
+                                        fname: req.body.user.fname,
                                         lname: "",
                                         email: req.body.user.email,
                                         occupation: req.body.user.occupation,
@@ -75,8 +75,8 @@ exports.user_register =
 
         // validate email
         if (!re_email.test(req.body.user.email)){
-            return res.render("register", { 
-                                        fname: req.body.user.fname, 
+            return res.render("register", {
+                                        fname: req.body.user.fname,
                                         lname: req.body.user.lname,
                                         email: "",
                                         occupation: req.body.user.occupation,
@@ -92,8 +92,8 @@ exports.user_register =
 
             // validate occupation
             if (!re_text.test(req.body.user.occupation)){
-                return res.render("register", { 
-                                            fname: req.body.user.fname, 
+                return res.render("register", {
+                                            fname: req.body.user.fname,
                                             lname: req.body.user.lname,
                                             email: req.body.user.email,
                                             occupation: "",
@@ -107,8 +107,8 @@ exports.user_register =
 
             // validate company - company name may have numbers, eg.ws02
             if (!re_username.test(req.body.user.company)){
-                return res.render("register", { 
-                                            fname: req.body.user.fname, 
+                return res.render("register", {
+                                            fname: req.body.user.fname,
                                             lname: req.body.user.lname,
                                             email: req.body.user.email,
                                             occupation: req.body.user.occupation,
@@ -123,8 +123,8 @@ exports.user_register =
 
         // validate username
         if (!re_username.test(req.body.user.username)){
-            return res.render("register", { 
-                                        fname: req.body.user.fname, 
+            return res.render("register", {
+                                        fname: req.body.user.fname,
                                         lname: req.body.user.lname,
                                         email: req.body.user.email,
                                         occupation: req.body.user.occupation,
@@ -136,10 +136,10 @@ exports.user_register =
                                     });
         }
 
-        // validate password 
+        // validate password
         if (req.body.password.trim().length < password_len){
-            return res.render("register", { 
-                                        fname: req.body.user.fname, 
+            return res.render("register", {
+                                        fname: req.body.user.fname,
                                         lname: req.body.user.lname,
                                         email: req.body.user.email,
                                         occupation: req.body.user.occupation,
@@ -150,7 +150,7 @@ exports.user_register =
                                         retry: true
                                     });
         }
-        
+
         // ensure that username is unique
         User.register(new User(req.body.user), req.body.password,
                                                             function(err, user){
@@ -166,7 +166,7 @@ exports.user_register =
         });
     }
 
-exports.user_login = 
+exports.user_login =
 
     (req, res) => {
 

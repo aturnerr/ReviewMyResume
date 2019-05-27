@@ -62,7 +62,8 @@ exports.show_upload_page =
     (req, res) => {
         res.render('upload-resume', {
                                         description: "",
-                                        retry: false
+                                        retry: false,
+                                        page: "upload"
                                     });
     }
 
@@ -71,7 +72,7 @@ exports.show_resume_gallery =
     (req, res) => {
         Resume.find((err, resumes) => {
         if (!err) {
-            res.render("resume-gallery", {resumes: resumes});
+            res.render("resume-gallery", {resumes: resumes, page: "gallery"});
         } else {
             res.sendStatus(404);
         }
@@ -123,7 +124,7 @@ exports.view_resume =
             res.redirect("/resumes");
           }
 
-          res.render("show-resume", {resume: resume});
+          res.render("show-resume", {resume: resume, page: "resume"});
         });
     }
 
@@ -393,7 +394,7 @@ exports.delete_resume =
           res.redirect("/resumes");
         }
 
-        res.render("edit-resume", {resume: resume, retry: false});
+        res.render("edit-resume", {resume: resume, retry: false, page: "edit"});
 
       });
     }

@@ -382,7 +382,7 @@ exports.delete_resume =
       });
   }
 
- exports.edit_resume =
+ exports.show_edit_resume =
 
     (req, res) => {
 
@@ -398,25 +398,22 @@ exports.delete_resume =
       });
     }
 
-exports.edit_resume_info =
+exports.edit_resume =
 
   (req, res) => {
     const id = req.params.id;
     const new_primary_tag = req.body.primary_tag;
-    console.log(req.body);
     const new_secondary_tag = req.body.secondary_tag;
     const new_desc = req.body.description;
 
-    Resume.findOne({_id: id}, (err, resume) => {
-      if (err) console.log("Error updating resume");
-      else {
-        console.log("Success!");
-        resume.tags[0] = new_primary_tag;
-        resume.tags[1] = new_secondary_tag;
-        console.log(new_primary_tag);
-        console.log(resume);
-        resume.save();
+    Resume.findOneAndUpdate({_id: id}, {
+      $set:{ description: new_desc,
+            "tags.0": new_primary_tag,
+            "tags.1": new_secondary_tag
+          }},
+            { new: true }, (err, resume) => {
+      if (!err) {
         res.redirect("/resumes/" + id);
       }
-    })
+    });
   }

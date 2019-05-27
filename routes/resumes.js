@@ -67,7 +67,7 @@ router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_p
 router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 
 //
-router.get('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
+router.get('/resumes/:id/edit', isLoggedIn, ResumesController.show_edit_resume);
 
 /*================================POST ROUTES=================================*/
 
@@ -91,6 +91,6 @@ router.delete('/resumes/:id', isLoggedIn, ResumesController.delete_resume);
 
 /*==================================PUT ROUTES=================================*/
 
-router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume_info);
+router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
 
 module.exports = router;

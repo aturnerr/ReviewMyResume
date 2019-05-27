@@ -9,3 +9,11 @@ h3{
 body{
     background: linear-gradient(180deg, #201837 21.35%, #000000 100%);
 }
+
+a {
+  margin-top: 10px;
+}
+
+a:hover {
+  color: black !important;
+}

@@ -151,7 +151,8 @@ exports.upload_resume =
                                                 secondary_tag: "",
                                                 description: req.body.description,
                                                 error: "You entered an invalid tag!",
-                                                retry: true
+                                                retry: true,
+                                                page: "upload"
                                             });
       }
 
@@ -163,7 +164,8 @@ exports.upload_resume =
                                               secondary_tag: "",
                                               description: req.body.description,
                                               error: "You entered an invalid tag!",
-                                              retry: true
+                                              retry: true,
+                                              page: "upload"
                                           });
     }
 
@@ -175,7 +177,8 @@ exports.upload_resume =
                                               secondary_tag: "",
                                               description: req.body.description,
                                               error: "Both your tags can't be the same!",
-                                              retry: true
+                                              retry: true,
+                                              page: "upload"
                                             });
       }
 
@@ -186,7 +189,8 @@ exports.upload_resume =
                                                 secondary_tag: req.body.secondary_tag,
                                                 description: "",
                                                 error: "The description must be between 50 to 200 characters!",
-                                                retry: true
+                                                retry: true,
+                                                page: "upload"
                                               });
       }
 

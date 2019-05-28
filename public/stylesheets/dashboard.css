@@ -13,9 +13,7 @@ body{
     transition: 500ms;
 }
 
-.nav-btn {
-  display: none !important;
-}
+
 
 .block-1{
     height: 10vh;

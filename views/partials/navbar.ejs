@@ -8,26 +8,15 @@
 
   <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
       <% if (page == "gallery") { %>
-        <a href="/dashboard" class="btn btn-sm btn-outline-secondary nav-btn">Back</a>
+        <a href="/dashboard" class=" nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "resume") { %>
-        <a href="/resumes" class="btn btn-sm btn-outline-secondary nav-btn">Back</a>
+        <a href="/resumes" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "edit") { %>
-        <a href="/resumes" class="btn btn-sm btn-outline-secondary nav-btn">Back</a>
+        <a href="/resumes" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "upload") { %>
-        <a href="/dashboard" class="btn btn-sm btn-outline-secondary nav-btn">Back</a>
+        <a href="/dashboard" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
       <% } %>
-      <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <!-- <a class="dropdown-item" href="/account">Account</a> -->
-          <!-- <div class="dropdown-divider"></div> -->
-          <!-- <a class="dropdown-item" href="/help">Help</a> -->
-          <a class="dropdown-item" href="/logout">Log Out</a>
-        </div>
-      </li>
+      <a href="/logout" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="log out"><i class="fas fa-sign-out-alt"></i></a>
     </ul>
   </div>
 </nav>

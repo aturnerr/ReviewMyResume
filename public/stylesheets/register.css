@@ -1,14 +1,45 @@
+body {
+  /* background-image: linear-gradient(to bottom, #89D6F0, #6f86d6 30%, #505285 60%, #65689f 70%, #7e7ebb 80%, #9795d4 90%, #b5aee4 100%); */
+  background-image: linear-gradient(to bottom, #89D6F0, #6f86d6 30%, #b5aee4 60%, #9795d4 70%, #7e7ebb 80%, #65689f 90%, #505285 100%);
+  background-size: 100% 300%;
+  /* background-position: 0% 100%; */
+
+}
+
+.to-blue {
+  background-position: 0% 0%;
+}
+
+.to-purple {
+  background-position: 0% 0%;
+  animation: ToPurple 1s ease forwards;
+}
+
+@keyframes ToPurple {
+	0% {
+		background-position: 0% 0%
+	}
+	100% {
+		background-position: 0% 100%
+	}
+
+}
+
 .reviewer-info{
     display: none;
 }
 
 select{
-    width: 420px !important;
+    min-width: 330px;
     text-align-last:center;
 }
 
 input, select{
   border: none !important;
+}
+
+.col-11 {
+
 }
 
 /* .failed-input{
@@ -28,7 +59,16 @@ input, select{
     color: white !important;
 } */
 
+#form {
+  margin-top: 25vh;
+}
+
 #country{
+    color: gray;
+    padding: 0;
+}
+
+#type{
     color: gray;
 }
 

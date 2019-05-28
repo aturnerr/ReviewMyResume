@@ -7,22 +7,22 @@ body {
 }
 
 .to-blue {
+  animation: reverse ToPurple 0.8s ease-in;
   background-position: 0% 0%;
 }
 
 .to-purple {
-  background-position: 0% 0%;
-  animation: ToPurple 1s ease forwards;
+  animation: ToPurple 0.8s ease;
+  background-position: 0% 100%;
 }
 
 @keyframes ToPurple {
-	0% {
+	from {
 		background-position: 0% 0%
 	}
-	100% {
+	to {
 		background-position: 0% 100%
 	}
-
 }
 
 .reviewer-info{

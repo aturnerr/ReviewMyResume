@@ -25,16 +25,14 @@ $(document).ready(function(){
 
     $('select[name="user[type]"]').change(function(){
       if ($(this).val() == "student"){
-          // document.body.style.backgroundPosition= "0% 100%";
           document.body.classList.remove("to-purple");
+          void document.body.offsetWidth;
           document.body.classList.add("to-blue");
-          // alert("call the do something function on option 2");
       }
         if ($(this).val() == "reviewer"){
-            // document.body.style.backgroundPosition= "0% 100%";
             document.body.classList.remove("to-blue");
+            void document.body.offsetWidth;
             document.body.classList.add("to-purple");
-            // alert("call the do something function on option 2");
         }
     })
 

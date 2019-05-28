@@ -72,7 +72,11 @@ exports.show_resume_gallery =
     (req, res) => {
         Resume.find((err, resumes) => {
         if (!err) {
-            res.render("resume-gallery", {resumes: resumes, page: "gallery"});
+            if (req.params.tag){
+              res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: req.params.tag});
+            } else {
+              res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: ""});
+            }
         } else {
             res.sendStatus(404);
         }

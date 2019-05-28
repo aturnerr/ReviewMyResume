@@ -12,8 +12,13 @@
     <div class="content">
       <div class="filter d-flex flex-column align-items-center">
         <h4>Filter by Tags</h4>
-        <select class="form-control" name="user[type]" id="myInput" onchange="filter_resumes()">
-          <option selected value="">All</option>
+        <select class="form-control" name="user[type]" id="myInput" onchange=filter_resumes()>
+          <% if (tag !== ""){ %>
+          <option selected value="<%= tag %>"><%= tag %></option>
+          <option value="All">All</option>
+          <% } else { %>
+          <option selected value="All">All</option>
+          <% } %>
           <option value="Agriculture">Agriculture</option>
           <option value="Accounting">Accounting</option>
           <option value="Aeronautical Engineering">Aeronautical Engineering</option>
@@ -56,12 +61,12 @@
         </select>
       </div>
       <div class="gallery">
-        <div class="row flex-wrap justify-content-center">
+        <div id="resumes" class="row flex-wrap justify-content-center">
             <% if (resumes.length === 0 ){ %>
             <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
             <% }else{ %>
             <% resumes.forEach(function(resume){ %>
-                <a id = "resumes" href="resumes/<%= resume._id %>" class="resume mx-3 mb-5">
+                <a href="resumes/<%= resume._id %>" class="resume mx-3 mb-5">
                   <div class="container thumb">
                     <img class="img-fluid" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>.png" alt="thumbnail"></img>
                   </div>

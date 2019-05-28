@@ -62,7 +62,8 @@
                   <b>Tags:</b>
                   <% for (var i=0; i<resume.tags.length; i++) { %>
                     <div class="tag tag-<%= i+ 1 %> mt-1">
-                      <p><%= resume.tags[i] %></p>
+                      <a href="/resumes/filtered/<%= resume.tags[i] %>"><%= resume.tags[i] %></a>
+                      <!-- <p><%= resume.tags[i] %></p> -->
                     </div>
                   <% } %>
                   <br>

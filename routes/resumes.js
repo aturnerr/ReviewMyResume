@@ -60,6 +60,9 @@ router.get('/resumes/upload', isLoggedIn, ResumesController.show_upload_page);
 // list of all currently stored resumes
 router.get('/resumes', isLoggedIn, ResumesController.show_resume_gallery);
 
+// list of filtered currently stored resumes
+router.get('/resumes/filtered/:tag', isLoggedIn, ResumesController.show_resume_gallery);
+
 // view a specific pdf in the browser
 router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_pdf);
 

@@ -31,6 +31,7 @@ body {
   padding-left: 7.5px;
   padding-right: 7.5px;
   color: white;
+  transition: 350ms;
 }
 
 .tag-1{
@@ -38,9 +39,23 @@ body {
   background: rgb(151, 225, 255);
 }
 
+.tag-1:hover{
+  border: 1px solid rgb(119, 212, 248);
+  background: rgb(119, 212, 248);
+}
+
 .tag-2{
   border: 1px solid rgb(158, 235, 133);
   background: rgb(158, 235, 133);
+}
+
+.tag-2:hover{
+  border: 1px solid rgb(139, 224, 110);
+  background: rgb(139, 224, 110);
+}
+
+.tag:hover{
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tag p{
@@ -204,3 +219,12 @@ iframe{
       min-height: 80vh;
     }
 }
+
+.tag a{
+  color: white;
+}
+
+.tag a:hover{
+  text-decoration: none;
+}
+

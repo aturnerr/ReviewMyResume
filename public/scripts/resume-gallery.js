@@ -1,25 +1,27 @@
-function filter_resumes() {
-  // Declare variables
-  var input, filter, resumes, td, td2, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.options[input.selectedIndex].value;
-  resumes = document.getElementsByTagName("a");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < resumes.length; i++) {
-    td = resumes[i].getElementsByClassName("tag1");
-    td2 = resumes[i].getElementsByClassName("tag2");
-    if (td) {
-      txtValue = td[0].innerText;
-      if (txtValue.indexOf(filter) > -1) {
-        resumes[i].style.display = "";
-      } else if (td2 && td2[0].innerText.indexOf(filter) > -1) {
-        resumes[i].style.display = "";
-      } else {
-        resumes[i].style.display = "none";
-      }
-    } else {
-      resumes[i].style.display = "none";
-    }
-  }
+if(typeof(String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function()
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
 }
+
+function filter_resumes(){
+
+  val = $("#myInput").val();
+  $(".resume").each(function(){
+    var tag1 = $(this).find(".tag1").text();
+    var tag2 = $(this).find(".tag2").text();
+
+    if (val !== "All" && !(tag1.trim() === val || tag2.trim() === val)){
+      $(this).css("display", "none");
+    } else{
+      $(this).css("display", "flex");
+    }
+  });
+}
+
+$(document).ready(function() {
+  filter_resumes();
+});
+

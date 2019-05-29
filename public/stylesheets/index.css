@@ -1,0 +1,17 @@
+#content{
+    height: 100vh;
+}
+
+.title {
+  font-size: 96px;
+}
+
+.tagline {
+  font-weight: 300;
+  font-size: 26px;
+}
+
+a:hover{
+    color: black !important;
+    text-decoration: none;
+}

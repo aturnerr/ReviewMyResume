@@ -8,7 +8,6 @@ body{
 }
 
 .block{
-    background: #7e7ebb;
     border-radius: 4px;
     transition: 500ms;
 }

@@ -1,6 +1,13 @@
 <% include ./partials/header-top %>
 
-  <title>Upload</title>
+  <title>Edit</title>
+
+  <% if (user_type == "student") { %>
+    <link rel="stylesheet" href="/stylesheets/background_student.css">
+  <% } else if (user_type == "reviewer") { %>
+    <link rel="stylesheet" href="/stylesheets/background_reviewer.css">
+  <% } %>
+
   <link rel="stylesheet" href="/stylesheets/login.css">
 
 <% include ./partials/header-bot %>

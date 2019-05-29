@@ -8,7 +8,7 @@ const password_len = 8;
 exports.user_show_dashboard =
 
     (req, res) => {
-        res.render("dashboard", { page: "dashboard" });
+        res.render("dashboard", { page: "dashboard", user_type: req.user.type });
     }
 
 exports.user_show_register =

@@ -63,7 +63,8 @@ exports.show_upload_page =
         res.render('upload-resume', {
                                         description: "",
                                         retry: false,
-                                        page: "upload"
+                                        page: "upload",
+                                        user_type: req.user.type
                                     });
     }
 
@@ -73,9 +74,9 @@ exports.show_resume_gallery =
         Resume.find((err, resumes) => {
         if (!err) {
             if (req.params.tag){
-              res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: req.params.tag});
+              res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: req.params.tag, user_type: req.user.type});
             } else {
-              res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: ""});
+              res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: "", user_type: req.user.type});
             }
         } else {
             res.sendStatus(404);
@@ -128,7 +129,7 @@ exports.view_resume =
             res.redirect("/resumes");
           }
 
-          res.render("show-resume", {resume: resume, page: "resume"});
+          res.render("show-resume", {resume: resume, page: "resume", user_type: req.user.type});
         });
     }
 
@@ -156,7 +157,8 @@ exports.upload_resume =
                                                 description: req.body.description,
                                                 error: "You entered an invalid tag!",
                                                 retry: true,
-                                                page: "upload"
+                                                page: "upload",
+                                                user_type: req.user.type
                                             });
       }
 
@@ -169,7 +171,8 @@ exports.upload_resume =
                                               description: req.body.description,
                                               error: "You entered an invalid tag!",
                                               retry: true,
-                                              page: "upload"
+                                              page: "upload",
+                                              user_type: req.user.type
                                           });
     }
 
@@ -182,7 +185,8 @@ exports.upload_resume =
                                               description: req.body.description,
                                               error: "Both your tags can't be the same!",
                                               retry: true,
-                                              page: "upload"
+                                              page: "upload",
+                                              user_type: req.user.type
                                             });
       }
 
@@ -194,7 +198,8 @@ exports.upload_resume =
                                                 description: "",
                                                 error: "The description must be between 50 to 200 characters!",
                                                 retry: true,
-                                                page: "upload"
+                                                page: "upload",
+                                                user_type: req.user.type
                                               });
       }
 
@@ -402,7 +407,7 @@ exports.delete_resume =
           res.redirect("/resumes");
         }
 
-        res.render("edit-resume", {resume: resume, retry: false, page: "edit"});
+        res.render("edit-resume", {resume: resume, retry: false, page: "edit", user_type: req.user.type});
 
       });
     }

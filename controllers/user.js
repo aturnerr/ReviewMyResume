@@ -14,7 +14,7 @@ exports.user_show_dashboard =
 exports.user_show_register =
 
     (req, res) => {
-        res.render("register", { retry : false });
+        res.render("register", { retry : false, page: "register"  });
     }
 
 exports.user_show_login =

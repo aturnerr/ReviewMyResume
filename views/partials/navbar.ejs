@@ -15,8 +15,11 @@
         <a href="/resumes" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "upload") { %>
         <a href="/dashboard" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
+      <% } else if (page == "register") { %>
+        <a href="/login" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="back to login"><i class="fas fa-arrow-left"></i></a>
       <% } %>
+      <% if (page != "register") { %>
       <a href="/logout" class="nav-btn" data-toggle="tooltip" data-placement="bottom" title="log out"><i class="fas fa-sign-out-alt"></i></a>
-    </ul>
+      <% } %>
   </div>
 </nav>

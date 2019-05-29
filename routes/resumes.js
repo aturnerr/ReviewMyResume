@@ -70,7 +70,7 @@ router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_p
 // view a specific resume
 router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 
-//
+// edit a specific resume
 router.get('/resumes/:id/edit', isLoggedIn, isUploader, ResumesController.show_edit_resume);
 
 /*================================POST ROUTES=================================*/
@@ -86,6 +86,8 @@ router.post('/resumes/upload', isLoggedIn, upload.single("file"), function(req, 
 });
 
 router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment);
+
+router.post('/resumes/:id/rate', isLoggedIn, ResumesController.add_rating);
 
 /*================================DELETE ROUTES===============================*/
 

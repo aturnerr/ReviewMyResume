@@ -431,3 +431,24 @@ exports.edit_resume =
       }
     });
   }
+
+exports.add_rating =
+
+  (req, res) => {
+
+      Resume.findById(req.params.id, (err, resume) => {
+
+        resume.raters.push(req.user.username);
+        resume.ratings.push(req.body.rating);
+
+        var sum = 0;
+        for (var i=0; i<resume.ratings.length; i++){
+          sum += resume.ratings[i];
+        }
+        resume.overall_rating = Math.round(sum / resume.ratings.length);
+
+        resume.save();
+      });
+
+      res.redirect("/resumes/" + req.params.id);
+  }

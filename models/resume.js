@@ -13,8 +13,9 @@ var ResumeSchema = new mongoose.Schema({
     ref: "Comment"
   }],
   description: String,
-  n_upvotes: Number,
-  n_downvotes: Number,
+  raters: [{ type: String }],
+  ratings: [{ type: Number }],
+  overall_rating: Number,
   successful: Boolean
 });
 

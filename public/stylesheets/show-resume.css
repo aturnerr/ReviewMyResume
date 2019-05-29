@@ -228,3 +228,37 @@ iframe{
   text-decoration: none;
 }
 
+.rating p{
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.fa-star:not(.r-star){
+  color: gold;
+}
+
+.r-star.unlocked{
+  cursor: pointer;
+}
+
+.submit-btn{
+  border: 2px solid gray;
+  color: gray;
+  font-size: 0.8rem;
+  margin-left: 10px;
+  padding: 2px;
+}
+
+.submit-btn:hover{
+  color: white;
+  background: gray;
+}
+
+.btn-warning{
+  color: white;
+}
+
+#rating{
+  display: none;
+}

@@ -7,7 +7,7 @@
     <% } else if (user_type == "reviewer") { %>
       <link rel="stylesheet" href="/stylesheets/background_reviewer.css">
     <% } %>
-    
+
     <link rel="stylesheet" href="/stylesheets/show-resume.css">
 
 <% include ./partials/header-bot %>
@@ -75,6 +75,74 @@
                   <% } %>
                   <br>
 
+                  <!-- Ratings -->
+                  <div class="rating">
+
+                      <p class="title mt-3">Overall Rating:</p>
+                      <% for (var i=0; i<5; i++) { %>
+                      <%    if (i<resume.overall_rating) { %>
+                                <i class="fas fa-star"></i>
+                      <%    } else { %>
+                              <i class="far fa-star"></i>
+                      <%    } %>
+                      <% } %>
+                      <br>
+
+                      <% if (currentUser.username !== resume.username){ %>
+                        <p class="title mt-3">Your Rating:</p>
+
+                        <% var rating_idx = resume.raters.indexOf(currentUser.username); %>
+
+                        <% if (rating_idx == -1){ %>
+                          <i id="star-0" class="fas fa-star r-star unlocked"></i>
+                          <% for (var i=1; i<5; i++) { %>
+                              <i id="star-<%= i %>" class="far fa-star r-star unlocked"></i>
+                          <% } %>
+                          <!-- Button trigger modal -->
+                          <button type="button" class="btn submit-btn" data-toggle="modal" data-target="#ratingModal">
+                              submit
+                          </button>
+                        <% } else { %>
+                          <% var rating = resume.ratings[rating_idx]; %>
+                          <% for (var i=0; i<5; i++) { %>
+                          <%    if (i<rating) { %>
+                          <i class="fas fa-star r-star"></i>
+                          <%    } else { %>
+                          <i class="far fa-star r-star"></i>
+                          <%    } %>
+                          <% } %>
+                        <% } %>
+
+
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="ratingModalLongTitle">
+                                  Are you sure you want submit this rating? <br> Ratings are final and cannot be changed later.
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+                                <form action="/resumes/<%= resume._id %>/rate" method="POST">
+                                  <input id="rating" type="text" name="rating">
+                                  <button class="btn-b btn-warning">submit</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% } %>
+                  </div>
+
+
+
                   <!-- Comments -->
                   <p class="title mt-3">Comments/ Reviews:</p>
 
@@ -124,4 +192,6 @@
 
       </div>
 
+      <script src="/scripts/common.js"></script>
+      <script src="/scripts/show-resume.js"></script>
 <% include ./partials/footer %>

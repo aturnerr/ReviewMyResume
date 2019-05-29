@@ -6,6 +6,7 @@ const Resume            = require("../models/resume"),
       fs                = require('fs'),
       router            = express.Router(),
       isLoggedIn        = require("../middleware/is_logged_in"),
+      isUploader        = require("../middleware/is_uploader"),
       ResumesController = require("../controllers/resumes"),
       sanitiser         = require('express-sanitizer');
 
@@ -70,7 +71,7 @@ router.get('/resumes/pdf/:filename', isLoggedIn, ResumesController.show_resume_p
 router.get('/resumes/:id', isLoggedIn, ResumesController.view_resume);
 
 //
-router.get('/resumes/:id/edit', isLoggedIn, ResumesController.show_edit_resume);
+router.get('/resumes/:id/edit', isLoggedIn, isUploader, ResumesController.show_edit_resume);
 
 /*================================POST ROUTES=================================*/
 
@@ -90,7 +91,7 @@ router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment)
 
 router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController.delete_comment);
 
-router.delete('/resumes/:id', isLoggedIn, ResumesController.delete_resume);
+router.delete('/resumes/:id', isLoggedIn, isUploader, ResumesController.delete_resume);
 
 /*==================================PUT ROUTES=================================*/
 

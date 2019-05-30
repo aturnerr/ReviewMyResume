@@ -7,7 +7,7 @@
     <% } else if (user_type == "reviewer") { %>
       <link rel="stylesheet" href="/stylesheets/background_reviewer.css">
     <% } %>
-    
+
     <link rel="stylesheet" href="/stylesheets/resume-gallery.css">
 
 <% include ./partials/header-bot %>
@@ -17,8 +17,8 @@
     </div> -->
 
     <div class="content">
-      <div class="filter d-flex flex-column align-items-center">
-        <h4>Filter by Tags</h4>
+      <div class="filter d-flex align-content-center justify-content-center">
+        <h5 class="mr-2">Filter By:</h5>
         <select class="form-control" name="user[type]" id="myInput" onchange=filter_resumes()>
           <% if (tag !== ""){ %>
           <option selected value="<%= tag %>"><%= tag %></option>
@@ -67,27 +67,45 @@
           <option value="Visual Performing Arts">Visual Performing Arts</option>
         </select>
       </div>
+
+
       <div class="gallery">
         <div id="resumes" class="row flex-wrap justify-content-center">
-            <% if (resumes.length === 0 ){ %>
+
+          <% if (resumes.length === 0 ){ %>
             <h2 id="sorry-msg">Sorry, no resumes have been uploaded yet.</h2>
-            <% }else{ %>
+          <% }else{ %>
             <% resumes.forEach(function(resume){ %>
-                <a href="resumes/<%= resume._id %>" class="resume mx-3 mb-5">
+                <a href="resumes/<%= resume._id %>" class="resume mx-3 mb-5 pb-3">
+
+                  <% if (resume.user_type == "student"){ %>
+                    <p class="author student-resume"><%= resume.username %></p>
+                  <% } else { %>
+                    <p class="author review-resume"><%= resume.username %></p>
+                  <% } %>
+
+
                   <div class="container thumb">
                     <img class="img-fluid" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>.png" alt="thumbnail"></img>
                   </div>
                   <div class="resume-text">
-                    <p><%= resume.username + "\'s resume" %></p>
 
-                    <!--These are the hidden tag elements that the filter function uses-->
-                    <div class="tag1" style= "display:none">
-                      <%= resume.tags[0] %>
-                    </div>
-                    <div class="tag2" style= "display:none">
-                        <%= resume.tags[1] %>
-                    </div>
+                  <% for (var i=0; i<5; i++) { %>
+                    <%    if (i<resume.overall_rating) { %>
+                              <i class="fas fa-star"></i>
+                    <%    } else { %>
+                            <i class="far fa-star"></i>
+                    <%    } %>
+                  <% } %>
+                  <br>
+
+                  <div class="tag tag-1 mt-2">
+                    <p><%= resume.tags[0] %></p>
                   </div>
+                  <div class="tag tag-2 mt-2">
+                      <p><%= resume.tags[1] %></p>
+                  </div>
+                </div>
                 </a>
             <% }); %>
             <% } %>

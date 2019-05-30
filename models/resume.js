@@ -4,7 +4,11 @@ var ResumeSchema = new mongoose.Schema({
   filename: String,
   url: String,
   username: String,
-  last_updated: Date,
+  user_type: String,
+  last_updated: {
+                  type: Date,
+                  default: Date.now
+                },
   tags: [{
     type: String
   }],

@@ -10,8 +10,8 @@ function filter_resumes(){
 
   val = $("#myInput").val();
   $(".resume").each(function(){
-    var tag1 = $(this).find(".tag1").text();
-    var tag2 = $(this).find(".tag2").text();
+    var tag1 = $(this).find(".tag-1 p").text();
+    var tag2 = $(this).find(".tag-2 p").text();
 
     if (val !== "All" && !(tag1.trim() === val || tag2.trim() === val)){
       $(this).css("display", "none");

@@ -1,7 +1,14 @@
 var mongoose = require("mongoose");
 
 var NotificationSchema = new mongoose.Schema({
-    user: {
+    to: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
+    from: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"

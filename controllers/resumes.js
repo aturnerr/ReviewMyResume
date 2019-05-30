@@ -137,19 +137,8 @@ exports.upload_resume =
 
     (req, res) => {
 
-      // ensure that a file was uploaded
-      // if (!req.body.filename || req.body.filename.length ==0){
-      //     return res.render('upload-resume', {
-      //                                           primary_tag: req.body.primary_tag,
-      //                                           secondary_tag: req.body.secondary_tag,
-      //                                           description: req.body.description,
-      //                                           error: "You didn't upload a file!",
-      //                                           retry: true
-      //                                       });
-      // }
-
       // ensure that primary tag is valid
-      if ((!tags.includes(req.body.primary_tag)) || (!tags.includes(req.body.secondary_tag))){
+      if ((!tags.includes(req.body.primary_tag)) || (req.body.secondary_tag && !tags.includes(req.body.secondary_tag))){
 
           return res.render('upload-resume', {
                                                 primary_tag: "",
@@ -215,6 +204,7 @@ exports.upload_resume =
           // url: req.file.path,
           last_updated: Date.now(),
           username: req.user.username,
+          user_type: req.user.type,
           description: description
       })
 

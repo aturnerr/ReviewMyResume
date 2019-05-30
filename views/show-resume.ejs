@@ -152,7 +152,7 @@
                         <div class="comment student-comment">
                         <% } %>
                           <div class="container">
-                              <p class="author"><%= comment.username %></p>
+                              <p class="author"><%= comment.author.username %></p>
                               <p class="comment-text"><%= comment.text %></p>
                               <div class="info d-flex justify-content-around align-items-center">
                               <% if (String(currentUser._id) === String(comment.id)){ %>
@@ -162,8 +162,8 @@
 
                                   <span>•</span>
                               <% } %>
-                                  <% var date = comment.date.toString(); %>
-                                  <span><%= date.substring(0, 3) %>, <%= date.substring(4,21) %></span>
+                              <% var date = comment.date.toString(); %>
+                              <span><%= date.substring(0, 3) %>, <%= date.substring(4,21) %></span>
                               </div>
                           </div>
                         </div>

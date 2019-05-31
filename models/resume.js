@@ -19,7 +19,10 @@ var ResumeSchema = new mongoose.Schema({
   description: String,
   raters: [{ type: String }],
   ratings: [{ type: Number }],
-  overall_rating: Number,
+  overall_rating: {
+                    type: Number,
+                    default: 0
+                  },
   successful: Boolean,
   requested: Boolean
 });

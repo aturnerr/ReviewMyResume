@@ -72,16 +72,34 @@ exports.show_upload_page =
 exports.show_resume_gallery =
 
     (req, res) => {
-        Resume.find((err, resumes) => {
-        if (!err) {
+        Resume.find({}, (err, resumes) => {
+
+          if (err){
+            req.flash("error", "Sorry, something went wrong!");
+            res.redirect("/dashboard");
+          } else {
+
+            // sort the resumes from highest rated to worst rated
+            // if 2 resumes have equal ratings, the one with the higher number of ratings comes first
+            // if 2 resumes have both equal ratings and an equal number of votes, the one that was first posted comes first
+            resumes.sort((resume1, resume2) => {
+                              var result1 = resume2.overall_rating - resume1.overall_rating;
+                              if (result1 === 0){
+                                var result2 = resume2.ratings.length - resume2.ratings.length;
+                                if (result2 === 0){
+                                  return resume1.last_updated - resume2.last_updated;
+                                }
+                                return result2;
+                              }
+                              return result1;
+            });
+
             if (req.params.tag){
               res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: req.params.tag, user_type: req.user.type});
             } else {
               res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: "", user_type: req.user.type});
             }
-        } else {
-            res.sendStatus(404);
-        }
+          }
         });
     }
 
@@ -509,5 +527,33 @@ exports.delete_notif =
         req.flash("success", "Notification successfully deleted.");
         res.redirect("/dashboard");
       }
+    });
+  }
+
+exports.show_walkthrough_0 =
+
+  (req, res) => {
+    Resume.find({}, (err, resumes) => {
+
+      // sort the resumes from highest rated to worst rated
+      // if 2 resumes have equal ratings, the one with the higher number of ratings comes first
+      // if 2 resumes have both equal ratings and an equal number of votes, the one that was first posted comes first
+      resumes.sort((resume1, resume2) => {
+                        var result1 = resume2.overall_rating - resume1.overall_rating;
+                        if (result1 === 0){
+                          var result2 = resume2.ratings.length - resume2.ratings.length;
+                          if (result2 === 0){
+                            return resume1.last_updated - resume2.last_updated;
+                          }
+                          return result2;
+                        }
+                        return result1;
+      });
+
+      res.render("guide-0", {
+                                user_type: "student",
+                                page: "gallery",
+                                resumes: resumes
+                            });
     });
   }

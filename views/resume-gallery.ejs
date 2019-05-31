@@ -94,12 +94,14 @@
                   </div>
                   <div class="resume-text">
 
-                  <% for (var i=0; i<5; i++) { %>
-                    <%    if (i<resume.overall_rating) { %>
-                              <i class="fas fa-star"></i>
-                    <%    } else { %>
-                            <i class="far fa-star"></i>
-                    <%    } %>
+                  <% if (!resume.overall_rating){ %>
+                    <p class="unrated">Not Rated Yet</p>
+                  <% } else { %>
+                    <p>
+                      <%= resume.overall_rating %>
+                      <i class="fas fa-star"></i>
+                      <span class="count">(<%= resume.ratings.length %>)</span>
+                    </p>
                   <% } %>
                   <br>
 

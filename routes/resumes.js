@@ -55,6 +55,9 @@ const upload = multer({
 
 /*=================================GET ROUTES=================================*/
 
+// walthrough page 1
+router.get('/walkthrough/0', ResumesController.show_walkthrough_0);
+
 // standard resume upload page and form
 router.get('/resumes/upload', isLoggedIn, ResumesController.show_upload_page);
 

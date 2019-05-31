@@ -29,7 +29,18 @@
 
               <div id="desc" class="col-12 col-sm-4 py-5">
 
+                  <% if (resume.requested == true) { %>
+                    <i class="fas fa-exclamation-circle request-mark" data-toggle="tooltip" data-placement="right" title="Requested for Review"></i>
+                  <% } %>
+
                   <% if (currentUser.username === resume.username){ %>
+                  <% if (resume.requested != true) { %>
+                    <% if (user_type == "student") { %>
+                      <form action="/resumes/<%= resume._id %>/request" method="post">
+                        <button id="request-btn" href="/resumes/<%= resume._id %>/request" type="btn" class="btn edit-btn flag">Request Review</button>
+                      </form>
+                    <% } %>
+                  <% } %>
 
                   <a href="/resumes/<%= resume._id %>/edit" type="btn" class="btn edit-btn">Edit</a>
 

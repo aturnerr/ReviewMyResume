@@ -206,7 +206,8 @@ exports.upload_resume =
           last_updated: Date.now(),
           username: req.user.username,
           user_type: req.user.type,
-          description: description
+          description: description,
+          requested: false
       })
 
       // push tags
@@ -345,6 +346,9 @@ exports.post_comment =
             res.redirect("/resumes/" + req.params.id);
           } else {
             resume.comments.push(comment);
+            if (req.user.type == "reviewer"){
+              resume.requested = false;
+            }
             resume.save();
           }
         });
@@ -387,6 +391,19 @@ exports.post_comment =
         res.redirect("/resumes/" + req.params.id);
       });
   }
+
+
+exports.request_review =
+
+    (req, res) => {
+        Resume.findOneAndUpdate({_id: req.params.id}, {
+          $set:{ requested: true }},
+               { new: true }, (err, resume) => {
+          if (!err) {
+            res.redirect("/resumes/" + req.params.id);
+          }
+        });
+    }
 
 exports.delete_comment =
 

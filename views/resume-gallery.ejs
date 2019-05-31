@@ -84,6 +84,10 @@
                     <p class="author review-resume"><%= resume.username %></p>
                   <% } %>
 
+                  <% if ((resume.requested == true) && (user_type == "reviewer")) { %>
+                    <i class="fas fa-exclamation-circle request-mark"></i>
+                  <% } %>
+
 
                   <div class="container thumb">
                     <img class="img-fluid" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>.png" alt="thumbnail"></img>

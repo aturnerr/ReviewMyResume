@@ -89,6 +89,8 @@ router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment)
 
 router.post('/resumes/:id/rate', isLoggedIn, ResumesController.add_rating);
 
+router.post('/resumes/:id/request', isLoggedIn, isUploader, ResumesController.request_review);
+
 /*================================DELETE ROUTES===============================*/
 
 router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController.delete_comment);

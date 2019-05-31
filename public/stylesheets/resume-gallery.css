@@ -21,6 +21,11 @@ body {
   /* background-color: #E5E5E5; */
 }
 
+.request-mark {
+  position: absolute;
+  padding: 2px 3px;
+}
+
 .resume:hover {
   transform: scale(1.15) perspective(1px);
 }

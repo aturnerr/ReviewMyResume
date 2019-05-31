@@ -3,53 +3,107 @@
     <title>Welcome</title>
 
     <% if (user_type == "student") { %>
-      <link rel="stylesheet" href="/stylesheets/background_student.css">
+        <link rel="stylesheet" href="/stylesheets/background_student.css">
     <% } else if (user_type == "reviewer") { %>
-      <link rel="stylesheet" href="/stylesheets/background_reviewer.css">
+        <link rel="stylesheet" href="/stylesheets/background_reviewer.css">
     <% } %>
 
-    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <link rel="stylesheet" href="/stylesheets/resume-gallery.css">
 
 <% include ./partials/header-bot %>
 <% include ./partials/navbar %>
 
-    <div id="content">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-12 col-sm-6">
-                    <a href="/resumes/upload">
-                        <div id="upload" class="row block block-1 py-3 mb-3 mr-1 d-flex align-items-center justify-content-center">
-                            <h4><span>upload</span> your resume</h4>
-                        </div>
-                    </a>
-                    <div id="notifs" class="row block block-2 py-3 mr-1 d-flex justify-content-center">
-                        <h4 class="mt-2" >Notifications</h4>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-                    <a href="/resumes">
-                        <div id="gallery" class="row block block-2 py-3 ml-0 ml-sm-1 d-flex justify-content-center align-items-center">
-                            <h4 class="mt-2">Resume Gallery</h4>
-                        </div>
-                    </a>
-                    <% if (currentUser.resumes && currentUser.resumes.length > 0) { %>
-                        <a href="/resumes/<%= currentUser.resumes[currentUser.resumes.length-1]._id %>">
-                    <% } else { %>
-                        <a href="/resumes/upload">
-                    <% } %>
-                        <div id="view" class="row block block-1 py-3 mt-3 ml-0 ml-sm-1 d-flex align-items-center justify-content-center">
-                            <h4><span>view</span> your resume</h4>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
+    <div class="content">
+        <h5>Select your target field</h5>
+        <div class="filter d-flex align-content-center justify-content-center">
+          <select class="form-control" name="user[type]" id="myInput" onchange=filter_resumes()>
+            <option selected value="All">Field</option>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Accounting">Accounting</option>
+            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+            <option value="Architecture">Architecture</option>
+            <option value="Building">Building</option>
+            <option value="Business Studies">Business Studies</option>
+            <option value="Chemical Engineering">Chemical Engineering</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Dentistry">Dentistry</option>
+            <option value="Economics">Economics</option>
+            <option value="Education Initial">Education Initial</option>
+            <option value="Education Post Other">Education Post Other</option>
+            <option value="Electrical Engineering">Electrical Engineering</option>
+            <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
+            <option value="Geology">Geology</option>
+            <option value="Health Other">Health Other</option>
+            <option value="Humanities">Humanities</option>
+            <option value="Languages">Languages</option>
+            <option value="Law">Law</option>
+            <option value="Life Sciences">Life Sciences</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Mining Engineering">Mining Engineering</option>
+            <option value="Nursing Initial">Nursing Initial</option>
+            <option value="Nursing Post Initial">Nursing Post Initial</option>
+            <option value="Other Engineering">Other Engineering</option>
+            <option value="Pharmacy">Pharmacy</option>
+            <option value="Physical Sciences">Physical Sciences</option>
+            <option value="Psychology">Psychology</option>
+            <option value="Rehabilitation">Rehabilitation</option>
+            <option value="Social Sciences">Social Sciences</option>
+            <option value="Social Work">Social Work</option>
+            <option value="Surveying">Surveying</option>
+            <option value="Urban Regional Planning">Urban Regional Planning</option>
+            <option value="Veterinary Science">Veterinary Science</option>
+            <option value="Visual Performing Arts">Visual Performing Arts</option>
+          </select>
         </div>
 
-    </div>
+
+        <div class="gallery">
+          <div id="resumes" class="row flex-wrap justify-content-center">
+
+            <% resumes.forEach(function(resume){ %>
+
+                  <a href="resumes/<%= resume._id %>" class="resume mx-3 mb-5 pb-3">
+
+                    <% if (resume.user_type == "student"){ %>
+                      <p class="author student-resume"><%= resume.username %></p>
+                    <% } else { %>
+                      <p class="author review-resume"><%= resume.username %></p>
+                    <% } %>
 
 
-<% include ./partials/footer %>
+                    <div class="container thumb">
+                      <img class="img-fluid" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>.png" alt="thumbnail"></img>
+                    </div>
+                    <div class="resume-text">
+
+                    <% if (!resume.overall_rating){ %>
+                      <p class="unrated">Not Rated Yet</p>
+                    <% } else { %>
+                      <p>
+                        <%= resume.overall_rating %>
+                        <i class="fas fa-star"></i>
+                        <span class="count">(<%= resume.ratings.length %>)</span>
+                      </p>
+                    <% } %>
+                    <br>
+
+                    <div class="tag tag-1 mt-2">
+                      <p><%= resume.tags[0] %></p>
+                    </div>
+                    <div class="tag tag-2 mt-2">
+                        <p><%= resume.tags[1] %></p>
+                    </div>
+                  </div>
+                  </a>
+              <% }); %>
+              <% } %>
+          </div>
+        </div>
+      </div>
+
+      <script src="/scripts/guide-0.js"></script>
+  <% include ./partials/footer %>

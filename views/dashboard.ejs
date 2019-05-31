@@ -36,17 +36,17 @@
                                 <div class="notifications p-1">
                                 <% notifications.forEach((notification) => { %>
 
-                                    <a href="/resumes/<%= notification.resume._id %>">
-                                        <% if (notification.type == "reviewer"){ %>
-                                        <div class="notification review p-2">
-                                        <% } else { %>
-                                        <div class="notification p-2">
+                                    <% if (notification.type == "reviewer"){ %>
+                                    <div class="notification review p-2">
+                                    <% } else { %>
+                                    <div class="notification p-2">
+                                    <% } %>
 
-                                        <button type="button" class="btn exit-btn" data-toggle="modal" data-target="#n<%= notification._id %>Modal">
+                                        <button type="button" class="btn close exit-btn" data-toggle="modal" data-target="#n<%= notification._id %>Modal">
                                             &times
                                         </button>
 
-                                        <% } %>
+                                        <a href="/resumes/<%= notification.resume._id %>">
                                             <p>
                                                 <% if (notification.type == "reviewer"){ %>
                                                     <span class="alert-sender alert-sender-reviewer"><%= notification.from %> </span>
@@ -57,8 +57,8 @@
                                                 <% } %>
                                                 <span class="alert-text">"<%= notification.text_snippet %>"</span>
                                             </p>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="n<%= notification._id %>Modal" tabindex="-1" role="dialog" aria-labelledby="n<%= notification._id %>ModalTitle" aria-hidden="true">
@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
-                                                <form action="/notifications/<% notification._id %>" method="POST">
+                                                <form action="/notifications/<%= notification._id %>?_method=DELETE" method="POST">
                                                     <button class="btn-b btn-danger">delete</button>
                                                 </form>
                                             </div>

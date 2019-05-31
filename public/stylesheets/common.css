@@ -102,3 +102,7 @@ body{
 .navbar #toggler:focus{
   outline: none;
 }
+
+.modal button{
+  cursor: pointer;
+}

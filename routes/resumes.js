@@ -95,6 +95,8 @@ router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController
 
 router.delete('/resumes/:id', isLoggedIn, isUploader, ResumesController.delete_resume);
 
+router.delete('/notifications/:id', isLoggedIn, ResumesController.delete_notif);
+
 /*==================================PUT ROUTES=================================*/
 
 router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);

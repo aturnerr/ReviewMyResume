@@ -65,11 +65,6 @@ a:hover{
     color: #dc3545;
 }
 
-.notification .exit-btn{
-    position: absolute;
-    top: 3px;
-    right: 3px;
-}
 .notifications{
     overflow-y: scroll;
     border-radius: 6px;
@@ -86,6 +81,15 @@ a:hover{
     margin-top: 2.5px;
     margin-bottom: 2.5px;
     position: relative;
+}
+
+.notification .exit-btn{
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    color: gray;
+    z-index: 20;
+    font-size: 1.25rem;
 }
 
 .notification p{

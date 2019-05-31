@@ -480,3 +480,17 @@ exports.add_rating =
 
       res.redirect("/resumes/" + req.params.id);
   }
+
+exports.delete_notif =
+
+  (req, res) => {
+    Notification.findByIdAndRemove(req.params.id, (err) => {
+      if (err){
+          req.flash("error", "Oops something went wrong!")
+          res.redirect("/dashboard");
+      } else {
+        req.flash("success", "Notification successfully deleted.");
+        res.redirect("/dashboard");
+      }
+    });
+  }

@@ -432,7 +432,6 @@ exports.delete_comment =
             req.flash("error", "Oops something went wrong!")
             res.redirect("/resumes/" + req.params.id);
         } else {
-          req.flash("success", "Your comment was removed.");
           res.redirect("/resumes/" + req.params.id);
         }
       });

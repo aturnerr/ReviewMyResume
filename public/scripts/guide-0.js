@@ -23,5 +23,6 @@ function filter_resumes(){
 
 $(document).ready(function() {
   filter_resumes();
+  $(".modal").modal('show');
 });
 

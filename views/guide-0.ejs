@@ -14,10 +14,9 @@
 <% include ./partials/navbar %>
 
     <div class="content">
-        <h5>Select your target field</h5>
         <div class="filter d-flex align-content-center justify-content-center">
           <select class="form-control" name="user[type]" id="myInput" onchange=filter_resumes()>
-            <option selected value="All">Field</option>
+            <option selected value="All">All Fields</option>
             <option value="Agriculture">Agriculture</option>
             <option value="Accounting">Accounting</option>
             <option value="Aeronautical Engineering">Aeronautical Engineering</option>
@@ -100,6 +99,27 @@
                   </div>
                   </a>
               <% }); %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title d-flex flex-column align-items-center justify-content-center pl-5 py-3" id="helpModalLongTitle">
+                Welcome to ReviewMyResume!<br><br><span style="font-weight: 400; text-align: justify">To get started, please select your target field and we'll recommend
+                some of the best resumes we have in store to hopefully inspire you before when you make your resume.</span>
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn-b btn-primary" data-dismiss="modal">Skip</button>
+            </div>
           </div>
         </div>
       </div>

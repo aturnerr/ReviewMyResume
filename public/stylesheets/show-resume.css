@@ -189,16 +189,29 @@ iframe{
 
 .edit-btn {
   position: absolute;
-  top: 11px;
+  top: 5.5px;
   right: 45px;
+  font-size: 1.5rem;
+  color: rgb(168, 168, 168);
+}
+
+.edit-btn:hover {
+  /* background-color: rgb(168, 168, 168); */
+  color: rgb(120, 120, 120);
+}
+
+.flag {
+  position: absolute;
+  top: 11px;
+  right: 90px;
   color: rgb(168, 168, 168);
   border: 1px solid rgb(168, 168, 168);;
   padding: 1px 10px 2px;
 }
 
-.flag {
-  right: 105px;
-
+.flag:hover {
+  background-color: rgb(168, 168, 168);
+  color: white;
 }
 
 .request-mark {
@@ -206,12 +219,6 @@ iframe{
   position: absolute;
   top: 15px;
   font-size: 20px;
-}
-
-
-.edit-btn:hover {
-  background-color: rgb(168, 168, 168);
-  color: white;
 }
 
 .del-btn:hover{

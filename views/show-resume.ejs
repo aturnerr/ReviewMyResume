@@ -37,12 +37,14 @@
                   <% if (resume.requested != true) { %>
                     <% if (user_type == "student") { %>
                       <form action="/resumes/<%= resume._id %>/request" method="post">
-                        <button id="request-btn" href="/resumes/<%= resume._id %>/request" type="btn" class="btn edit-btn flag">Request Review</button>
+                        <button id="request-btn" href="/resumes/<%= resume._id %>/request" type="btn" class="btn flag">Request Review</button>
                       </form>
                     <% } %>
                   <% } %>
 
-                  <a href="/resumes/<%= resume._id %>/edit" type="btn" class="btn edit-btn">Edit</a>
+                  <a href="/resumes/<%= resume._id %>/edit"  class="edit-btn">
+                    <i class="edit fas fa-edit"></i>
+                  </a>
 
                   <!-- Button trigger modal -->
                   <button type="button" class="del-btn" data-toggle="modal" data-target="#exampleModalCenter">

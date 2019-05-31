@@ -118,8 +118,14 @@
                           <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="ratingModalLongTitle">
-                                  Are you sure you want submit this rating? <br> Ratings are final and cannot be changed later.
+                                <h5 class="modal-title d-flex flex-column align-items-center justify-content-center pl-5 py-3" id="ratingModalLongTitle">
+                                  <div class="stars">
+                                      <i id="locked-0" class="fas fa-star r-star locked px-1"></i>
+                                      <% for (var i=1; i<5; i++) { %>
+                                      <i id="locked-<%= i %>" class="far fa-star r-star locked px-1"></i>
+                                      <% } %>
+                                  </div>
+                                  Are you sure you want submit this rating? <br> <span>Ratings are final and cannot be changed later</span>
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
@@ -155,10 +161,33 @@
                               <p class="author"><%= comment.author.username %></p>
                               <p class="comment-text"><%= comment.text %></p>
                               <div class="info d-flex justify-content-around align-items-center">
-                              <% if (String(currentUser._id) === String(comment.id)){ %>
-                                  <form action="/resumes/<%=resume._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                                    <input type="submit" value="delete">
-                                  </form>
+                              <% if (currentUser.username === comment.author.username){ %>
+                                  <button type="button" class="btn submit-btn" data-toggle="modal" data-target="#commentModal">
+                                      Delete
+                                  </button>
+
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="commentModalLongTitle">
+                                              Are you sure you want delete your comment?
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+                                            <form action="/resumes/<%= resume._id %>/rate" method="POST">
+                                              <input id="rating" type="text" name="rating">
+                                              <button class="btn-b btn-danger">submit</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
 
                                   <span>•</span>
                               <% } %>

@@ -102,17 +102,17 @@ iframe{
 }
 
 .student-comment .author{
-  background-color: #90C1E0;
-  background-image: linear-gradient(45deg, rgb(123, 192, 248) 0%, #88a3dd 74%);
+  background-color: rgb(146, 201, 247);
+  background-image: linear-gradient(-135deg, rgb(146, 201, 247) 0%, #88a3dd 74%);
 }
 
 .review-comment .author{
-  background-color: #c07df7;
-  background-image: linear-gradient(45deg, #c07df7 0%, #9e7df7 74%);
+  background-color: #8786b6;
+  background-image: linear-gradient(-225deg, #8786b6 0%, #b5b4eb 74%);
 }
 
 .review-comment{
-  border: 2px solid #9e7df7;
+  border: 2px solid #7f7ecf;
   border-radius: 4px;
 
 }
@@ -121,7 +121,7 @@ iframe{
   margin-bottom: 0;
 }
 
-.comment a, .comment span{
+.comment .submit-btn, .comment span{
   color: gray !important;
   font-size: 0.6rem;
 }
@@ -257,5 +257,36 @@ iframe{
 
 #rating{
   display: none;
+}
+
+.modal button{
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.info .submit-btn{
+  border: none;
+}
+
+.info .submit-btn:hover{
+  background: #EEEEEE;
+  border: none;
+  text-decoration: underline;
+}
+
+.modal .close span{
+  font-size: 1.5rem;
+}
+
+*:focus{
+  outline: none !important;
+}
+
+.modal h5 span{
+  font-size: 0.85rem !important;
+}
+
+.r-star.locked{
+  color: rgb(107, 107, 107);
 }
 

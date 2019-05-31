@@ -196,9 +196,8 @@
                                           </div>
                                           <div class="modal-footer">
                                             <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
-                                            <form action="/resumes/<%= resume._id %>/rate" method="POST">
-                                              <input id="rating" type="text" name="rating">
-                                              <button class="btn-b btn-danger">submit</button>
+                                            <form action="/resumes/<%=resume._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                              <button type="submit" class="btn-b btn-danger">delete</button>
                                             </form>
                                           </div>
                                         </div>

@@ -99,6 +99,8 @@ exports.show_resume_gallery =
             } else {
               res.render("resume-gallery", {resumes: resumes, page: "gallery", tag: "", user_type: req.user.type});
             }
+          }
+        });
     }
 
 exports.show_resume_pdf =

@@ -353,10 +353,18 @@ exports.post_comment =
 
         if (req.user.username !== resume.username){
           var snippet;
-          if (req.body.comment.text.length > 20){
-            snippet = req.body.comment.text.substring(0, 20) + "...";
+          if (req.user.type === "student"){
+            if (req.body.comment.text.length > 21){
+              snippet = req.body.comment.text.substring(0, 18) + "...";
+            } else {
+              snippet = req.body.comment.text.substring(0, 21);
+            }
           } else {
-            snippet = req.body.comment.text.substring(0, 20);
+            if (req.body.comment.text.length > 25){
+              snippet = req.body.comment.text.substring(0, 22) + "...";
+            } else {
+              snippet = req.body.comment.text.substring(0, 25);
+            }
           }
 
           var notification = {

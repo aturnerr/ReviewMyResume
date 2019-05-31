@@ -19,41 +19,86 @@
 
             <div class="row">
                 <div class="col-12 col-sm-6">
+
+                    <!-- upload block -->
                     <a href="/resumes/upload">
                         <div id="upload" class="row block block-1 py-3 mb-3 mr-1 d-flex align-items-center justify-content-center">
                             <h4><span>upload</span> your resume</h4>
                         </div>
                     </a>
-                    <div id="notifs" class="row block block-2">
+
+                    <!-- notifications block -->
+                    <div id="notifs" class="row block block-2 py-3 px-1 d-flex flex-column align-items-center justify-content-between">
                         <h4 class="mt-2" >Notifications</h4>
                             <% if (notifications.length === 0){ %>
-                                <p>You're all up to date!</p>
+                                <!-- <p>You're all up to date!</p> -->
                             <% } else { %>
+                                <div class="notifications p-1">
                                 <% notifications.forEach((notification) => { %>
+
                                     <a href="/resumes/<%= notification.resume._id %>">
+                                        <% if (notification.type == "reviewer"){ %>
+                                        <div class="notification review p-2">
+                                        <% } else { %>
                                         <div class="notification p-2">
+
+                                        <button type="button" class="btn exit-btn" data-toggle="modal" data-target="#n<%= notification._id %>Modal">
+                                            &times
+                                        </button>
+
+                                        <% } %>
                                             <p>
                                                 <% if (notification.type == "reviewer"){ %>
-                                                    <span class="alert-sender-reviewer"><%= notification.from %> </span>
+                                                    <span class="alert-sender alert-sender-reviewer"><%= notification.from %> </span>
                                                     <span class="alert-type">reviewed your resume: </span>
                                                 <% } else { %>
-                                                    <span class="alert-sender-student"><%= notification.from %> </span>
+                                                    <span class="alert-sender alert-sender-student"><%= notification.from %> </span>
                                                     <span class="alert-type">commented on your resume: </span>
                                                 <% } %>
-                                                <span class="alert-text"><%= notification.text_snippet %></span>
+                                                <span class="alert-text">"<%= notification.text_snippet %>"</span>
                                             </p>
                                         </div>
                                     </a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="n<%= notification._id %>Modal" tabindex="-1" role="dialog" aria-labelledby="n<%= notification._id %>ModalTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="n<%= notification._id %>ModalLongTitle">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Are you sure you want to delete this notification?
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+                                                <form action="/notifications/<% notification._id %>" method="POST">
+                                                    <button class="btn-b btn-danger">delete</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 <% }); %>
+                                </div>
                             <% } %>
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
+                    <!-- gallery block -->
                     <a href="/resumes">
                         <div id="gallery" class="row block block-2 py-3 ml-0 ml-sm-1 d-flex justify-content-center align-items-center">
                             <h4 class="mt-2">Resume Gallery</h4>
                         </div>
                     </a>
+
+                    <!-- upload block -->
                     <% if (currentUser.resumes && currentUser.resumes.length > 0) { %>
                         <a href="/resumes/<%= currentUser.resumes[currentUser.resumes.length-1]._id %>">
                     <% } else { %>

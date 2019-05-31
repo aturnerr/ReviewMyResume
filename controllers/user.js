@@ -1,4 +1,5 @@
-const User = require("../models/user");
+const User         = require("../models/user");
+const Notification = require("../models/notification");
 
 const re_username = /^[a-z0-9_]+$/i;
 const re_text = /^[a-z]+$/i;
@@ -8,13 +9,24 @@ const password_len = 8;
 exports.user_show_dashboard =
 
     (req, res) => {
-        res.render("dashboard", { page: "dashboard", user_type: req.user.type });
+
+        // find notifications
+        Notification.find({to:req.user.username}, (err, notifications) => {
+            if (err || !notifications){
+                res.render("dashboard", { page: "dashboard",
+                                          user_type: req.user.type,
+                                          notifications: []});
+            }
+            res.render("dashboard", { page: "dashboard",
+                                          user_type: req.user.type,
+                                          notifications: notifications});
+        })
     }
 
 exports.user_show_register =
 
     (req, res) => {
-        res.render("register", { retry : false, page: "register"  });
+        res.render("register", { retry : false, page: "register"});
     }
 
 exports.user_show_login =

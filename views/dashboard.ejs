@@ -1,7 +1,7 @@
 <% include ./partials/header-top %>
 
     <title>dashboard</title>
-    
+
     <% if (user_type == "student") { %>
       <link rel="stylesheet" href="/stylesheets/background_student.css">
     <% } else if (user_type == "reviewer") { %>
@@ -24,8 +24,28 @@
                             <h4><span>upload</span> your resume</h4>
                         </div>
                     </a>
-                    <div id="notifs" class="row block block-2 py-3 mr-1 d-flex justify-content-center">
+                    <div id="notifs" class="row block block-2">
                         <h4 class="mt-2" >Notifications</h4>
+                            <% if (notifications.length === 0){ %>
+                                <p>You're all up to date!</p>
+                            <% } else { %>
+                                <% notifications.forEach((notification) => { %>
+                                    <a href="/resumes/<%= notification.resume._id %>">
+                                        <div class="notification p-2">
+                                            <p>
+                                                <% if (notification.type == "reviewer"){ %>
+                                                    <span class="alert-sender-reviewer"><%= notification.from %> </span>
+                                                    <span class="alert-type">reviewed your resume: </span>
+                                                <% } else { %>
+                                                    <span class="alert-sender-student"><%= notification.from %> </span>
+                                                    <span class="alert-type">commented on your resume: </span>
+                                                <% } %>
+                                                <span class="alert-text"><%= notification.text_snippet %></span>
+                                            </p>
+                                        </div>
+                                    </a>
+                                <% }); %>
+                            <% } %>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 mt-4 mt-sm-0">

@@ -12,8 +12,6 @@ body{
     transition: 500ms;
 }
 
-
-
 .block-1{
     height: 10vh;
 }
@@ -39,7 +37,7 @@ a:hover{
     text-decoration: none;
 }
 
-.block:hover{
+.block:not(#notifs):hover{
     transform: scale(1.02) perspective(1px);
     cursor: pointer;
 }
@@ -53,5 +51,26 @@ a:hover{
     body{
         overflow: hidden;
     }
+}
 
+.notification{
+    background: white;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.notification p{
+    margin-bottom: 0;
+}
+
+.alert-text{
+    color: #3a3a3a;
+}
+
+.alert-type{
+    color: gray;
+}
+
+.alert-sender-reviewer, .alert-sender-student{
+    color: #3a3a3a
 }

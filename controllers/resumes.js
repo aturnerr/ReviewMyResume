@@ -1,5 +1,6 @@
 const Resume            = require("../models/resume"),
       Comment           = require("../models/comment"),
+      Notification      = require("../models/notification");
       fs                = require('fs'),
       User              = require("../models/user"),
       Canvas            = require('canvas'),
@@ -325,6 +326,8 @@ exports.post_comment =
           res.redirect("/resumes");
         }
 
+        // CREATE COMMENT
+
         // --  add additional info
         var author = {
           id: req.user.id,
@@ -340,13 +343,40 @@ exports.post_comment =
             req.flash("error", "Sorry, your request couldn't be completed at this \
                                                                         time.");
             res.redirect("/resumes/" + req.params.id);
+          } else {
+            resume.comments.push(comment);
+            resume.save();
+          }
+        });
+
+        // CREATE NOTIFICATION if commented not author
+
+        if (req.user.username !== resume.username){
+          var snippet;
+          if (req.body.comment.text.length > 20){
+            snippet = req.body.comment.text.substring(0, 20) + "...";
+          } else {
+            snippet = req.body.comment.text.substring(0, 20);
           }
 
-          resume.comments.push(comment);
-          resume.save();
+          var notification = {
+            to: resume.username,
+            from: author.username,
+            type: req.user.type,
+            text_snippet: snippet,
+            resume: resume
+          }
 
-          res.redirect("/resumes/" + req.params.id);
-        });
+          Notification.create(notification, function(err, notification_){
+            if (err){
+              req.flash("error", "Sorry, your request couldn't be completed at this \
+                                                                          time.");
+              res.redirect("/resumes/" + req.params.id);
+            }
+          });
+        }
+
+        res.redirect("/resumes/" + req.params.id);
       });
   }
 

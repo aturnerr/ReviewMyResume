@@ -251,8 +251,34 @@
             </div>
 
           </div>
-
       </div>
+
+    <!-- Modal -->
+    <!-- should be !completed -->
+    <% if (currentUser.username === resume.username && currentUser.completed_walkthrough) { %>
+      <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title d-flex flex-column align-items-center justify-content-center py-3" id="helpModalLongTitle">
+                  Welcome to the Resume Viewer!
+                  <br><br>
+                  Here you can view other users' comments/reviews for your resume as well as how they've rated it out of 5 stars.
+                  <br><br>
+                  If you're viewing someone else's resume, you have the option to rate it.
+                  <br><br>
+                  Finally, if a reviewer hasn't reviewed your resume yet, you can request for your resume
+                  to be reviewed. This will send a notification to all reviewers on the platform that you require assistance.
+                  Requests are limited to 5 per user.
+                  </h5>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+              </div>
+          </div>
+      </div>
+      <% } %>
 
       <script src="/scripts/common.js"></script>
       <script src="/scripts/show-resume.js"></script>

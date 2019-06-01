@@ -37,3 +37,7 @@ $(".del-btn").on("click", ()=>{
 $(".review-btn").on("click", ()=>{
     $("#reviewCenter").modal("show");
 });
+
+$(document).ready(function() {
+    $("#helpModal").modal('show');
+});

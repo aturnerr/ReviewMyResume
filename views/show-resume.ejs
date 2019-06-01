@@ -35,9 +35,9 @@
 
                   <% if (currentUser.username === resume.username){ %>
                   <% if (resume.requested != true) { %>
-                    <% if (user_type == "student") { %>
+                    <% if ((user_type == "student") && (currentUser.num_requests > 0)) { %>
                       <form action="/resumes/<%= resume._id %>/request" method="post">
-                        <button id="request-btn" href="/resumes/<%= resume._id %>/request" type="btn" class="btn flag">Request Review</button>
+                        <button id="request-btn" href="/resumes/<%= resume._id %>/request" type="btn" class="btn flag" data-toggle="tooltip" data-placement="bottom" title="You have <%= currentUser.num_requests %> requests remaining.">Request Review</button>
                       </form>
                     <% } %>
                   <% } %>

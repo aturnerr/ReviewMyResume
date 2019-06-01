@@ -180,6 +180,7 @@ exports.user_register =
                 res.redirect('/register');
             }
             user.num_requests = 5;
+            user.save();
             req.flash("success", "Succesfully Signed Up- Please Log In Now!");
             res.redirect("/login");
         });

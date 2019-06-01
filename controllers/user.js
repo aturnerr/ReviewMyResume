@@ -2,7 +2,7 @@ const User         = require("../models/user");
 const Notification = require("../models/notification");
 
 const re_username = /^[a-z0-9_]+$/i;
-const re_text = /^[a-z]+$/i;
+const re_text = /^[a-z ]+$/i;
 const re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const password_len = 8;
 
@@ -131,7 +131,7 @@ exports.user_register =
                                             company: "",
                                             country: req.body.user.country,
                                             uname: req.body.user.username,
-                                            error: "Invalid occupation!",
+                                            error: "Invalid company!",
                                             retry: true,
                                             page: "register"
                                         });

@@ -183,20 +183,34 @@ exports.upload_resume =
 
     (req, res) => {
 
-      if (req.user.started_walkthroughs[1]){
-          req.user.completed_walkthroughs[1] = true;
-          req.user.markModified('completed_walkthroughs');
-      } else {
-          req.user.started_walkthroughs[1] = true;
-          req.user.markModified('started_walkthroughs');
-      }
-      req.user.save();
+        if (req.user.started_walkthroughs[1]){
+            req.user.completed_walkthroughs[1] = true;
+            req.user.markModified('completed_walkthroughs');
+        } else {
+            req.user.started_walkthroughs[1] = true;
+            req.user.markModified('started_walkthroughs');
+        }
+        req.user.save();
 
-      // ensure that primary tag is valid
-      if ((!tags.includes(req.body.primary_tag))) {
+        // ensure that primary tag is valid
+        if ((!tags.includes(req.body.primary_tag))) {
 
-          return res.render('upload-resume', {
-                                                primary_tag: "",
+            return res.render('upload-resume', {
+                                                  primary_tag: "",
+                                                  secondary_tag: "",
+                                                  description: req.body.description,
+                                                  error: "You entered an invalid tag!",
+                                                  retry: true,
+                                                  page: "upload",
+                                                  user_type: req.user.type
+                                              });
+        }
+
+        // ensure that secondary tag is valid if it has been entered
+        if (req.body.secondary_tag && (!tags.includes(req.body.secondary_tag))) {
+
+          return res.render(page, {
+                                                primary_tag: req.params.primary_tag,
                                                 secondary_tag: "",
                                                 description: req.body.description,
                                                 error: "You entered an invalid tag!",
@@ -205,20 +219,6 @@ exports.upload_resume =
                                                 user_type: req.user.type
                                             });
       }
-
-    //   // ensure that secondary tag is valid
-    //   if ((!tags.includes(req.body.secondary_tag))) {
-    //
-    //     return res.render(page, {
-    //                                           primary_tag: req.params.primary_tag,
-    //                                           secondary_tag: "",
-    //                                           description: req.body.description,
-    //                                           error: "You entered an invalid tag!",
-    //                                           retry: true,
-    //                                           page: "upload",
-    //                                           user_type: req.user.type
-    //                                       });
-    // }
 
       // ensure that tags aren't the same
       if (req.body.primary_tag == req.body.secondary_tag){

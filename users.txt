@@ -1,0 +1,5 @@
+==============================
+   username, password, type
+==============================
+1. stu_test, 'password', student  // TESTING ACCOUNT - DO NOT USE FOR SEEDING
+2. rev_test, 'password', reviewer // TESTING ACCOUNT - DO NOT USE FOR SEEDING

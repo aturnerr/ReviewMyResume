@@ -25,7 +25,11 @@ var UserSchema = new mongoose.Schema({
     num_requests: {
                     type: Number,
                     default: 5
-                    }
+                    },
+    completed_walkthrough: {
+                             type: Boolean,
+                             default: false
+                            }
 });
 
 // defines the serialize/ deserialize methods for the user automatically

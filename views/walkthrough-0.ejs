@@ -65,7 +65,7 @@
 
             <% resumes.forEach(function(resume){ %>
 
-                  <a href="resumes/<%= resume._id %>" class="resume mx-3 mb-5 pb-3">
+                  <a href="/resumes/<%= resume._id %>" class="resume mx-3 mb-5 pb-3">
 
                     <% if (resume.user_type == "student"){ %>
                       <p class="author student-resume"><%= resume.username %></p>
@@ -101,6 +101,11 @@
               <% }); %>
           </div>
         </div>
+
+        <a href="/walkthrough/1">
+          <button class="btn btn-purple mb-5">Done</button>
+        </a>
+
       </div>
 
       <!-- Modal -->
@@ -108,21 +113,19 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title d-flex flex-column align-items-center justify-content-center pl-5 py-3" id="helpModalLongTitle">
+              <h5 class="modal-title d-flex flex-column align-items-center justify-content-center py-3" id="helpModalLongTitle">
                 Welcome to ReviewMyResume!<br><br><span style="font-weight: 400; text-align: justify">To get started, please select your target field and we'll recommend
-                some of the best resumes we have in store to hopefully inspire you before when you make your resume.</span>
+                some of the best resumes we have in store to (hopefully) inspire you before you make your resume.</span>
               </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn-b btn-primary" data-dismiss="modal">Skip</button>
+              <a class="btn-b btn-purple" href="/walkthrough/1">Skip</a>
             </div>
           </div>
         </div>
       </div>
 
-      <script src="/scripts/guide-0.js"></script>
+      <script src="/scripts/walkthrough-0.js"></script>
+
   <% include ./partials/footer %>

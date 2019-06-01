@@ -110,3 +110,20 @@ body{
 .modal h5{
   color: #3e3e3e;
 }
+
+.btn-purple{
+  background: #9d71c7;
+  color: white;
+  border: none;
+}
+
+.btn-purple:hover{
+  background: #8e69b1;
+  color: white;
+  text-decoration: none;
+}
+
+.modal h5{
+  font-weight:400;
+}
+

@@ -21,9 +21,9 @@ const MAX_DESC_LENGTH = 200;
 const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building",
 "Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
 "Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
-"Electronic Computer Engineering", "Geology", "Health Other", "Humanities","Languages", "Law",
+"Electronic Computer Engineering", "Geology", "Health", "Humanities","Languages", "Law",
 "Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering",
-"Nursing Initial", "Nursing Post Initial", "Other Engineering", "Pharmacy", "Physical Sciences",
+"Nursing Initial", "Nursing Post Initial", "Pharmacy", "Physical Sciences",
 "Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
 "Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
 
@@ -156,10 +156,12 @@ exports.upload_resume =
 
     (req, res) => {
 
+      var page = req.user.completed_walkthrough ? 'upload-resume' : 'walkthrough-1';
+
       // ensure that primary tag is valid
       if ((!tags.includes(req.body.primary_tag)) || (req.body.secondary_tag && !tags.includes(req.body.secondary_tag))){
 
-          return res.render('upload-resume', {
+          return res.render(page, {
                                                 primary_tag: "",
                                                 secondary_tag: "",
                                                 description: req.body.description,
@@ -173,7 +175,7 @@ exports.upload_resume =
       // ensure that secondary tag is valid
       if ((req.body.secondary_tag !== "") && (!tags.includes(req.body.secondary_tag))){
 
-        return res.render('upload-resume', {
+        return res.render(page, {
                                               primary_tag: req.params.primary_tag,
                                               secondary_tag: "",
                                               description: req.body.description,
@@ -187,7 +189,7 @@ exports.upload_resume =
       // ensure that tags aren't the same
       if (req.body.primary_tag == req.body.secondary_tag){
 
-          return res.render('upload-resume', {
+          return res.render(page, {
                                               primary_tag: "",
                                               secondary_tag: "",
                                               description: req.body.description,
@@ -200,7 +202,7 @@ exports.upload_resume =
 
       // validate length of description
       if (req.body.description.length < MIN_DESC_LENGTH || req.body.description.length > MAX_DESC_LENGTH){
-          return res.render('upload-resume', {
+          return res.render(page, {
                                                 primary_tag: req.body.primary_tag,
                                                 secondary_tag: req.body.secondary_tag,
                                                 description: "",
@@ -422,7 +424,7 @@ exports.request_review =
               $inc:{ num_requests: -1 }},
                    { new: true }, (err, user) => {
                      if (!err) {
-                       
+
                      }
             });
             res.redirect("/resumes/" + req.params.id);
@@ -556,10 +558,21 @@ exports.show_walkthrough_0 =
                         return result1;
       });
 
-      res.render("guide-0", {
-                                user_type: "student",
-                                page: "gallery",
+      res.render("walkthrough-0", {
+                                user_type: req.user.type,
+                                page: "walkthough_0",
                                 resumes: resumes
                             });
     });
   }
+
+exports.show_walkthrough_1 =
+
+    (req, res) => {
+        res.render('walkthrough-1', {
+                                        description: "",
+                                        retry: false,
+                                        page: "walkthrough_1",
+                                        user_type: req.user.type
+                                    });
+    }

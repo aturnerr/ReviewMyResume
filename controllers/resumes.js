@@ -159,7 +159,7 @@ exports.upload_resume =
       var page = req.user.completed_walkthrough ? 'upload-resume' : 'walkthrough-1';
 
       // ensure that primary tag is valid
-      if ((!tags.includes(req.body.primary_tag)) || (req.body.secondary_tag && !tags.includes(req.body.secondary_tag))){
+      if ((!tags.includes(req.body.primary_tag))) {
 
           return res.render(page, {
                                                 primary_tag: "",
@@ -172,19 +172,19 @@ exports.upload_resume =
                                             });
       }
 
-      // ensure that secondary tag is valid
-      if ((req.body.secondary_tag !== "") && (!tags.includes(req.body.secondary_tag))){
-
-        return res.render(page, {
-                                              primary_tag: req.params.primary_tag,
-                                              secondary_tag: "",
-                                              description: req.body.description,
-                                              error: "You entered an invalid tag!",
-                                              retry: true,
-                                              page: "upload",
-                                              user_type: req.user.type
-                                          });
-    }
+    //   // ensure that secondary tag is valid
+    //   if ((!tags.includes(req.body.secondary_tag))) {
+    //
+    //     return res.render(page, {
+    //                                           primary_tag: req.params.primary_tag,
+    //                                           secondary_tag: "",
+    //                                           description: req.body.description,
+    //                                           error: "You entered an invalid tag!",
+    //                                           retry: true,
+    //                                           page: "upload",
+    //                                           user_type: req.user.type
+    //                                       });
+    // }
 
       // ensure that tags aren't the same
       if (req.body.primary_tag == req.body.secondary_tag){

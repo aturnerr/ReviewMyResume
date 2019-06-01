@@ -418,6 +418,13 @@ exports.request_review =
           $set:{ requested: true }},
                { new: true }, (err, resume) => {
           if (!err) {
+            User.findOneAndUpdate({username: req.user.username}, {
+              $inc:{ num_requests: -1 }},
+                   { new: true }, (err, user) => {
+                     if (!err) {
+                       
+                     }
+            });
             res.redirect("/resumes/" + req.params.id);
           }
         });

@@ -3,6 +3,8 @@ const Notification = require("../models/notification");
 
 const re_username = /^[a-z0-9_]+$/i;
 const re_text = /^[a-z ]+$/i;
+const re_text_alt = /^[a-z0-9 ]+$/i;
+const re_name = /^[a-z]+$/i;
 const re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const password_len = 8;
 
@@ -57,7 +59,7 @@ exports.user_register =
     (req, res) => {
 
         // validate names
-        if (!re_text.test(req.body.user.fname)){
+        if (!re_name.test(req.body.user.fname)){
             return res.render("register", {
                                         fname: "",
                                         lname: req.body.user.lname,
@@ -72,7 +74,7 @@ exports.user_register =
                                     });
         }
 
-        if (!re_text.test(req.body.user.lname)){
+        if (!re_name.test(req.body.user.lname)){
             return res.render("register", {
                                         fname: req.body.user.fname,
                                         lname: "",
@@ -122,7 +124,7 @@ exports.user_register =
             }
 
             // validate company - company name may have numbers, eg.ws02
-            if (!re_username.test(req.body.user.company)){
+            if (!re_text_alt.test(req.body.user.company)){
                 return res.render("register", {
                                             fname: req.body.user.fname,
                                             lname: req.body.user.lname,

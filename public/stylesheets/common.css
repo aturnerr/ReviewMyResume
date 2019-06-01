@@ -1,16 +1,16 @@
 .alert{
-    color: white;
-    background: rgba(0, 0, 0, 0);
-    text-align: center;
-    border-radius: 4px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    z-index: 500;
-    top: 100px;
-  }
+  color: white;
+  background: rgba(0, 0, 0, 0);
+  text-align: center;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  z-index: 500;
+  top: 100px;
+}
 
 .alert-danger{
   color: red;
@@ -18,17 +18,8 @@
 }
 
 .alert-success{
-  color: rgb(14, 197, 106);
-  border: 2px solid rgb(14, 197, 106);
-}
-
-html{
-  height: 100%;
-}
-
-body{
-  min-height: 100%;
-  color: white;
+  color: rgb(32, 180, 106);
+  border: 2px solid rgb(32, 180, 106);
 }
 
 .header{
@@ -57,7 +48,20 @@ body{
   margin-right: 0;
 }
 
+html{
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+  color: white;
+}
+
 /*============================NAVBAR STYLING==================================*/
+
+#navbarDropdown i{
+  color: white;
+}
 
 .navbar .navbar-brand{
   font-family: 'Oleo Script', Helvetica, sans-serif;
@@ -91,10 +95,6 @@ body{
   border-color: rgba(0, 0, 0, 0);
 }
 
-#navbarDropdown i{
-  color: white;
-}
-
 .navbar #toggler:hover{
   cursor: pointer;
 }
@@ -103,12 +103,15 @@ body{
   outline: none;
 }
 
+/*==================================OTHER=====================================*/
+
 .modal button{
   cursor: pointer;
 }
 
 .modal h5{
   color: #3e3e3e;
+  font-weight:400;
 }
 
 .btn-purple{
@@ -123,7 +126,7 @@ body{
   text-decoration: none;
 }
 
-.modal h5{
-  font-weight:400;
+*:focus{
+  outline: none !important;
 }
 

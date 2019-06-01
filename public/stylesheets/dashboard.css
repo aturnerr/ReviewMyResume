@@ -3,8 +3,18 @@
     padding-top: 5vh;
 }
 
-body{
-    background: white;
+#user_text {
+    margin: 20px 30px 5px;
+}
+
+#profile {
+    height: 20vh;
+    width: auto;
+    margin: 0px 15px 30px;
+}
+
+#notifs h4{
+    display: inline-block;
 }
 
 .block{
@@ -28,15 +38,6 @@ body{
     font-weight: 600;
 }
 
-a{
-    color: white;
-}
-
-a:hover{
-    color: white;
-    text-decoration: none;
-}
-
 .block:not(#notifs):not(#profile):hover{
     transform: scale(1.02) perspective(1px);
     cursor: pointer;
@@ -44,31 +45,6 @@ a:hover{
 
 .block-2 h5{
     font-weight: 600;
-}
-
-@media(min-width: 380px){
-
-    body{
-        overflow: hidden;
-    }
-}
-
-#user_text {
-  margin: 20px 30px 5px;
-}
-
-#profile {
-  height: 20vh;
-  width: auto;
-  margin: 0px 15px 30px;
-}
-
-#notifs h4{
-    display: inline-block;
-}
-
-.modal h5{
-    color: #808080;
 }
 
 .modal i{
@@ -168,4 +144,24 @@ a:hover{
 
 ::-webkit-scrollbar-thumb:hover {
     background: #999;
+}
+
+body{
+    background: white;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+@media(min-width: 380px){
+
+    body{
+        overflow: hidden;
+    }
 }

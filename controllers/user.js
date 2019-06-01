@@ -1,50 +1,61 @@
-const User         = require("../models/user");
-const Notification = require("../models/notification");
+const Notification = require("../models/notification"),
+      User         = require("../models/user");
 
-const re_username = /^[a-z0-9_]+$/i;
-const re_text = /^[a-z ]+$/i;
-const re_text_alt = /^[a-z0-9 ]+$/i;
-const re_name = /^[a-z]+$/i;
-const re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-const password_len = 8;
+// regex for validation
+const re_name       = /^[a-z]+$/i;        // a name can only be alphabetic characters
+const re_email      = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const re_username   = /^[a-z0-9_]+$/i;    // a username can only contain alphanumeric characters and underscores
+const re_occupation = /^[a-z ]+$/i;       // a job title can contain only alphabetic characters and spaces
+const re_company    = /^[a-z0-9. _]+$/i;  // a company name contain alphanumeric characters, spaces, underscores and periods
+const password_len  = 8;                  // minimum password length
 
-exports.user_show_dashboard =
+exports.show_dashboard =
 
     (req, res) => {
 
-        // find notifications
+        // find notifications for the current user
         Notification.find({to:req.user.username}, (err, notifications) => {
             if (err || !notifications){
                 res.render("dashboard", { page: "dashboard",
                                           user_type: req.user.type,
-                                          notifications: []});
+                                          notifications: []
+                                        });
+            } else {
+                res.render("dashboard", { page: "dashboard",
+                                        user_type: req.user.type,
+                                        notifications: notifications
+                                        });
             }
-            res.render("dashboard", { page: "dashboard",
-                                          user_type: req.user.type,
-                                          notifications: notifications});
-        })
+        });
     }
 
-exports.user_show_register =
+exports.show_register =
 
     (req, res) => {
-        res.render("register", { retry : false, page: "register"});
+        res.render("register", {
+                                    retry : false,
+                                    page: "register"
+                                });
     }
 
-exports.user_show_login =
+exports.show_login =
 
     (req, res) => {
-        res.render("login", {page: "register"});
+        res.render("login", {
+                                page: "register"
+                            });
     }
 
-exports.user_logout =
+exports.logout_user =
 
     (req, res) => {
 
+        // authenticate user
         User.findById(req.user._id, function(err, user){
             if (err || !user){
+                // redirect to login page
                 req.flash("error", "Oops, something went wrong!");
-                res.redirect("/home");
+                res.redirect("/login");
             }
         });
 
@@ -54,11 +65,11 @@ exports.user_logout =
         res.redirect("/login");
     }
 
-exports.user_register =
+exports.register_user =
 
     (req, res) => {
 
-        // validate names
+        // validate first name
         if (!re_name.test(req.body.user.fname)){
             return res.render("register", {
                                         fname: "",
@@ -74,6 +85,7 @@ exports.user_register =
                                     });
         }
 
+        // validate second name
         if (!re_name.test(req.body.user.lname)){
             return res.render("register", {
                                         fname: req.body.user.fname,
@@ -105,10 +117,11 @@ exports.user_register =
                                     });
         }
 
+        // validate reviewer fields
         if (req.body.user.type === "reviewer"){
 
             // validate occupation
-            if (!re_text.test(req.body.user.occupation)){
+            if (!re_occupation.test(req.body.user.occupation)){
                 return res.render("register", {
                                             fname: req.body.user.fname,
                                             lname: req.body.user.lname,
@@ -123,8 +136,8 @@ exports.user_register =
                                        });
             }
 
-            // validate company - company name may have numbers, eg.ws02
-            if (!re_text_alt.test(req.body.user.company)){
+            // validate company name
+            if (!re_company.test(req.body.user.company)){
                 return res.render("register", {
                                             fname: req.body.user.fname,
                                             lname: req.body.user.lname,
@@ -173,22 +186,20 @@ exports.user_register =
         }
 
         // ensure that username is unique
-        User.register(new User(req.body.user), req.body.password,
-                                                            function(err, user){
+        User.register(new User(req.body.user), req.body.password, (err, user) =>{
 
             // if there's an error, let the user try again
             if (err){
                 req.flash("error", "Username already in use!");
                 res.redirect('/register');
             }
-            user.num_requests = 5;
-            user.save();
+
             req.flash("success", "Succesfully Signed Up- Please Log In Now!");
             res.redirect("/login");
         });
     }
 
-exports.user_login =
+exports.login_user =
 
     (req, res) => {
 

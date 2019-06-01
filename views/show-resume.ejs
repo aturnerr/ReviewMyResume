@@ -24,7 +24,7 @@
           <div class="row">
 
               <div class="col-12 col-sm-8">
-                  <iframe id="resume_frame" src="<%= "https://storage.googleapis.com/reviewmyresume/" + resume.filename + "#toolbar=0&navpanes=0&scrollbar=0"%>" ></iframe>
+                  <iframe id="resume_frame" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>#toolbar=0&navpanes=0&scrollbar=0"></iframe>
               </div>
 
               <div id="desc" class="col-12 col-sm-4 py-5">
@@ -35,13 +35,13 @@
 
                   <% if (currentUser.username === resume.username){ %>
 
-                  <% if (resume.requested != true && user_type == "student") { %>
+                    <% if (resume.requested != true && user_type == "student") { %>
 
                       <button type="button" class="review-btn" data-toggle="tooltip" data-placement="bottom" title="request review">
                         <i class="fas fa-comment-alt"></i>
                       </button>
 
-                      <!-- Modal -->
+                      <!-- Request Review Modal -->
                       <div class="modal fade" id="reviewCenter" tabindex="-1" role="dialog" aria-labelledby="reviewCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
@@ -74,7 +74,7 @@
                       <i class="trash fas fa-trash-alt"></i>
                   </button>
 
-                  <!-- Modal -->
+                  <!-- Delete Resume Modal -->
                   <div class="modal fade" id="delModalCenter" tabindex="-1" role="dialog" aria-labelledby="delModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
@@ -108,7 +108,6 @@
                   <% for (var i=0; i<resume.tags.length; i++) { %>
                     <div class="tag tag-<%= i+ 1 %> mt-1">
                       <a href="/resumes/filtered/<%= resume.tags[i] %>"><%= resume.tags[i] %></a>
-                      <!-- <p><%= resume.tags[i] %></p> -->
                     </div>
                   <% } %>
                   <br>
@@ -152,7 +151,7 @@
                           <% } %>
                         <% } %>
 
-                        <!-- Modal -->
+                        <!-- Confirm Rating Modal -->
                         <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalTitle" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -183,8 +182,6 @@
                       <% } %>
                   </div>
 
-
-
                   <!-- Comments -->
                   <p class="title mt-3">Comments/ Reviews:</p>
 
@@ -205,7 +202,7 @@
                                       Delete
                                   </button>
 
-                                  <!-- Modal -->
+                                  <!-- Comment Deletion Modal -->
                                   <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalTitle" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
@@ -253,8 +250,7 @@
           </div>
       </div>
 
-    <!-- Modal -->
-    <!-- should be !completed -->
+    <!-- Help Modal -->
     <% if (currentUser.username === resume.username && currentUser.completed_walkthrough) { %>
       <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">

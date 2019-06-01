@@ -1,11 +1,12 @@
-if(typeof(String.prototype.trim) === "undefined")
-{
-    String.prototype.trim = function()
-    {
+// redefine trim function to remove all spaces from either side of string
+if(typeof(String.prototype.trim) === "undefined"){
+    String.prototype.trim = function(){
         return String(this).replace(/^\s+|\s+$/g, '');
     };
 }
 
+// ensures that only resumes with tags matching the filter value are visible
+// on the gallery
 function filter_resumes(){
 
   val = $("#myInput").val();
@@ -21,6 +22,7 @@ function filter_resumes(){
   });
 }
 
+// filter resumes as soon as the page loads
 $(document).ready(function() {
   filter_resumes();
 });

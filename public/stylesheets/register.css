@@ -1,37 +1,38 @@
-body {
-  /* background-image: linear-gradient(to bottom, #89D6F0, #6f86d6 30%, #505285 60%, #65689f 70%, #7e7ebb 80%, #9795d4 90%, #b5aee4 100%); */
-  /* background-image: linear-gradient(to bottom, #90C1E0, #6f86d6 30%, #b5aee4 60%, #9795d4 70%, #7e7ebb 80%, #65689f 90%, #505285 100%); */
-  background-image: linear-gradient(135deg, #90C1E0, #6f86d6 30%, #b5aee4 60%, #9795d4 70%, #7e7ebb 80%, #65689f 90%, #505285 100%);
-  background-size: 400% 400%;
-  /* background-position: 0% 0%; */
+#mainNavBar{
+    background-image: none;
+    background-color: transparent !important;
+}
 
+#form {
+    margin-top: 25vh;
+}
+
+#country{
+    color: gray;
+    padding: 0;
+}
+
+#type{
+    color: gray;
 }
 
 .to-blue {
-  animation: reverse ToPurple 0.8s ease-in;
-  /* background-position: 0% 0%; */
-  background-position: 0% 0%
+    animation: reverse ToPurple 0.8s ease-in;
+    background-position: 0% 0%
 }
 
 .to-purple {
-  animation: ToPurple 0.8s ease;
-  /* background-position: 0% 100%; */
-  background-position: 100% 60%
-}
-
-@keyframes ToPurple {
-	from {
-		/* background-position: 0% 0% */
-    background-position: 0% 0%
-	}
-	to {
-		/* background-position: 0% 100% */
+    animation: ToPurple 0.8s ease;
     background-position: 100% 60%
-	}
 }
 
 .reviewer-info{
     display: none;
+}
+
+body {
+    background-image: linear-gradient(135deg, #90C1E0, #6f86d6 30%, #b5aee4 60%, #9795d4 70%, #7e7ebb 80%, #65689f 90%, #505285 100%);
+    background-size: 400% 400%;
 }
 
 input{
@@ -49,47 +50,17 @@ select{
     text-align-last:center;
 }
 
-#mainNavBar{
-  background-image: none;
-  background-color: transparent !important;
-}
-
 input, select{
   border: none !important;
 }
 
-.col-11 {
-
-}
-
-/* .failed-input{
-    background: rgb(223, 81, 112) !important;
-}
-
-.failed-input::placeholder {
-    color: white !important;
-    opacity: 1;
-}
-
-.failed-input:-ms-input-placeholder {
-    color: white !important;
-}
-
-::-ms-input-placeholder {
-    color: white !important;
-} */
-
-#form {
-  margin-top: 25vh;
-}
-
-#country{
-    color: gray;
-    padding: 0;
-}
-
-#type{
-    color: gray;
+@keyframes ToPurple {
+	from {
+            background-position: 0% 0%
+	}
+	to {
+            background-position: 100% 60%
+	}
 }
 
 @media(max-width: 375px){

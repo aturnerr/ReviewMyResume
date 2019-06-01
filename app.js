@@ -67,6 +67,6 @@ app.use(userRoutes);
 app.use(resumeRoutes);
 app.use(indexRoutes);
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 3000, () => {
     console.log("Successfully connected to server.");
 });

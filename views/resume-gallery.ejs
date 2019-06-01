@@ -43,7 +43,7 @@
           <option value="Electrical Engineering">Electrical Engineering</option>
           <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
           <option value="Geology">Geology</option>
-          <option value="Health Other">Health Other</option>
+          <option value="Health">Health</option>
           <option value="Humanities">Humanities</option>
           <option value="Languages">Languages</option>
           <option value="Law">Law</option>
@@ -54,7 +54,6 @@
           <option value="Mining Engineering">Mining Engineering</option>
           <option value="Nursing Initial">Nursing Initial</option>
           <option value="Nursing Post Initial">Nursing Post Initial</option>
-          <option value="Other Engineering">Other Engineering</option>
           <option value="Pharmacy">Pharmacy</option>
           <option value="Physical Sciences">Physical Sciences</option>
           <option value="Psychology">Psychology</option>
@@ -87,7 +86,6 @@
                   <% if ((resume.requested == true) && (user_type == "reviewer")) { %>
                     <i class="fas fa-exclamation-circle request-mark"></i>
                   <% } %>
-
 
                   <div class="container thumb">
                     <img class="img-fluid" src="https://storage.googleapis.com/reviewmyresume/<%= resume.filename %>.png" alt="thumbnail"></img>
@@ -122,4 +120,5 @@
     </div>
 
     <script src="/scripts/resume-gallery.js"></script>
+
 <% include ./partials/footer %>

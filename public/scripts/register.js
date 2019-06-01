@@ -3,6 +3,8 @@ $(document).ready(function(){
     $userTypeDropdown = $("#type");
     $countryDropdown = $("#country");
 
+    // show exclusive reviewer registration fields if reviewer is selected
+    // as the user type
     $userTypeDropdown.change(function(){
         if ($(this).val() === "reviewer") {
             $(".reviewer-info").css("display", "block");
@@ -23,6 +25,7 @@ $(document).ready(function(){
         }
     });
 
+    // animate colour change when user type is changed
     $('select[name="user[type]"]').change(function(){
       if ($(this).val() == "student"){
           document.body.classList.remove("to-purple");

@@ -44,10 +44,10 @@
                     <!-- notifications block -->
                     <div id="notifs" class="row block block-2 py-3 px-1 mr-1 d-flex flex-column align-items-center justify-content-between">
                         <h4 class="mt-2" >Notifications</h4>
-                            <% if (notifications.length === 0){ %>
-                                <!-- <p>You're all up to date!</p> -->
-                            <% } else { %>
+                            <% if (notifications.length > 0){ %>
+
                                 <div class="notifications p-1">
+
                                 <% notifications.forEach((notification) => { %>
 
                                     <% if (notification.type == "reviewer"){ %>
@@ -74,7 +74,7 @@
                                         </a>
                                     </div>
 
-                                    <!-- Modal -->
+                                    <!-- Notification Deletion Modal -->
                                     <div class="modal fade" id="btn-<%= notification._id %>Modal" tabindex="-1" role="dialog" aria-labelledby="btn-<%= notification._id %>ModalTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -130,27 +130,26 @@
 
     </div>
 
-    <!-- Modal -->
-    <!-- should be !completed -->
+    <!-- Help Modal -->
     <% if (currentUser.completed_walkthrough) { %>
-    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title d-flex flex-column align-items-center justify-content-center py-3" id="helpModalLongTitle">
-                Welcome to your dashboard!
-                <br><br>
-                Here you can upload and view your resume as well as access the gallery and view other users' resumes.
-                <br><br>
-                You will also get notifications whenever another user comments on/reviews your resume.
-                </h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+        <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex flex-column align-items-center justify-content-center py-3" id="helpModalLongTitle">
+                    Welcome to your dashboard!
+                    <br><br>
+                    Here you can upload and view your resume as well as access the gallery and view other users' resumes.
+                    <br><br>
+                    You will also get notifications whenever another user comments on/reviews your resume.
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
     <% } %>
 
 

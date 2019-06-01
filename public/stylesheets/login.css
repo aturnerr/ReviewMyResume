@@ -1,7 +1,6 @@
-input{
-    background: white;
-    text-align: center;
-    border-radius: 2px;
+#mainNavBar{
+    background-image: none;
+    background-color: transparent !important;
 }
 
 #content{
@@ -10,11 +9,6 @@ input{
 
 button{
     align-self: center;
-}
-
-#mainNavBar{
-  background-image: none;
-  background-color: transparent !important;
 }
 
 form{
@@ -27,4 +21,10 @@ p{
 
 p a{
     color: rgb(0, 174, 255);
+}
+
+input{
+    background: white;
+    text-align: center;
+    border-radius: 2px;
 }

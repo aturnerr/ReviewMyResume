@@ -55,7 +55,7 @@ const upload = multer({
 
 /*=================================GET ROUTES=================================*/
 
-// walkthrough page 1 - resume inspiration
+// walkthrough page 1 - resume recommendation
 router.get('/walkthrough/0', isLoggedIn, ResumesController.show_walkthrough_0);
 
 // walkthrough page 2 - resume upload
@@ -81,8 +81,8 @@ router.get('/resumes/:id/edit', isLoggedIn, isUploader, ResumesController.show_e
 
 /*================================POST ROUTES=================================*/
 
-// route for uploading the file
-router.post('/resumes/upload', isLoggedIn, upload.single("file"), function(req, res) {
+// upload a resume (pdf file)
+router.post('/resumes/upload', isLoggedIn, upload.single("file"), (req, res) => {
   if (req.fileValidationError) {
     ResumesController.show_upload_page(req, res);
   } else {
@@ -91,22 +91,31 @@ router.post('/resumes/upload', isLoggedIn, upload.single("file"), function(req, 
   }
 });
 
+// create a new comment
 router.post('/resumes/:id/comments', isLoggedIn, ResumesController.post_comment);
 
+// add a rating for a resume
 router.post('/resumes/:id/rate', isLoggedIn, ResumesController.add_rating);
 
+// submit a review request
 router.post('/resumes/:id/request', isLoggedIn, isUploader, ResumesController.request_review);
+
+/*================================UPDATE ROUTES===============================*/
+
+// update an existing resume
+router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
 
 /*================================DELETE ROUTES===============================*/
 
+// delete a comment on a resume
 router.delete('/resumes/:id/comments/:comment_id', isLoggedIn, ResumesController.delete_comment);
 
+// delete an existing resume
 router.delete('/resumes/:id', isLoggedIn, isUploader, ResumesController.delete_resume);
 
+// delete a notification
 router.delete('/notifications/:id', isLoggedIn, ResumesController.delete_notif);
 
-/*==================================PUT ROUTES=================================*/
-
-router.put('/resumes/:id/edit', isLoggedIn, ResumesController.edit_resume);
+/*============================================================================*/
 
 module.exports = router;

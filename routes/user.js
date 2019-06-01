@@ -7,21 +7,29 @@ const User            = require("../models/user"),
 
 /*=================================GET ROUTES=================================*/
 
-router.get("/dashboard", isLoggedIn, UserController.user_show_dashboard);
+// hub for accessing all the sites main features
+router.get("/dashboard", isLoggedIn, UserController.show_dashboard);
 
-router.get("/register", UserController.user_show_register);
+// registration page
+router.get("/register", UserController.show_register);
 
-router.get("/login", UserController.user_show_login);
+// login page
+router.get("/login", UserController.show_login);
 
-router.get("/logout", isLoggedIn, UserController.user_logout);
+// logout user
+router.get("/logout", isLoggedIn, UserController.logout_user);
 
 /*================================POST ROUTES=================================*/
 
-router.post("/register", UserController.user_register);
+// register a new user
+router.post("/register", UserController.register_user);
 
+// log in an existing user
 router.post("/login", passport.authenticate("local", {
                                     failureRedirect: "/login",
                                     failureFlash: "Invalid username or password"
-                                }), UserController.user_login);
+                                }), UserController.login_user);
+
+/*============================================================================*/
 
 module.exports = router;

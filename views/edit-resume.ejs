@@ -17,8 +17,9 @@
 
     <h1 class="header mb-4">Edit Resume</h1>
 
-    <form action="<%= "/resumes/" + resume._id + "/edit" %>?_method=PUT" method="POST" enctype='application/x-www-form-urlencoded'>
+    <form action="/resumes/<%= resume._id %>/edit?_method=PUT" method="POST" enctype='application/x-www-form-urlencoded'>
 
+        <!-- Tags -->
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
             <select class="form-control" name="primary_tag" id="primary_tag" required>
@@ -44,7 +45,7 @@
                   <option value="Electrical Engineering">Electrical Engineering</option>
                   <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
                   <option value="Geology">Geology</option>
-                  <option value="Health Other">Health Other</option>
+                  <option value="Health">Health Other</option>
                   <option value="Humanities">Humanities</option>
                   <option value="Languages">Languages</option>
                   <option value="Law">Law</option>
@@ -55,7 +56,6 @@
                   <option value="Mining Engineering">Mining Engineering</option>
                   <option value="Nursing Initial">Nursing Initial</option>
                   <option value="Nursing Post Initial">Nursing Post Initial</option>
-                  <option value="Other Engineering">Other Engineering</option>
                   <option value="Pharmacy">Pharmacy</option>
                   <option value="Physical Sciences">Physical Sciences</option>
                   <option value="Psychology">Psychology</option>
@@ -95,7 +95,7 @@
                   <option value="Electrical Engineering">Electrical Engineering</option>
                   <option value="Electronic Computer Engineering">Electronic Computer Engineering</option>
                   <option value="Geology">Geology</option>
-                  <option value="Health Other">Health Other</option>
+                  <option value="Health">Health Other</option>
                   <option value="Humanities">Humanities</option>
                   <option value="Languages">Languages</option>
                   <option value="Law">Law</option>
@@ -106,7 +106,6 @@
                   <option value="Mining Engineering">Mining Engineering</option>
                   <option value="Nursing Initial">Nursing Initial</option>
                   <option value="Nursing Post Initial">Nursing Post Initial</option>
-                  <option value="Other Engineering">Other Engineering</option>
                   <option value="Pharmacy">Pharmacy</option>
                   <option value="Physical Sciences">Physical Sciences</option>
                   <option value="Psychology">Psychology</option>
@@ -121,6 +120,7 @@
           </div>
         </div>
 
+        <!-- Description -->
         <div class="form-group row justify-content-center">
           <div class="col-11 col-md-4 d-flex justify-content-center">
             <% if (retry && description !== "") { %>

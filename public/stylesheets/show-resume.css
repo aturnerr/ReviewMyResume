@@ -207,6 +207,7 @@ iframe{
   right: 80px;
   font-size: 1.5rem;
   color: rgb(168, 168, 168);
+  background: none;
   border: none;
   cursor: pointer;
 }

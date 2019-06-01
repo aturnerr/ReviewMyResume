@@ -13,6 +13,16 @@ exports.show_dashboard =
 
     (req, res) => {
 
+        // update the users walkthrough progress
+        if (req.user.started_walkthroughs[2]){
+            req.user.completed_walkthroughs[2] = true;
+            req.user.markModified('completed_walkthroughs');
+        } else {
+            req.user.started_walkthroughs[2] = true;
+            req.user.markModified('started_walkthroughs');
+        }
+        req.user.save();
+
         // find notifications for the current user
         Notification.find({to:req.user.username}, (err, notifications) => {
             if (err || !notifications){
@@ -212,6 +222,18 @@ exports.login_user =
             }
         });
 
-        req.flash("success", "Welcome back, " + req.user.username + "!");
-        res.redirect("/dashboard");
+        // decide next page based on user's walkthrough progress
+        if (req.user.type === "student") {
+            if (!req.user.completed_walkthroughs[0]){
+                res.redirect("/recommendations");
+            } else if (!req.user.completed_walkthroughs[1]){
+                res.redirect("/resumes/upload");
+            } else {
+                req.flash("success", "Welcome back, " + req.user.username + "!");
+                res.redirect("/dashboard");
+            }
+        } else {
+            req.flash("success", "Welcome back, " + req.user.username + "!");
+            res.redirect("/dashboard");
+        }
     }

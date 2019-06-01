@@ -55,11 +55,8 @@ const upload = multer({
 
 /*=================================GET ROUTES=================================*/
 
-// walkthrough page 1 - resume recommendation
-router.get('/walkthrough/0', isLoggedIn, ResumesController.show_walkthrough_0);
-
-// walkthrough page 2 - resume upload
-router.get('/walkthrough/1', isLoggedIn, ResumesController.show_walkthrough_1);
+// resume recommendations
+router.get('/recommendations', isLoggedIn, ResumesController.show_recommendations);
 
 // standard resume upload page and form
 router.get('/resumes/upload', isLoggedIn, ResumesController.show_upload_page);

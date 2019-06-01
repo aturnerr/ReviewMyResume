@@ -1,31 +1,31 @@
 const Resume            = require("../models/resume"),
       Comment           = require("../models/comment"),
-      Notification      = require("../models/notification");
-      fs                = require('fs'),
+      Notification      = require("../models/notification"),
       User              = require("../models/user"),
+      pdfjsLib          = require('pdfjs-dist'),
       Canvas            = require('canvas'),
       assert            = require('assert'),
-      pdfjsLib          = require('pdfjs-dist');
+      fs                = require('fs');
 
-const {Storage} = require('@google-cloud/storage');
-const config = require('../config');
+const { Storage }  = require('@google-cloud/storage');
+const config       = require('../config');
 const CLOUD_BUCKET = config.get('CLOUD_BUCKET');
-const storage = new Storage({
-  projectId: 'my-project-1557648191606',
-  keyFilename: './key.json'
-});
-const bucket = storage.bucket(CLOUD_BUCKET);
+const storage      = new Storage({
+                                    projectId: 'my-project-1557648191606',
+                                    keyFilename: './key.json'
+                                });
+const bucket       = storage.bucket(CLOUD_BUCKET);
 
 const MIN_DESC_LENGTH = 50;
 const MAX_DESC_LENGTH = 200;
 const tags = ["Agriculture", "Accounting" ,"Aeronautical Engineering", "Architecture", "Building",
-"Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
-"Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
-"Electronic Computer Engineering", "Geology", "Health", "Humanities","Languages", "Law",
-"Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering",
-"Nursing Initial", "Nursing Post Initial", "Pharmacy", "Physical Sciences",
-"Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
-"Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
+              "Business Studies", "Chemical Engineering", "Chemistry", "Civil Engineering", "Computer Science",
+              "Dentistry", "Economics", "Education Initial", "Education Post Other", "Electrical Engineering",
+              "Electronic Computer Engineering", "Geology", "Health", "Humanities","Languages", "Law",
+              "Life Sciences", "Mathematics", "Mechanical Engineering", "Medicine", "Mining Engineering",
+              "Nursing Initial", "Nursing Post Initial", "Pharmacy", "Physical Sciences",
+              "Psychology", "Rehabilitation", "Social Sciences", "Social Work", "Surveying",
+              "Urban Regional Planning", "Veterinary Science", "Visual Performing Arts"];
 
 function NodeCanvasFactory() {}
 NodeCanvasFactory.prototype = {
@@ -61,6 +61,17 @@ NodeCanvasFactory.prototype = {
 exports.show_upload_page =
 
     (req, res) => {
+
+        // update the users walkthrough progress
+        if (req.user.started_walkthroughs[1]){
+            req.user.completed_walkthroughs[1] = true;
+            req.user.markModified('completed_walkthroughs');
+        } else {
+            req.user.started_walkthroughs[1] = true;
+            req.user.markModified('started_walkthroughs');
+        }
+        req.user.save();
+
         res.render('upload-resume', {
                                         description: "",
                                         retry: false,
@@ -108,12 +119,14 @@ exports.show_resume_pdf =
     (req, res) => {
         const filename = req.params.filename;
         Resume.find({filename:filename}, (err, resume) => {
-        // check if the function returned any results
+
+          // check if the function returned any results
         if (!resume.length){
             res.status(500).json({
             message: 'Resume not found'
             });
         }
+
         // if it has, need to check if the file itself exists
         else {
             // check local file system
@@ -148,6 +161,20 @@ exports.view_resume =
             res.redirect("/resumes");
           }
 
+          if (resume.username === req.user.username){
+
+            // update the users walkthrough progress
+            if (req.user.started_walkthroughs[3]){
+                req.user.completed_walkthroughs[3] = true;
+                req.user.markModified('completed_walkthroughs');
+            } else {
+                req.user.started_walkthroughs[3] = true;
+                req.user.markModified('started_walkthroughs');
+            }
+            req.user.save();
+
+          }
+
           res.render("show-resume", {resume: resume, page: "resume", user_type: req.user.type});
         });
     }
@@ -156,13 +183,19 @@ exports.upload_resume =
 
     (req, res) => {
 
-      // var page = req.user.completed_walkthrough ? 'upload-resume' : 'walkthrough-1';
-      var page = 'upload-resume';
+      if (req.user.started_walkthroughs[1]){
+          req.user.completed_walkthroughs[1] = true;
+          req.user.markModified('completed_walkthroughs');
+      } else {
+          req.user.started_walkthroughs[1] = true;
+          req.user.markModified('started_walkthroughs');
+      }
+      req.user.save();
 
       // ensure that primary tag is valid
       if ((!tags.includes(req.body.primary_tag))) {
 
-          return res.render(page, {
+          return res.render('upload-resume', {
                                                 primary_tag: "",
                                                 secondary_tag: "",
                                                 description: req.body.description,
@@ -190,7 +223,7 @@ exports.upload_resume =
       // ensure that tags aren't the same
       if (req.body.primary_tag == req.body.secondary_tag){
 
-          return res.render(page, {
+          return res.render('upload-resume',{
                                               primary_tag: "",
                                               secondary_tag: "",
                                               description: req.body.description,
@@ -203,7 +236,7 @@ exports.upload_resume =
 
       // validate length of description
       if (req.body.description.length < MIN_DESC_LENGTH || req.body.description.length > MAX_DESC_LENGTH){
-          return res.render(page, {
+          return res.render('upload-resume', {
                                                 primary_tag: req.body.primary_tag,
                                                 secondary_tag: req.body.secondary_tag,
                                                 description: "",
@@ -222,14 +255,13 @@ exports.upload_resume =
 
       // create a new entry for the database
       const resume = new Resume({
-          filename: req.file.filename,
-          // url: req.file.path,
-          last_updated: Date.now(),
-          username: req.user.username,
-          user_type: req.user.type,
-          description: description,
-          requested: false
-      })
+                                  filename: req.file.filename,
+                                  last_updated: Date.now(),
+                                  username: req.user.username,
+                                  user_type: req.user.type,
+                                  description: description,
+                                  requested: false
+                               });
 
       // push tags
       resume.tags.push(req.body.primary_tag);
@@ -292,6 +324,7 @@ function getPublicUrl (filename) {
 
 // next two functions can probably be merged later on..
 exports.uploadThumbGCS =
+
   (req, image) => {
     const gcsname = req.file.filename + ".png";
     const file = bucket.file(gcsname);
@@ -314,6 +347,7 @@ exports.uploadThumbGCS =
   }
 
 exports.uploadGCS =
+
   (req, res) => {
     const gcsname = req.file.filename;
     const file = bucket.file(gcsname);
@@ -374,7 +408,7 @@ exports.post_comment =
           }
         });
 
-        // CREATE NOTIFICATION if commented not author
+        // CREATE NOTIFICATION (if commenter is not author)
 
         if (req.user.username !== resume.username){
           var snippet;
@@ -539,9 +573,20 @@ exports.delete_notif =
     });
   }
 
-exports.show_walkthrough_0 =
+exports.show_recommendations =
 
   (req, res) => {
+
+    // update the users walkthrough progress
+    if (req.user.started_walkthroughs[0]){
+      req.user.completed_walkthroughs[0] = true;
+      req.user.markModified('completed_walkthroughs');
+    } else {
+      req.user.started_walkthroughs[0] = true;
+      req.user.markModified('started_walkthroughs');
+    }
+    req.user.save();
+
     Resume.find({}, (err, resumes) => {
 
       // sort the resumes from highest rated to worst rated
@@ -559,21 +604,11 @@ exports.show_walkthrough_0 =
                         return result1;
       });
 
-      res.render("walkthrough-0", {
+      res.render("recommendations", {
                                 user_type: req.user.type,
-                                page: "walkthough_0",
+                                page: "recommendations",
                                 resumes: resumes
                             });
     });
   }
 
-exports.show_walkthrough_1 =
-
-    (req, res) => {
-        res.render('walkthrough-1', {
-                                        description: "",
-                                        retry: false,
-                                        page: "walkthrough_1",
-                                        user_type: req.user.type
-                                    });
-    }

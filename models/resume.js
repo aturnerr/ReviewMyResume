@@ -5,25 +5,22 @@ var ResumeSchema = new mongoose.Schema({
   url: String,
   username: String,
   user_type: String,
-  last_updated: {
+  last_updated:{
                   type: Date,
                   default: Date.now
-                },
-  tags: [{
-    type: String
-  }],
+               },
+  tags: [{ type: String }],
   comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment"
-  }],
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Comment"
+            }],
   description: String,
   raters: [{ type: String }],
   ratings: [{ type: Number }],
-  overall_rating: {
+  overall_rating:{
                     type: Number,
                     default: 0
-                  },
-  successful: Boolean,
+                 },
   requested: Boolean
 });
 

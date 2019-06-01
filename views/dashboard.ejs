@@ -131,7 +131,7 @@
     </div>
 
     <!-- Help Modal -->
-    <% if (currentUser.completed_walkthrough) { %>
+    <% if (!currentUser.completed_walkthroughs[2]) { %>
         <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -141,7 +141,7 @@
                     <br><br>
                     Here you can upload and view your resume as well as access the gallery and view other users' resumes.
                     <br><br>
-                    You will also get notifications whenever another user comments on/reviews your resume.
+                    You will also receive notifications whenever another user comments on/reviews your resume.
                     </h5>
                 </div>
                 <div class="modal-footer">
@@ -151,7 +151,6 @@
             </div>
         </div>
     <% } %>
-
 
     <script src="/scripts/dashboard.js"></script>
 

@@ -101,13 +101,14 @@
           </div>
         </div>
 
-        <a href="/walkthrough/1">
+        <a href="/resumes/upload">
           <button class="btn btn-purple mb-5">Done</button>
         </a>
 
       </div>
 
       <!-- Help Modal -->
+      <% if (!currentUser.completed_walkthroughs[0]){ %>
       <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -124,11 +125,12 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn-b btn-secondary" data-dismiss="modal">Close</button>
-              <a class="btn-b btn-purple" href="/walkthrough/1">Skip</a>
+              <a class="btn-b btn-purple" href="/resumes/upload">Skip</a>
             </div>
           </div>
         </div>
       </div>
+      <% } %>
 
       <script src="/scripts/walkthrough-0.js"></script>
 

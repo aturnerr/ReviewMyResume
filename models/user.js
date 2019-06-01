@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
 var UserSchema = new mongoose.Schema({
+
     username: String,
     fname: String,
     lname: String,
@@ -10,25 +11,29 @@ var UserSchema = new mongoose.Schema({
     company: String,
     country: String,
     type: String,
-    resumes: [
+    resumes:[
                 {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: "Resume"
                 }
             ],
-    notifications: [
-                        {
-                            type: mongoose.Schema.Types.ObjectId,
-                            ref: "Notification"
-                        }
-                    ],
-    num_requests: {
+    notifications:[
+                    {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "Notification"
+                    }
+                  ],
+    num_requests:{
                     type: Number,
                     default: 5
-                    },
-    completed_walkthrough: {
-                             type: Boolean,
-                             default: false
+                 },
+    started_walkthroughs:   {
+                                type: [Boolean],
+                                default: [false, false, false, false]
+                            },
+    completed_walkthroughs: {
+                                type: [Boolean],
+                                default: [false, false, false, false]
                             }
 });
 

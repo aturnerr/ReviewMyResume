@@ -11,3 +11,7 @@ function showname () {
   var label = document.getElementById("file-input-label");
   label.innerText = name.files.item(0).name;
 };
+
+$(document).ready(function() {
+  $(".modal").modal('show');
+});

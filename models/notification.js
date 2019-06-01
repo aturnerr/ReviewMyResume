@@ -5,14 +5,14 @@ var NotificationSchema = new mongoose.Schema({
     from: String,
     type: String,
     text_snippet: String,
-    resume: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Resume"
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    resume:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Resume"
+           },
+    date:{
+            type: Date,
+            default: Date.now
+         }
 });
 
 // return model as object

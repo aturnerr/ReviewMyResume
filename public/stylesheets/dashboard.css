@@ -1,6 +1,6 @@
 #content{
     margin-top: 10vh;
-    padding-top: 15vh;
+    padding-top: 5vh;
 }
 
 body{
@@ -37,7 +37,7 @@ a:hover{
     text-decoration: none;
 }
 
-.block:not(#notifs):hover{
+.block:not(#notifs):not(#profile):hover{
     transform: scale(1.02) perspective(1px);
     cursor: pointer;
 }
@@ -51,6 +51,16 @@ a:hover{
     body{
         overflow: hidden;
     }
+}
+
+#user_text {
+  margin: 20px 30px 5px;
+}
+
+#profile {
+  height: 20vh;
+  width: auto;
+  margin: 0px 15px 30px;
 }
 
 #notifs h4{
@@ -149,4 +159,3 @@ a:hover{
 ::-webkit-scrollbar-thumb:hover {
     background: #999;
 }
-

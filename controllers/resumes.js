@@ -422,7 +422,7 @@ exports.request_review =
               $inc:{ num_requests: -1 }},
                    { new: true }, (err, user) => {
                      if (!err) {
-                       console.log(user);
+                       
                      }
             });
             res.redirect("/resumes/" + req.params.id);

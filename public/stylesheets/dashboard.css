@@ -54,8 +54,6 @@
 .notifications{
     overflow-y: scroll;
     border-radius: 6px;
-    height: 85%;
-    width: 100%;
     background: white;
 }
 

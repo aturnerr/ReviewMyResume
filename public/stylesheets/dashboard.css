@@ -70,25 +70,34 @@ a:hover{
     border-radius: 6px;
     height: 85%;
     width: 100%;
+    background: white;
 }
 
 .notification{
-    background: white;
+    background: rgb(241, 241, 241);
     border-radius: 4px;
     display: inline-block;
     width: 100%;
     margin-top: 2.5px;
     margin-bottom: 2.5px;
     position: relative;
+    transition: 300ms;
 }
 
 .notification .exit-btn{
     position: absolute;
-    top: 0px;
-    right: 3px;
+    top: -9px;
+    right: -6px;
     color: gray;
     z-index: 20;
     font-size: 1.25rem;
+    border: none;
+    display: inline-block !important;
+}
+
+.notification .exit-btn:hover{
+    color: #3e3e3e;
+    background: rgba(0, 0, 0, 0);
 }
 
 .notification p{
@@ -96,15 +105,16 @@ a:hover{
 }
 
 .alert-text{
-    color: #3a3a3a;
+    color: rgb(107, 107, 107);
 }
 
 .alert-type{
     color: gray;
+    font-weight: 300;
 }
 
 .alert-sender-reviewer, .alert-sender-student{
-    color: #3a3a3a
+    color: #3a3a3a;
 }
 
 .alert-sender{

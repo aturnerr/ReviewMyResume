@@ -28,5 +28,12 @@ $(".r-star.unlocked").hover(function(){
             $(this).addClass("far");
         }
     })
+});
 
+$(".del-btn").on("click", ()=>{
+    $("#delModalCenter").modal("show");
+});
+
+$(".review-btn").on("click", ()=>{
+    $("#reviewCenter").modal("show");
 });

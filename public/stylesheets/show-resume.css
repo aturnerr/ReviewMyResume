@@ -197,7 +197,35 @@ iframe{
 
 .edit-btn:hover {
   /* background-color: rgb(168, 168, 168); */
-  color: rgb(120, 120, 120);
+  /* color: rgb(120, 120, 120); */
+  color: gold;
+}
+
+.review-btn{
+  position: absolute;
+  top: 5.5px;
+  right: 80px;
+  font-size: 1.5rem;
+  color: rgb(168, 168, 168);
+  border: none;
+  cursor: pointer;
+}
+
+.review-btn:hover{
+  color: #9d71c7;
+}
+
+.btn-purple{
+  background: #9d71c7;
+  color: white;
+}
+
+.btn-purple:hover{
+  background: #7c589e;
+}
+
+.del-btn, .edit-btn, .review-btn{
+  transition: 300ms;
 }
 
 .flag {
@@ -229,7 +257,6 @@ iframe{
 .del-btn:focus{
   outline: none;
 }
-
 
 .modal i{
   color: #dc3545;

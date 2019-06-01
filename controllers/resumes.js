@@ -156,7 +156,8 @@ exports.upload_resume =
 
     (req, res) => {
 
-      var page = req.user.completed_walkthrough ? 'upload-resume' : 'walkthrough-1';
+      // var page = req.user.completed_walkthrough ? 'upload-resume' : 'walkthrough-1';
+      var page = 'upload-resume';
 
       // ensure that primary tag is valid
       if ((!tags.includes(req.body.primary_tag))) {

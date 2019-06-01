@@ -10,19 +10,19 @@
       <% if (page == "gallery") { %>
         <a href="/dashboard" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "resume") { %>
-        <% if (currentUser.completed_walkthrough) { %>
+        <!-- <% if (currentUser.completed_walkthrough) { %> -->
           <a href="/resumes" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
-        <% } else { %>
-          <a href="/walkthrough/0" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
-        <% } %>
+        <!-- <% } else { %> -->
+          <!-- <a href="/walkthrough/0" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a> -->
+        <!-- <% } %> -->
       <% } else if (page == "edit") { %>
         <a href="/resumes" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "upload") { %>
-        <% if (currentUser.completed_walkthrough) { %>
+        <!-- <% if (currentUser.completed_walkthrough) { %> -->
           <a href="/dashboard" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
-          <% } else { %>
-          <a href="/walkthrough/0" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
-        <% } %>
+          <!-- <% } else { %> -->
+          <!-- <a href="/walkthrough/0" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a> -->
+        <!-- <% } %> -->
       <% } else if (page == "register") { %>
         <a href="/login" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to login"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "walkthrough_1") { %>

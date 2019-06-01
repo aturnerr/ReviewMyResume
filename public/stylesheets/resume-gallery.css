@@ -84,29 +84,9 @@ body {
   background: rgb(126, 231, 207);
 }
 
-.tag-1:hover{
-  border: 1px solid rgb(126, 231, 207);
-  background: rgb(126, 231, 207);
-}
-
-/* .tag-2{
-  border: 1px solid rgb(152, 180, 236);
-  background: rgb(152, 180, 236);
-}
-
-.tag-2:hover{
-  border: 1px solid rgb(152, 180, 236);
-  background: rgb(152, 180, 236);
-} */
-
 .tag-2{
   border: 1px solid rgb(158, 235, 133);
   background: rgb(158, 235, 133);
-}
-
-.tag-2:hover{
-  border: 1px solid rgb(139, 224, 110);
-  background: rgb(139, 224, 110);
 }
 
 .resume p, .tag p{

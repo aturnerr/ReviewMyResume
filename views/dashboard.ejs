@@ -56,7 +56,7 @@
                                     <div class="notification p-2">
                                     <% } %>
 
-                                        <button type="button" class="btn exit-btn" data-toggle="modal" data-target="#n<%= notification._id %>Modal">
+                                        <button id="btn-<%= notification._id %>" type="button" class="btn exit-btn notif-exit-btn" data-toggle="tooltip" data-placement="bottom" title="delete">
                                             &times
                                         </button>
 
@@ -75,11 +75,11 @@
                                     </div>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="n<%= notification._id %>Modal" tabindex="-1" role="dialog" aria-labelledby="n<%= notification._id %>ModalTitle" aria-hidden="true">
+                                    <div class="modal fade" id="btn-<%= notification._id %>Modal" tabindex="-1" role="dialog" aria-labelledby="btn-<%= notification._id %>ModalTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="n<%= notification._id %>ModalLongTitle">
+                                                <h5 class="modal-title" id="btn-<%= notification._id %>ModalLongTitle">
                                                     <i class="fas fa-exclamation-circle"></i>
                                                     Are you sure you want to delete this notification?
                                                 </h5>
@@ -130,5 +130,6 @@
 
     </div>
 
+    <script src="/scripts/dashboard.js"></script>
 
 <% include ./partials/footer %>

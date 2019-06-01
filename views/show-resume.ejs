@@ -30,7 +30,7 @@
               <div id="desc" class="col-12 col-sm-4 py-5">
 
                   <% if (resume.requested == true) { %>
-                    <i class="fas fa-exclamation-circle request-mark" data-toggle="tooltip" data-placement="right" title="Requested for Review"></i>
+                    <i class="fas fa-exclamation-circle request-mark" data-toggle="tooltip" data-placement="right" title="Review Requested"></i>
                   <% } %>
 
                   <% if (currentUser.username === resume.username){ %>
@@ -47,7 +47,8 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="reviewLongTitle">
-                                Are you sure you want to request a review? You have <%= currentUser.num_requests %> requests left.
+                                Are you sure you want to request a review?<br>
+                                <span>You have <%= currentUser.num_requests %> requests left.</span>
                               </h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

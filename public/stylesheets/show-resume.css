@@ -218,6 +218,7 @@ iframe{
 .btn-purple{
   background: #9d71c7;
   color: white;
+  border: none;
 }
 
 .btn-purple:hover{

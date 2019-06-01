@@ -21,7 +21,8 @@ var UserSchema = new mongoose.Schema({
                             type: mongoose.Schema.Types.ObjectId,
                             ref: "Notification"
                         }
-                    ]
+                    ],
+    num_requests: Number
 });
 
 // defines the serialize/ deserialize methods for the user automatically

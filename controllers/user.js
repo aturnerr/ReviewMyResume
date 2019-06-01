@@ -32,7 +32,7 @@ exports.user_show_register =
 exports.user_show_login =
 
     (req, res) => {
-        res.render("login");
+        res.render("login", {page: "register"});
     }
 
 exports.user_logout =
@@ -67,7 +67,8 @@ exports.user_register =
                                         country: req.body.user.country,
                                         uname: req.body.userusername,
                                         error: "Names must only contain letters!",
-                                        retry: true
+                                        retry: true,
+                                        page: "register"
                                     });
         }
 
@@ -81,7 +82,8 @@ exports.user_register =
                                         country: req.body.user.country,
                                         uname: req.body.userusername,
                                         error: "Names must only contain letters!",
-                                        retry: true
+                                        retry: true,
+                                        page: "register"
                                     });
         }
 
@@ -96,7 +98,8 @@ exports.user_register =
                                         country: req.body.user.country,
                                         uname: req.body.user.username,
                                         error: "Invalid email!",
-                                        retry: true
+                                        retry: true,
+                                        page: "register"
                                     });
         }
 
@@ -113,7 +116,8 @@ exports.user_register =
                                             country: req.body.user.country,
                                             uname: req.body.user.username,
                                             error: "Invalid occupation!",
-                                            retry: true
+                                            retry: true,
+                                            page: "register"
                                        });
             }
 
@@ -128,7 +132,8 @@ exports.user_register =
                                             country: req.body.user.country,
                                             uname: req.body.user.username,
                                             error: "Invalid occupation!",
-                                            retry: true
+                                            retry: true,
+                                            page: "register"
                                         });
             }
         }
@@ -144,7 +149,8 @@ exports.user_register =
                                         country: req.body.user.country,
                                         uname: "",
                                         error: "Usernames can only have letters, numbers and underscores!",
-                                        retry: true
+                                        retry: true,
+                                        page: "register"
                                     });
         }
 
@@ -159,7 +165,8 @@ exports.user_register =
                                         country: req.body.user.country,
                                         uname: req.body.user.username,
                                         error: "Password too short!",
-                                        retry: true
+                                        retry: true,
+                                        page: "register"
                                     });
         }
 
@@ -172,7 +179,7 @@ exports.user_register =
                 req.flash("error", "Username already in use!");
                 res.redirect('/register');
             }
-
+            user.num_requests = 5;
             req.flash("success", "Succesfully Signed Up- Please Log In Now!");
             res.redirect("/login");
         });

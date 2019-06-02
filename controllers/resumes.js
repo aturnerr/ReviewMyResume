@@ -488,18 +488,19 @@ exports.delete_resume =
         if (!err) {
           storage.bucket(CLOUD_BUCKET).file(resume.filename).delete();
           storage.bucket(CLOUD_BUCKET).file(resume.filename + '.png').delete();
+          // delete from database
+          Resume.findByIdAndRemove(req.params.id, (err) => {
+            if (err){
+              req.flash("error", "Oops something went wrong!");
+              res.redirect("/dashboard");
+            } else {
+              req.flash("success", "Your resume was deleted.");
+              res.redirect("/dashboard");
+            }
+          });
         }
       });
-      // delete from database
-      Resume.findByIdAndRemove(req.params.id, (err) => {
-        if (err){
-          req.flash("error", "Oops something went wrong!");
-          res.redirect("/dashboard");
-        } else {
-          req.flash("success", "Your resume was deleted.");
-          res.redirect("/dashboard");
-        }
-      });
+
   }
 
  exports.show_edit_resume =
@@ -611,4 +612,3 @@ exports.show_recommendations =
                             });
     });
   }
-

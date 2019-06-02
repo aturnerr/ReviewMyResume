@@ -92,9 +92,11 @@
                     <div class="tag tag-1 mt-2">
                       <p><%= resume.tags[0] %></p>
                     </div>
-                    <div class="tag tag-2 mt-2">
-                        <p><%= resume.tags[1] %></p>
-                    </div>
+                    <% if (resume.tags.length > 1) { %>
+                      <div class="tag tag-2 mt-2">
+                          <p><%= resume.tags[1] %></p>
+                      </div>
+                    <% } %>
                   </div>
                   </a>
               <% }); %>

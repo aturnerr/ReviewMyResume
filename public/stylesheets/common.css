@@ -65,7 +65,8 @@ body{
 
 .navbar .navbar-brand{
   font-family: 'Oleo Script', Helvetica, sans-serif;
-  color: white;
+  color: white !important;
+  transition: 0.2s;
 }
 
 .navbar .navbar-brand:hover {
@@ -80,6 +81,7 @@ body{
 .nav-btn{
   color: white;
   font-size: 1.25rem;
+  transition: 0.2s;
 }
 
 .nav-btn:nth-child(1){
@@ -129,4 +131,3 @@ body{
 *:focus{
   outline: none !important;
 }
-

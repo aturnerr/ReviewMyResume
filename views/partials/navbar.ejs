@@ -11,11 +11,7 @@
         <a href="/dashboard" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
       <% } else if (page == "resume") { %>
         <% if (currentUser.completed_walkthroughs[1]) { %>
-          <% if (resume.username === currentUser.username) { %>
-            <a href="/dashboard" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to dashboard"><i class="fas fa-arrow-left"></i></a>
-          <% } else { %>
-            <a href="/resumes" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
-          <% } %>
+          <a href="/resumes" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to gallery"><i class="fas fa-arrow-left"></i></a>
         <% } else { %>
           <a href="/recommendations" class="nav-btn nav-btn-back" data-toggle="tooltip" data-placement="bottom" title="back to recommendations"><i class="fas fa-arrow-left"></i></a>
         <% } %>

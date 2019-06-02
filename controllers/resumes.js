@@ -488,6 +488,15 @@ exports.delete_resume =
         if (!err) {
           storage.bucket(CLOUD_BUCKET).file(resume.filename).delete();
           storage.bucket(CLOUD_BUCKET).file(resume.filename + '.png').delete();
+
+          // remove link to user
+          var index = req.user.resumes.indexOf(resume._id);
+          if (index > -1) {
+            req.user.resumes.splice(index, 1);
+            req.user.markModified('resumes');
+          }
+          req.user.save();
+
           // delete from database
           Resume.findByIdAndRemove(req.params.id, (err) => {
             if (err){

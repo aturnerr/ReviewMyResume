@@ -9,7 +9,7 @@ body{
 }
 
 .block{
-  background-image: linear-gradient(-225deg, #9DB6ED 0%, #88a3dd 74%);
+  background-image: linear-gradient(-225deg, #8cbade 0%, #9DB6ED 100%);
 }
 
 .filter {

@@ -327,8 +327,13 @@ iframe{
 
 @media(min-width: 380px){
 
+  .content {
+    min-height: 500px;
+    padding-bottom: 10px;
+  }
   #desc{
     height: 80vh;
+    min-height: 500px;
   }
 
   .comments{
@@ -336,6 +341,7 @@ iframe{
   }
 
   #resume_frame{
-    min-height: 80vh;
+    height: 80vh;
+    min-height: 500px;
   }
 }
